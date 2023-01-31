@@ -1,0 +1,10 @@
+﻿.. role:: hidden
+    :class: hidden-section
+.. currentmodule:: lightning_app.components.serve.auto_scaler
+
+
+ColdStartProxy
+==============
+
+.. autoclass:: ColdStartProxy
+    :members:

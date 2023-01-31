@@ -1,0 +1,1527 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-PQBQ3CV');
+  </script>
+  <!-- End Google Tag Manager -->
+
+  <meta charset="utf-8">
+  
+  <meta name="google-site-verification" content="okUst94cAlWSsUsGZTB4xSS4UKTtRV8Nu5XZ9pdd3Aw" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Level 1: Package code in a lightning component &mdash; lightning 2.0.0dev documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/icon.svg"/>
+  
+  
+  
+    <link rel="canonical" href="https://github.com/Lightning-AI/lightning/levels/basic/build_a_lightning_component.html"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/togglebutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/main.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sphinx_paramlinks.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Level 2: Explore real component implementations" href="real_lightning_component_implementations.html" />
+    <link rel="prev" title="Basic skills" href="index.html" />
+  <!-- Google Analytics -->
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D3Q2ESCTZR"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-D3Q2ESCTZR');
+    </script>
+  
+  <!-- End Google Analytics -->
+  
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/UCity/UCity-Light.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/UCity/UCity-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/UCity/UCity-Semibold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/Inconsolata/Inconsolata.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+  <script defer src="https://use.fontawesome.com/releases/v6.1.1/js/all.js" integrity="sha384-xBXmu0dk1bEoiwd71wOonQLyH+VpgR1XcDH3rtxrLww5ajNTuMvBdL5SOiFZnNdp" crossorigin="anonymous"></script>
+
+  <script src="../../_static/js/react.production.min.js"></script>
+  <script src="../../_static/js/react-dom.production.min.js"></script>
+  <script src="../../_static/js/material-ui.production.min.js"></script>
+
+  <!-- TODO(yurij): only include the babel in the local env, or get rid of it completely, even in the local env -->
+  <script src="../../_static/js/babel.min.js"></script>
+
+  <script src="../../_static/js/react.js"></script>
+</head>
+
+<body class="pytorch-body">
+
+  <!-- header-holder is required by the theme for the sidebars to function properly` -->
+  <div id="header-holder">
+    <div id="lightning-ai-header">
+      
+    </div>
+  </div>
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <script>
+      function setColor() {
+        document.querySelectorAll('*[id^="codecell"]').forEach((x) => {
+          x.style.color = "#e0dbc9";
+        })
+      };
+      setTimeout(() => {
+        setColor();
+      }, 200)
+    </script>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+
+            
+              
+              
+                <div class="version">
+                  2.0.0dev
+                </div>
+              
+            
+
+            
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+            
+          </div>
+
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Home</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Welcome to ⚡ Lightning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install/installation.html">Install</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Get started in steps</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Basic skills</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intermediate/index.html">Intermediate skills</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Advanced skills</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Core API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../core_api/lightning_app/index.html">LightningApp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../core_api/lightning_flow.html">LightningFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../core_api/lightning_work/index.html">LightningWork</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Addons API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference/components.html">lightning.app.components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference/frontend.html">lightning.app.frontend</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference/runners.html">lightning.app.runners</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference/storage.html">lightning.app.storage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">More</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://lightning.ai/components">Start from component templates</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://lightning.ai/apps">Start from app templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary/index.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../workflows/index.html">How to:</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="../../index.html">
+          
+            Docs
+          
+        </a> &gt;
+      </li>
+
+        
+          <li><a href="index.html">Basic skills</a> &gt;</li>
+        
+      <li>Level 1: Package code in a lightning component</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/levels/basic/build_a_lightning_component.rst.txt" rel="nofollow"><img src="../../_static/images/view-page-source-icon.svg"></a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+
+        
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <div class="section" id="level-1-package-code-in-a-lightning-component">
+<h1>Level 1: Package code in a lightning component<a class="headerlink" href="#level-1-package-code-in-a-lightning-component" title="Permalink to this headline">¶</a></h1>
+<p><strong>Prereqs:</strong> You know <em>basic</em> Python.</p>
+<p><strong>Goal:</strong> In this guide you’ll learn to develop <a class="reference external" href="https://lightning.ai/components">a Lightning component</a>.</p>
+<p><div class='row slack-container slack-align-left' style="margin: 40px 0 40px 0;">
+    <div class='slack-button' style='width: 155px'>
+        <a href="https://join.slack.com/t/pytorch-lightning/shared_invite/zt-1b6lkirxt-9b3ehI0P_31YIqQ4_Dum1A" target="_blank">
+        <div class="icon" data-icon="slackLogo">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z" fill="currentColor">
+                </path>
+            </svg>
+        </div>
+        <span class='button-title'>Join our community</span>
+        </a>
+    </div>
+</div></p>
+<hr class="docutils" />
+<div class="section" id="why-you-need-lightning-components">
+<h2>Why you need Lightning components<a class="headerlink" href="#why-you-need-lightning-components" title="Permalink to this headline">¶</a></h2>
+<p>A Lightning component is a self-contained, modular machine-learning component
+that you can plug into your existing ML workflows. A Lightning component organizes arbitrary code so it can run on the cloud, manages
+its own infrastructure, cloud costs, networking and more. Connect components using your current workflow management tools or
+our <a class="reference external" href="../intermediate/index.html">next-generation reactive orchestrator</a>.</p>
+<p>Components run on the cloud or your laptop without code changes 🤯🤯.</p>
+<div style="display: flex; align-items: center; justify-content: center;">
+   <img src="https://lightning-ai-docs.s3.amazonaws.com/intro_components.gif" style="max-width: 800px"></img>
+</div><div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Organizing your code into Lightning components offers these benefits:</p>
+<details class="summary-build-systems-not-scripts">
+<summary>Build systems not scripts</summary><div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>The Lightning structure forces best practices so you don’t have to be an expert production engineer.
+Although it feels like you’re writing a script, you are actually building a production-ready system.</p>
+</details><details class="summary-cost-control">
+<summary>Cost control</summary><div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>The component run-time has been optimized for cost management to support the largest machine-learning workloads.
+Lower your cloud bill with machines that shut down or spin up faster.</p>
+</details><details class="summary-for-beginners-code-like-an-expert">
+<summary>For beginners: Code like an expert</summary><div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Lightning embeds the best practices of building production-ready full stack AI apps into your
+coding experience. You can write code like you normally do, and the Lightning structure
+ensures your code is implicitly production ready… even if you’re just doing research.</p>
+</details><details class="summary-for-experts-scale-with-full-control">
+<summary>For experts: Scale with full control</summary><div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>if you know what you are doing, Lightning gives you full control to manage your own
+scaling logic, fault-tolerance and even pre-provisioning, all from Python. We even give you
+full flexibility to use tools like <a class="reference external" href="../../cloud/customize_a_lightning_cluster.html">terraform</a> to optimize cloud clusters for your Lightning apps.</p>
+</details><details class="summary-integrate-into-your-current-workflow-tools">
+<summary>Integrate into your current workflow tools</summary><div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Lightning components are self-contained pieces of functionality. Add them to your current workflow
+tools to quickly fill in gaps in your ML workflow such as monitoring drift, training LLMs and more.
+You can (optionally) use the Lightning App to integrate components into a cohesive workflow.</p>
+</details><details class="summary-packaged-code">
+<summary>Packaged code</summary><div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Lightning apps bundles components into an app that runs in any environment. The same code will run on your laptop,
+or any cloud or private clusters. You don’t have to think about the cluster or know anything about the cloud.</p>
+</details><details class="summary-rapid-iteration">
+<summary>Rapid iteration</summary><div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Iterate through ideas in hours not months because you don’t have to learn a million other concepts that the components
+handle for you such as kubernetes, cost management, auto-scaling and more.</p>
+</details><details class="summary-modularity">
+<summary>Modularity</summary><div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Components are modular and inter-operable by design. Leverage our vibrant community of components so you don’t
+have to build each piece of the system yourself.</p>
+</details></div>
+<hr class="docutils" />
+<div class="section" id="install-lightning">
+<h2>Install Lightning<a class="headerlink" href="#install-lightning" title="Permalink to this headline">¶</a></h2>
+<p>First, install Lightning.</p>
+<p><div id="code-block-08c26023697b40d59de43017ed70a712" class="lit-tabs-container" style="height: 180px">
+    
+        <div class="tabs-holder col-md-4">
+            
+<div id="tab-tab-fbc8ce3e0a154139961e4e420054ad96" class="tab tab-selected" onclick="openCity('tab-fbc8ce3e0a154139961e4e420054ad96', 'code-block-08c26023697b40d59de43017ed70a712')" onmouseover="openCity('tab-fbc8ce3e0a154139961e4e420054ad96', 'code-block-08c26023697b40d59de43017ed70a712')">
+    
+    <div class="tab-description">Pip</div>
+</div>
+
+
+<div id="tab-tab-b67c0e5d1cbf4e5bb7f4ffc3e72fe953" class="tab" onclick="openCity('tab-b67c0e5d1cbf4e5bb7f4ffc3e72fe953', 'code-block-08c26023697b40d59de43017ed70a712')" onmouseover="openCity('tab-b67c0e5d1cbf4e5bb7f4ffc3e72fe953', 'code-block-08c26023697b40d59de43017ed70a712')">
+    
+    <div class="tab-description"> Macs, Apple Silicon (M1/M2/M3)</div>
+</div>
+
+
+<div id="tab-tab-1084318fb16349bf83e57c9e3c62bb76" class="tab" onclick="openCity('tab-1084318fb16349bf83e57c9e3c62bb76', 'code-block-08c26023697b40d59de43017ed70a712')" onmouseover="openCity('tab-1084318fb16349bf83e57c9e3c62bb76', 'code-block-08c26023697b40d59de43017ed70a712')">
+    
+    <div class="tab-description"> Windows</div>
+</div>
+
+        </div>
+        <div class="content-holder col-md-8">
+            <div class="content-toggle-holder row">
+                <div class="toggles row">
+                    
+                </div>
+            </div>
+            <div class="code-holder row">
+                
+<div id="tab-fbc8ce3e0a154139961e4e420054ad96" class="city tab-content" style="display:flex">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">lightning</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-b67c0e5d1cbf4e5bb7f4ffc3e72fe953" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># needed for M1/M2/M3</span>
+<span class="n">export</span> <span class="n">GRPC_PYTHON_BUILD_SYSTEM_OPENSSL</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">export</span> <span class="n">GRPC_PYTHON_BUILD_SYSTEM_ZLIB</span><span class="o">=</span><span class="mi">1</span>
+
+<span class="n">pip</span> <span class="n">install</span> <span class="n">lightning</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-1084318fb16349bf83e57c9e3c62bb76" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># install pip</span>
+<span class="c1"># install git</span>
+<span class="c1"># setup an alias for Python: python=python3</span>
+<span class="c1"># Add the root folder of Lightning to the Environment Variables to PATH</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+            </div>
+        </div>
+    
+    
+    <script type = "text/javascript">
+                        function openCity(a,b){var c,d=document.getElementById(b),e=d.getElementsByClassName("city");for(c=0;c<e.length;c++)e[c].style.display="none";document.getElementById(a).style.display="flex";var c,e=d.getElementsByClassName("tab");for(c=0;c<e.length;c++)e[c].classList.remove("tab-selected");document.getElementById("tab-"+a).classList.add("tab-selected")}
+    </script>
+    <script type = "text/javascript">
+                        function showCode(a){var b=document.getElementById(a),c="toggle-button-selected";Array.from(b.getElementsByClassName("toggle-btn-img")).forEach(a=>{var d=a.classList.contains(c);if(d){a.classList.remove(c);var a=b.getElementsByClassName("tab-code");for(i=0;i<a.length;i++)a[i].style.display="flex";var a=b.getElementsByClassName("tab-helper");for(i=0;i<a.length;i++)a[i].style.display="none"}else{a.classList.add(c);var a=b.getElementsByClassName("tab-code");for(i=0;i<a.length;i++)a[i].style.display="none";var a=b.getElementsByClassName("tab-helper");for(i=0;i<a.length;i++)a[i].style.display="flex"}})}
+    </script>
+    <script type = "text/javascript">
+                        function toggleHelperImage(a,b,c,d){var e,f=document.getElementById(a),g=f.getElementsByClassName(b);for(e=0;e<g.length;e++){function a(b){// toggle the width of the code
+            new_size=b?`calc(100% - ${c})`:"100%",Array.from(f.getElementsByClassName("tab-code")).forEach(a=>{a.style.width=new_size})}function b(a){selectedClass="toggle-button-selected",Array.from(f.getElementsByClassName("toggle-btn-img")).forEach(b=>{a?b.classList.add(selectedClass):b.classList.remove(selectedClass)})}function i(a){Array.from(f.getElementsByClassName("copybtn")).forEach(b=>{a?(b.classList.add("copybtn-split-open"),b.classList.remove("copybtn-split-closed")):(b.classList.add("copybtn-split-closed"),b.classList.remove("copybtn-split-open"))})}function j(a){Array.from(f.getElementsByClassName("tab-description")).forEach(b=>{a?b.classList.add("tab-description-img-active"):b.classList.remove("tab-description-img-active")})}function k(a){// toggle the width of the tabs
+            // tabs-holder col-md-4 -> col-md-2
+            // content-holder col-md-10
+            tabs_holder=f.getElementsByClassName("tabs-holder")[0],content_holder=f.getElementsByClassName("content-holder")[0],code_rows=12-d,a?(tabs_holder.classList.remove(`col-md-${d}`),tabs_holder.classList.add("col-md-2"),content_holder.classList.remove(`col-md-${code_rows}`),content_holder.classList.add("col-md-10")):(tabs_holder.classList.remove("col-md-2"),tabs_holder.classList.add(`col-md-${d}`),content_holder.classList.remove("col-md-10"),content_holder.classList.add(`col-md-${code_rows}`))}var h="none"==g[e].style.display;// toggle the image block
+            new_display=h?"flex":"none",g[e].style.display=new_display,a(h),k(h),j(h),i(h),b(h)}}
+    </script>
+    
+    
+    <script type = "text/javascript">
+                        function adjustCopyButton(a){var b=document.getElementById(a);Array.from(b.getElementsByClassName("copybtn")).forEach(a=>{a.classList.add("copybtn-default")})}
+    </script>
+    <script type = "text/javascript">
+        window.addEventListener('load', function() {
+            adjustCopyButton('code-block-08c26023697b40d59de43017ed70a712');
+        });
+    </script>
+        
+    
+    
+    
+<script type = "text/javascript">
+                    (function(){function a(a,c,d,e){const f=document.createElement("button");f.className="run-button",f.title="deploy this code on lightning.ai instantly",f.addEventListener("click",a&&"None"!==a?function(){window.LAI.runApp(a)}:function(){const a=b(d.innerText,"",!1,!0,!0,!0,"","");window.LAI.runAppFromCodeString(a,e)});const g=document.createElement("img");return g.className="tab-svg",g.src=c,f.appendChild(g),f}// The method below is copied from the copybutton we use in sphinx to copy the source code
+            // This logic will go away once the tab list is refactored to be shareable with the web app
+            // Callback when a copy button is clicked. Will be passed the node that was clicked
+            // should then grab the text and replace pieces of text that shouldn't be used in output
+            function b(a,b,d=!1,e=!0,f=!0,g=!0,h="",i=""){var j,k;j=d?new RegExp("^("+b+")(.*)"):new RegExp("^("+c(b)+")(.*)");const l=[];var m=!1,n=!1,o=!1;const p=[];for(const c of a.split("\n"))k=c.match(j),k||n||o?(m=j.test(c),p.push(m),f&&m?l.push(k[2]):l.push(c),n=c.endsWith(h)&!!h,c.includes(i)&!!i&&(o=!o)):e?g&&""===c.trim()&&l.push(c):l.push(c);// If no lines with the prompt were found then just use original lines
+            return p.some(a=>!0===a)&&(a=l.join("\n")),a.endsWith("\n")&&(a=a.slice(0,-1)),a}function c(a){return a.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");// $& means the whole matched string
+            }window.addRunButton=function(b,c,d,e){const f=document.querySelectorAll("#"+b+" .tab-content");for(const g of f){const b=g.querySelector(".tab-code > .highlight-default > .highlight"),f=b.getElementsByTagName("pre")[0];if(f&&"true"===d.toLowerCase())// nothing to run
+            {let d;try{const a=g.querySelector(".work-spec").innerText.trim();a&&(d=JSON.parse(a))}catch(a){console.error("error parsing work spec",a)}const h=a(c,e,f,d);b.appendChild(h)}}}})();
+    window.addEventListener('load', function() {
+        addRunButton('code-block-08c26023697b40d59de43017ed70a712', 'None', 'None', '../../_static/images/icon-launch.svg');
+    });
+</script>
+    
+    
+    
+</div></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="build-your-first-component">
+<h2>Build your first component<a class="headerlink" href="#build-your-first-component" title="Permalink to this headline">¶</a></h2>
+<p>A Lightning component organizes arbitrary code so it can run on the cloud, manages its own infrastructure, cloud costs, networking and more</p>
+<p><strong>Run one of these components!</strong></p>
+<p><div id="code-block-1352dfe97111474ea68c77f6227b9d00" class="lit-tabs-container" style="height: 620px">
+    
+        <div class="tabs-holder col-md-3">
+            
+<div id="tab-tab-f911fd2d34f44b278a49e3a1182f0d99" class="tab tab-selected" onclick="openCity('tab-f911fd2d34f44b278a49e3a1182f0d99', 'code-block-1352dfe97111474ea68c77f6227b9d00')" onmouseover="openCity('tab-f911fd2d34f44b278a49e3a1182f0d99', 'code-block-1352dfe97111474ea68c77f6227b9d00')">
+    <div class="tab-title">Hello world</div>
+    
+</div>
+
+
+<div id="tab-tab-bcb9dae646da471493064ba251c29313" class="tab" onclick="openCity('tab-bcb9dae646da471493064ba251c29313', 'code-block-1352dfe97111474ea68c77f6227b9d00')" onmouseover="openCity('tab-bcb9dae646da471493064ba251c29313', 'code-block-1352dfe97111474ea68c77f6227b9d00')">
+    <div class="tab-title"> Hello GPU world</div>
+    
+</div>
+
+
+<div id="tab-tab-d9120466543e4550aaa957ef406f94a0" class="tab" onclick="openCity('tab-d9120466543e4550aaa957ef406f94a0', 'code-block-1352dfe97111474ea68c77f6227b9d00')" onmouseover="openCity('tab-d9120466543e4550aaa957ef406f94a0', 'code-block-1352dfe97111474ea68c77f6227b9d00')">
+    <div class="tab-title"> PyTorch & ⚡⚡⚡ Trainer (1+ cloud GPUs)</div>
+    
+</div>
+
+
+<div id="tab-tab-f014eadbef1c45d58d7e50d459bd57d0" class="tab" onclick="openCity('tab-f014eadbef1c45d58d7e50d459bd57d0', 'code-block-1352dfe97111474ea68c77f6227b9d00')" onmouseover="openCity('tab-f014eadbef1c45d58d7e50d459bd57d0', 'code-block-1352dfe97111474ea68c77f6227b9d00')">
+    <div class="tab-title"> Train PyTorch (cloud GPU)</div>
+    
+</div>
+
+
+<div id="tab-tab-b26c617592854ecdaae93811a5687670" class="tab" onclick="openCity('tab-b26c617592854ecdaae93811a5687670', 'code-block-1352dfe97111474ea68c77f6227b9d00')" onmouseover="openCity('tab-b26c617592854ecdaae93811a5687670', 'code-block-1352dfe97111474ea68c77f6227b9d00')">
+    <div class="tab-title"> Train PyTorch (32 cloud GPUs)</div>
+    
+</div>
+
+
+<div id="tab-tab-589b4961a99544fda6773e8ed316d7ed" class="tab" onclick="openCity('tab-589b4961a99544fda6773e8ed316d7ed', 'code-block-1352dfe97111474ea68c77f6227b9d00')" onmouseover="openCity('tab-589b4961a99544fda6773e8ed316d7ed', 'code-block-1352dfe97111474ea68c77f6227b9d00')">
+    <div class="tab-title"> Deploy a model on cloud GPUs</div>
+    
+</div>
+
+
+<div id="tab-tab-9ab01b909c1943c8a597cd2df393fb26" class="tab" onclick="openCity('tab-9ab01b909c1943c8a597cd2df393fb26', 'code-block-1352dfe97111474ea68c77f6227b9d00')" onmouseover="openCity('tab-9ab01b909c1943c8a597cd2df393fb26', 'code-block-1352dfe97111474ea68c77f6227b9d00')">
+    <div class="tab-title"> Run a model script</div>
+    
+</div>
+
+
+<div id="tab-tab-85c8a39a935a4fb2b020b5a950b098cf" class="tab" onclick="openCity('tab-85c8a39a935a4fb2b020b5a950b098cf', 'code-block-1352dfe97111474ea68c77f6227b9d00')" onmouseover="openCity('tab-85c8a39a935a4fb2b020b5a950b098cf', 'code-block-1352dfe97111474ea68c77f6227b9d00')">
+    <div class="tab-title">  XGBoost</div>
+    
+</div>
+
+
+<div id="tab-tab-b690a900808e404ea166ea1911fd779e" class="tab" onclick="openCity('tab-b690a900808e404ea166ea1911fd779e', 'code-block-1352dfe97111474ea68c77f6227b9d00')" onmouseover="openCity('tab-b690a900808e404ea166ea1911fd779e', 'code-block-1352dfe97111474ea68c77f6227b9d00')">
+    <div class="tab-title"> Streamlit demo</div>
+    
+</div>
+
+        </div>
+        <div class="content-holder col-md-9">
+            <div class="content-toggle-holder row">
+                <div class="toggles row">
+                    
+                </div>
+            </div>
+            <div class="code-holder row">
+                
+<div id="tab-f911fd2d34f44b278a49e3a1182f0d99" class="city tab-content" style="display:flex">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+
+<span class="k">class</span> <span class="nc">YourComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+   <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="hll">      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;RUN ANY PYTHON CODE HERE&#39;</span><span class="p">)</span>
+</span>
+
+
+<span class="n">component</span> <span class="o">=</span> <span class="n">YourComponent</span><span class="p">()</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">[{"name":"root.work","spec":{"buildSpec":{"commands":[],"pythonDependencies":{"packageManager":"PACKAGE_MANAGER_PIP","packages":""}},"drives":[],"userRequestedComputeConfig":{"count":1,"diskSize":0,"name":"default","preemptible":false,"shmSize":0},"networkConfig":[{"name":"dzodf","port":61304}]}}]</div>
+
+        </div>
+        
+
+<div id="tab-bcb9dae646da471493064ba251c29313" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+
+<span class="k">class</span> <span class="nc">YourComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+   <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;RUN ANY PYTHON CODE HERE&#39;</span><span class="p">)</span>
+
+<span class="c1"># run on a cloud machine (&quot;cpu&quot;, &quot;gpu&quot;, ...)</span>
+<span class="hll"><span class="n">compute</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s2">&quot;gpu&quot;</span><span class="p">)</span>
+</span><span class="hll"><span class="n">component</span> <span class="o">=</span> <span class="n">YourComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">compute</span><span class="p">)</span>
+</span><span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">[{"name":"root.work","spec":{"buildSpec":{"commands":[],"pythonDependencies":{"packageManager":"PACKAGE_MANAGER_PIP","packages":""}},"drives":[],"networkConfig":[{"name":"qnlgd","port":61516}],"userRequestedComputeConfig":{"count":1,"diskSize":0,"name":"gpu","preemptible":false,"shmSize":0}}}]</div>
+
+        </div>
+        
+
+<div id="tab-d9120466543e4550aaa957ef406f94a0" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="kn">from</span> <span class="nn">lightning.app.components</span> <span class="kn">import</span> <span class="n">LightningTrainerMultiNode</span>
+<span class="kn">from</span> <span class="nn">lightning.pytorch.demos.boring_classes</span> <span class="kn">import</span> <span class="n">BoringModel</span>
+
+
+<span class="k">class</span> <span class="nc">LightningTrainerDistributed</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="hll">        <span class="n">model</span> <span class="o">=</span> <span class="n">BoringModel</span><span class="p">()</span>
+</span><span class="hll">        <span class="n">trainer</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Trainer</span><span class="p">(</span><span class="n">max_epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;ddp&quot;</span><span class="p">)</span>
+</span><span class="hll">        <span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</span>
+<span class="c1"># 8 GPUs: (2 nodes of 4 x v100)</span>
+<span class="n">component</span> <span class="o">=</span> <span class="n">LightningTrainerMultiNode</span><span class="p">(</span>
+    <span class="n">LightningTrainerDistributed</span><span class="p">,</span>
+<span class="hll">    <span class="n">num_nodes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+</span><span class="hll">    <span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s2">&quot;gpu-fast-multi&quot;</span><span class="p">),</span> <span class="c1"># 4 x v100</span>
+</span><span class="p">)</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">[{"name":"root.ws.0","spec":{"buildSpec":{"commands":[],"pythonDependencies":{"packageManager":"PACKAGE_MANAGER_PIP","packages":""}},"drives":[],"networkConfig":[{"name":"ajfrc","port":61553}],"userRequestedComputeConfig":{"count":1,"diskSize":0,"name":"gpu-fast-multi","preemptible":false,"shmSize":0}}},{"name":"root.ws.1","spec":{"buildSpec":{"commands":[],"pythonDependencies":{"packageManager":"PACKAGE_MANAGER_PIP","packages":""}},"drives":[],"networkConfig":[{"name":"ttyqc","port":61554}],"userRequestedComputeConfig":{"count":1,"diskSize":0,"name":"gpu-fast-multi","preemptible":false,"shmSize":0}}},{"name":"root.ws.2","spec":{"buildSpec":{"commands":[],"pythonDependencies":{"packageManager":"PACKAGE_MANAGER_PIP","packages":""}},"drives":[],"networkConfig":[{"name":"svyej","port":61555}],"userRequestedComputeConfig":{"count":1,"diskSize":0,"name":"gpu-fast-multi","preemptible":false,"shmSize":0}}},{"name":"root.ws.3","spec":{"buildSpec":{"commands":[],"pythonDependencies":{"packageManager":"PACKAGE_MANAGER_PIP","packages":""}},"drives":[],"networkConfig":[{"name":"parme","port":61556}],"userRequestedComputeConfig":{"count":1,"diskSize":0,"name":"gpu-fast-multi","preemptible":false,"shmSize":0}}}]</div>
+
+        </div>
+        
+
+<div id="tab-f014eadbef1c45d58d7e50d459bd57d0" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="c1"># ! pip install torch</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="hll"><span class="kn">import</span> <span class="nn">torch</span>
+</span>
+<span class="k">class</span> <span class="nc">PyTorchComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+   <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="hll">      <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda:0&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+</span>      <span class="n">model</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                                 <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+                                 <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="hll">      <span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</span>      <span class="n">criterion</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">MSELoss</span><span class="p">()</span>
+      <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+
+      <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">):</span>
+         <span class="n">model</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+<span class="hll">         <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.8</span><span class="p">])</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</span><span class="hll">         <span class="n">target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">])</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</span>         <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+         <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;step: </span><span class="si">{</span><span class="n">step</span><span class="si">}</span><span class="s1">.  loss </span><span class="si">{</span><span class="n">loss</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+         <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+         <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+<span class="hll"><span class="n">compute</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;gpu&#39;</span><span class="p">)</span>
+</span><span class="n">componet</span> <span class="o">=</span> <span class="n">PyTorchComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">compute</span><span class="p">)</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">componet</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">[{"name":"root.work","spec":{"buildSpec":{"commands":[],"pythonDependencies":{"packageManager":"PACKAGE_MANAGER_PIP","packages":""}},"drives":[],"networkConfig":[{"name":"cutdu","port":61584}],"userRequestedComputeConfig":{"count":1,"diskSize":0,"name":"gpu","preemptible":false,"shmSize":0}}}]</div>
+
+        </div>
+        
+
+<div id="tab-b26c617592854ecdaae93811a5687670" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="c1"># ! pip install torch</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="kn">from</span> <span class="nn">lightning.app.components</span> <span class="kn">import</span> <span class="n">MultiNode</span>
+<span class="hll"><span class="kn">import</span> <span class="nn">torch</span>
+</span><span class="kn">from</span> <span class="nn">torch.nn.parallel.distributed</span> <span class="kn">import</span> <span class="n">DistributedDataParallel</span>
+
+
+<span class="k">def</span> <span class="nf">distributed_train</span><span class="p">(</span><span class="n">local_rank</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">main_address</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">main_port</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">num_nodes</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">node_rank</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">nprocs</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="hll">    <span class="c1"># 1. SET UP DISTRIBUTED ENVIRONMENT</span>
+</span>    <span class="n">global_rank</span> <span class="o">=</span> <span class="n">local_rank</span> <span class="o">+</span> <span class="n">node_rank</span> <span class="o">*</span> <span class="n">nprocs</span>
+    <span class="n">world_size</span> <span class="o">=</span> <span class="n">num_nodes</span> <span class="o">*</span> <span class="n">nprocs</span>
+
+    <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">distributed</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">distributed</span><span class="o">.</span><span class="n">is_initialized</span><span class="p">():</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">distributed</span><span class="o">.</span><span class="n">init_process_group</span><span class="p">(</span>
+            <span class="s2">&quot;nccl&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;gloo&quot;</span><span class="p">,</span>
+            <span class="n">rank</span><span class="o">=</span><span class="n">global_rank</span><span class="p">,</span>
+            <span class="n">world_size</span><span class="o">=</span><span class="n">world_size</span><span class="p">,</span>
+            <span class="n">init_method</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;tcp://</span><span class="si">{</span><span class="n">main_address</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">main_port</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+<span class="hll">    <span class="c1"># 2. PREPARE DISTRIBUTED MODEL</span>
+</span>    <span class="n">model</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;cuda:</span><span class="si">{</span><span class="n">local_rank</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">DistributedDataParallel</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">device_ids</span><span class="o">=</span><span class="p">[</span><span class="n">local_rank</span><span class="p">]</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+<span class="hll">    <span class="c1"># 3. SETUP LOSS AND OPTIMIZER</span>
+</span>    <span class="n">criterion</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">MSELoss</span><span class="p">()</span>
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+
+<span class="hll">    <span class="c1"># 4.TRAIN THE MODEL FOR 50 STEPS</span>
+</span>    <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">output</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;global_rank: </span><span class="si">{</span><span class="n">global_rank</span><span class="si">}</span><span class="s2"> step: </span><span class="si">{</span><span class="n">step</span><span class="si">}</span><span class="s2"> loss: </span><span class="si">{</span><span class="n">loss</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+<span class="hll">    <span class="c1"># 5. VERIFY ALL COPIES OF THE MODEL HAVE THE SAME WEIGTHS AT END OF TRAINING</span>
+</span>    <span class="n">weight</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">distributed</span><span class="o">.</span><span class="n">all_reduce</span><span class="p">(</span><span class="n">weight</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">equal</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="n">weight</span> <span class="o">/</span> <span class="n">world_size</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Multi Node Distributed Training Done!&quot;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">PyTorchDistributed</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">main_address</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">main_port</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">num_nodes</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">node_rank</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="n">nprocs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">device_count</span><span class="p">()</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="mi">1</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">multiprocessing</span><span class="o">.</span><span class="n">spawn</span><span class="p">(</span>
+            <span class="n">distributed_train</span><span class="p">,</span>
+            <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">main_address</span><span class="p">,</span> <span class="n">main_port</span><span class="p">,</span> <span class="n">num_nodes</span><span class="p">,</span> <span class="n">node_rank</span><span class="p">,</span> <span class="n">nprocs</span><span class="p">),</span>
+            <span class="n">nprocs</span><span class="o">=</span><span class="n">nprocs</span>
+        <span class="p">)</span>
+
+<span class="hll"><span class="c1"># 32 GPUs: (8 nodes x 4 v 100)</span>
+</span><span class="hll"><span class="n">compute</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s2">&quot;gpu-fast-multi&quot;</span><span class="p">)</span>  <span class="c1"># 4xV100</span>
+</span><span class="hll"><span class="n">component</span> <span class="o">=</span> <span class="n">MultiNode</span><span class="p">(</span><span class="n">PyTorchDistributed</span><span class="p">,</span> <span class="n">num_nodes</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">cloud_compute</span><span class="o">=</span><span class="n">compute</span><span class="p">)</span>
+</span><span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">[{"name":"root.ws.0","spec":{"buildSpec":{"commands":[],"pythonDependencies":{"packageManager":"PACKAGE_MANAGER_PIP","packages":""}},"drives":[],"networkConfig":[{"name":"whhby","port":61613}],"userRequestedComputeConfig":{"count":1,"diskSize":0,"name":"gpu-fast-multi","preemptible":false,"shmSize":0}}},{"name":"root.ws.1","spec":{"buildSpec":{"commands":[],"pythonDependencies":{"packageManager":"PACKAGE_MANAGER_PIP","packages":""}},"drives":[],"networkConfig":[{"name":"yhjtf","port":61614}],"userRequestedComputeConfig":{"count":1,"diskSize":0,"name":"gpu-fast-multi","preemptible":false,"shmSize":0}}},{"name":"root.ws.2","spec":{"buildSpec":{"commands":[],"pythonDependencies":{"packageManager":"PACKAGE_MANAGER_PIP","packages":""}},"drives":[],"networkConfig":[{"name":"rqwkt","port":61615}],"userRequestedComputeConfig":{"count":1,"diskSize":0,"name":"gpu-fast-multi","preemptible":false,"shmSize":0}}},{"name":"root.ws.3","spec":{"buildSpec":{"commands":[],"pythonDependencies":{"packageManager":"PACKAGE_MANAGER_PIP","packages":""}},"drives":[],"networkConfig":[{"name":"pjdsj","port":61616}],"userRequestedComputeConfig":{"count":1,"diskSize":0,"name":"gpu-fast-multi","preemptible":false,"shmSize":0}}},{"name":"root.ws.4","spec":{"buildSpec":{"commands":[],"pythonDependencies":{"packageManager":"PACKAGE_MANAGER_PIP","packages":""}},"drives":[],"networkConfig":[{"name":"efdor","port":61617}],"userRequestedComputeConfig":{"count":1,"diskSize":0,"name":"gpu-fast-multi","preemptible":false,"shmSize":0}}},{"name":"root.ws.5","spec":{"buildSpec":{"commands":[],"pythonDependencies":{"packageManager":"PACKAGE_MANAGER_PIP","packages":""}},"drives":[],"networkConfig":[{"name":"pxmso","port":61618}],"userRequestedComputeConfig":{"count":1,"diskSize":0,"name":"gpu-fast-multi","preemptible":false,"shmSize":0}}},{"name":"root.ws.6","spec":{"buildSpec":{"commands":[],"pythonDependencies":{"packageManager":"PACKAGE_MANAGER_PIP","packages":""}},"drives":[],"networkConfig":[{"name":"feevy","port":61619}],"userRequestedComputeConfig":{"count":1,"diskSize":0,"name":"gpu-fast-multi","preemptible":false,"shmSize":0}}},{"name":"root.ws.7","spec":{"buildSpec":{"commands":[],"pythonDependencies":{"packageManager":"PACKAGE_MANAGER_PIP","packages":""}},"drives":[],"networkConfig":[{"name":"tbmse","port":61620}],"userRequestedComputeConfig":{"count":1,"diskSize":0,"name":"gpu-fast-multi","preemptible":false,"shmSize":0}}}]</div>
+
+        </div>
+        
+
+<div id="tab-589b4961a99544fda6773e8ed316d7ed" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># !pip install torchvision</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="hll"><span class="kn">from</span> <span class="nn">lightning.app.components.serve</span> <span class="kn">import</span> <span class="n">PythonServer</span><span class="p">,</span> <span class="n">Image</span><span class="p">,</span> <span class="n">Number</span>
+</span><span class="kn">import</span> <span class="nn">base64</span><span class="o">,</span> <span class="nn">io</span><span class="o">,</span> <span class="nn">torchvision</span><span class="o">,</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span> <span class="k">as</span> <span class="n">PILImage</span>
+
+
+<span class="k">class</span> <span class="nc">PyTorchServer</span><span class="p">(</span><span class="n">PythonServer</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">resnet18</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">_device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda:0&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+</span><span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="p">)</span>
+</span>
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">PILImage</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">image</span><span class="p">))</span>
+        <span class="n">transforms</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span>
+            <span class="n">torchvision</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">Resize</span><span class="p">(</span><span class="mi">224</span><span class="p">),</span>
+            <span class="n">torchvision</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
+            <span class="n">torchvision</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">Normalize</span><span class="p">([</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">])</span>
+        <span class="p">])</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">transforms</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="p">)</span>
+        <span class="n">prediction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<span class="hll">        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;prediction&quot;</span><span class="p">:</span> <span class="n">prediction</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()}</span>
+</span>
+
+<span class="n">component</span> <span class="o">=</span> <span class="n">PyTorchServer</span><span class="p">(</span>
+<span class="hll">   <span class="n">input_type</span><span class="o">=</span><span class="n">Image</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="n">Number</span><span class="p">,</span> <span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;gpu&#39;</span><span class="p">)</span>
+</span><span class="p">)</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">[{"name":"root.work","spec":{"buildSpec":{"commands":[],"pythonDependencies":{"packageManager":"PACKAGE_MANAGER_PIP","packages":""}},"drives":[],"networkConfig":[{"name":"umqqg","port":7777}],"userRequestedComputeConfig":{"count":1,"diskSize":0,"name":"gpu","preemptible":false,"shmSize":0}}}]</div>
+
+        </div>
+        
+
+<div id="tab-9ab01b909c1943c8a597cd2df393fb26" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="c1"># !curl https://raw.githubusercontent.com/Lightning-AI/lightning/master/examples/app_multi_node/pl_boring_script.py -o pl_boring_script.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="kn">from</span> <span class="nn">lightning.app.components.training</span> <span class="kn">import</span> <span class="n">LightningTrainerScript</span>
+
+<span class="c1"># run script that trains PyTorch with the Lightning Trainer</span>
+<span class="hll"><span class="n">model_script</span> <span class="o">=</span> <span class="s1">&#39;pl_boring_script.py&#39;</span>
+</span><span class="n">component</span> <span class="o">=</span> <span class="n">LightningTrainerScript</span><span class="p">(</span>
+   <span class="n">model_script</span><span class="p">,</span>
+<span class="hll">   <span class="n">num_nodes</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+</span>   <span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s2">&quot;gpu&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">[]</div>
+
+        </div>
+        
+
+<div id="tab-85c8a39a935a4fb2b020b5a950b098cf" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="c1"># !pip install scikit-learn xgboost</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">xgboost</span> <span class="kn">import</span> <span class="n">XGBClassifier</span>
+
+<span class="k">class</span> <span class="nc">XGBoostComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">iris</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_iris</span><span class="p">()</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span>
+
+        <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="hll">        <span class="n">bst</span> <span class="o">=</span> <span class="n">XGBClassifier</span><span class="p">(</span><span class="n">verbosity</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</span>        <span class="n">bst</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+        <span class="n">preds</span> <span class="o">=</span> <span class="n">bst</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;preds: </span><span class="si">{</span><span class="n">preds</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+<span class="hll"><span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">XGBoostComponent</span><span class="p">())</span>
+</span></pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">[{"name":"root.work","spec":{"buildSpec":{"commands":[],"pythonDependencies":{"packageManager":"PACKAGE_MANAGER_PIP","packages":""}},"drives":[],"networkConfig":[{"name":"tggba","port":61729}],"userRequestedComputeConfig":{"count":1,"diskSize":0,"name":"default","preemptible":false,"shmSize":0}}}]</div>
+
+        </div>
+        
+
+<div id="tab-b690a900808e404ea166ea1911fd779e" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="c1"># !pip install streamlit omegaconf scipy</span>
+<span class="c1"># !pip install torch</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">BytesIO</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">scipy.io.wavfile</span> <span class="kn">import</span> <span class="n">write</span>
+<span class="hll"><span class="kn">import</span> <span class="nn">streamlit</span> <span class="k">as</span> <span class="nn">st</span>
+</span>
+
+<span class="k">class</span> <span class="nc">StreamlitApp</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">ServeStreamlit</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">build_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">sample_rate</span> <span class="o">=</span> <span class="mi">48000</span>
+<span class="hll">        <span class="n">model</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">hub</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;snakers4/silero-models&#39;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;silero_tts&#39;</span><span class="p">,</span><span class="n">speaker</span><span class="o">=</span><span class="s2">&quot;v3_en&quot;</span><span class="p">)</span>
+</span>        <span class="k">return</span> <span class="n">partial</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">apply_tts</span><span class="p">,</span> <span class="n">sample_rate</span><span class="o">=</span><span class="n">sample_rate</span><span class="p">,</span> <span class="n">speaker</span><span class="o">=</span><span class="s2">&quot;en_0&quot;</span><span class="p">),</span> <span class="n">sample_rate</span>
+
+    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">st</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Text To Speech&quot;</span><span class="p">)</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">text_input</span><span class="p">(</span><span class="s2">&quot;Text:&quot;</span><span class="p">,</span> <span class="s2">&quot;Lightning Apps are the best!&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">text</span><span class="p">:</span>
+            <span class="n">model</span><span class="p">,</span> <span class="n">sample_rate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span>
+<span class="hll">            <span class="n">audio_numpy</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">text</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+</span>            <span class="n">audio</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">()</span>
+            <span class="n">write</span><span class="p">(</span><span class="n">audio</span><span class="p">,</span> <span class="n">sample_rate</span><span class="p">,</span> <span class="n">audio_numpy</span><span class="p">)</span>
+            <span class="n">audio</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">st</span><span class="o">.</span><span class="n">audio</span><span class="p">(</span><span class="n">audio</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">StreamlitApp</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">[{"name":"root.work","spec":{"buildSpec":{"commands":[],"pythonDependencies":{"packageManager":"PACKAGE_MANAGER_PIP","packages":""}},"drives":[],"networkConfig":[{"name":"hpyaz","port":61763}],"userRequestedComputeConfig":{"count":1,"diskSize":0,"name":"default","preemptible":false,"shmSize":0}}}]</div>
+
+        </div>
+        
+            </div>
+        </div>
+    
+    
+    <script type = "text/javascript">
+                        function openCity(a,b){var c,d=document.getElementById(b),e=d.getElementsByClassName("city");for(c=0;c<e.length;c++)e[c].style.display="none";document.getElementById(a).style.display="flex";var c,e=d.getElementsByClassName("tab");for(c=0;c<e.length;c++)e[c].classList.remove("tab-selected");document.getElementById("tab-"+a).classList.add("tab-selected")}
+    </script>
+    <script type = "text/javascript">
+                        function showCode(a){var b=document.getElementById(a),c="toggle-button-selected";Array.from(b.getElementsByClassName("toggle-btn-img")).forEach(a=>{var d=a.classList.contains(c);if(d){a.classList.remove(c);var a=b.getElementsByClassName("tab-code");for(i=0;i<a.length;i++)a[i].style.display="flex";var a=b.getElementsByClassName("tab-helper");for(i=0;i<a.length;i++)a[i].style.display="none"}else{a.classList.add(c);var a=b.getElementsByClassName("tab-code");for(i=0;i<a.length;i++)a[i].style.display="none";var a=b.getElementsByClassName("tab-helper");for(i=0;i<a.length;i++)a[i].style.display="flex"}})}
+    </script>
+    <script type = "text/javascript">
+                        function toggleHelperImage(a,b,c,d){var e,f=document.getElementById(a),g=f.getElementsByClassName(b);for(e=0;e<g.length;e++){function a(b){// toggle the width of the code
+            new_size=b?`calc(100% - ${c})`:"100%",Array.from(f.getElementsByClassName("tab-code")).forEach(a=>{a.style.width=new_size})}function b(a){selectedClass="toggle-button-selected",Array.from(f.getElementsByClassName("toggle-btn-img")).forEach(b=>{a?b.classList.add(selectedClass):b.classList.remove(selectedClass)})}function i(a){Array.from(f.getElementsByClassName("copybtn")).forEach(b=>{a?(b.classList.add("copybtn-split-open"),b.classList.remove("copybtn-split-closed")):(b.classList.add("copybtn-split-closed"),b.classList.remove("copybtn-split-open"))})}function j(a){Array.from(f.getElementsByClassName("tab-description")).forEach(b=>{a?b.classList.add("tab-description-img-active"):b.classList.remove("tab-description-img-active")})}function k(a){// toggle the width of the tabs
+            // tabs-holder col-md-4 -> col-md-2
+            // content-holder col-md-10
+            tabs_holder=f.getElementsByClassName("tabs-holder")[0],content_holder=f.getElementsByClassName("content-holder")[0],code_rows=12-d,a?(tabs_holder.classList.remove(`col-md-${d}`),tabs_holder.classList.add("col-md-2"),content_holder.classList.remove(`col-md-${code_rows}`),content_holder.classList.add("col-md-10")):(tabs_holder.classList.remove("col-md-2"),tabs_holder.classList.add(`col-md-${d}`),content_holder.classList.remove("col-md-10"),content_holder.classList.add(`col-md-${code_rows}`))}var h="none"==g[e].style.display;// toggle the image block
+            new_display=h?"flex":"none",g[e].style.display=new_display,a(h),k(h),j(h),i(h),b(h)}}
+    </script>
+    
+    
+    <script type = "text/javascript">
+                        function adjustCopyButton(a){var b=document.getElementById(a);Array.from(b.getElementsByClassName("copybtn")).forEach(a=>{a.classList.add("copybtn-default")})}
+    </script>
+    <script type = "text/javascript">
+        window.addEventListener('load', function() {
+            adjustCopyButton('code-block-1352dfe97111474ea68c77f6227b9d00');
+        });
+    </script>
+        
+    
+    <script type = "text/javascript">
+                        function adjustCopyButtonForRunOnly(a){var b=document.getElementById(a);Array.from(b.getElementsByClassName("copybtn")).forEach(a=>{a.classList.add("copybtn-run-only-closed")})}
+    </script>
+    <script type = "text/javascript">
+        window.addEventListener('load', function() {
+            adjustCopyButtonForRunOnly('code-block-1352dfe97111474ea68c77f6227b9d00');
+        });
+    </script>
+        
+    
+    
+<script type = "text/javascript">
+                    (function(){function a(a,c,d,e){const f=document.createElement("button");f.className="run-button",f.title="deploy this code on lightning.ai instantly",f.addEventListener("click",a&&"None"!==a?function(){window.LAI.runApp(a)}:function(){const a=b(d.innerText,"",!1,!0,!0,!0,"","");window.LAI.runAppFromCodeString(a,e)});const g=document.createElement("img");return g.className="tab-svg",g.src=c,f.appendChild(g),f}// The method below is copied from the copybutton we use in sphinx to copy the source code
+            // This logic will go away once the tab list is refactored to be shareable with the web app
+            // Callback when a copy button is clicked. Will be passed the node that was clicked
+            // should then grab the text and replace pieces of text that shouldn't be used in output
+            function b(a,b,d=!1,e=!0,f=!0,g=!0,h="",i=""){var j,k;j=d?new RegExp("^("+b+")(.*)"):new RegExp("^("+c(b)+")(.*)");const l=[];var m=!1,n=!1,o=!1;const p=[];for(const c of a.split("\n"))k=c.match(j),k||n||o?(m=j.test(c),p.push(m),f&&m?l.push(k[2]):l.push(c),n=c.endsWith(h)&!!h,c.includes(i)&!!i&&(o=!o)):e?g&&""===c.trim()&&l.push(c):l.push(c);// If no lines with the prompt were found then just use original lines
+            return p.some(a=>!0===a)&&(a=l.join("\n")),a.endsWith("\n")&&(a=a.slice(0,-1)),a}function c(a){return a.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");// $& means the whole matched string
+            }window.addRunButton=function(b,c,d,e){const f=document.querySelectorAll("#"+b+" .tab-content");for(const g of f){const b=g.querySelector(".tab-code > .highlight-default > .highlight"),f=b.getElementsByTagName("pre")[0];if(f&&"true"===d.toLowerCase())// nothing to run
+            {let d;try{const a=g.querySelector(".work-spec").innerText.trim();a&&(d=JSON.parse(a))}catch(a){console.error("error parsing work spec",a)}const h=a(c,e,f,d);b.appendChild(h)}}}})();
+    window.addEventListener('load', function() {
+        addRunButton('code-block-1352dfe97111474ea68c77f6227b9d00', 'None', 'true', '../../_static/images/icon-launch.svg');
+    });
+</script>
+    
+    
+    
+</div></p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Components run the same on the cloud and locally on your choice of hardware.</p>
+<p><div id="code-block-994503915e3140a79f0c59021bbd8e6b" class="lit-tabs-container" style="height: 195px">
+    
+        <div class="tabs-holder col-md-4">
+            
+<div id="tab-tab-f4811823c4154d7f9f78a7e187ed0953" class="tab tab-selected" onclick="openCity('tab-f4811823c4154d7f9f78a7e187ed0953', 'code-block-994503915e3140a79f0c59021bbd8e6b')" onmouseover="openCity('tab-f4811823c4154d7f9f78a7e187ed0953', 'code-block-994503915e3140a79f0c59021bbd8e6b')">
+    <div class="tab-title">Lightning Cloud (fully-managed)</div>
+    
+</div>
+
+
+<div id="tab-tab-0d1591261fd0425eb9f8e76374c2846e" class="tab" onclick="openCity('tab-0d1591261fd0425eb9f8e76374c2846e', 'code-block-994503915e3140a79f0c59021bbd8e6b')" onmouseover="openCity('tab-0d1591261fd0425eb9f8e76374c2846e', 'code-block-994503915e3140a79f0c59021bbd8e6b')">
+    <div class="tab-title"> Your AWS account</div>
+    
+</div>
+
+
+<div id="tab-tab-5baaba1232754387a40c176285b1f871" class="tab" onclick="openCity('tab-5baaba1232754387a40c176285b1f871', 'code-block-994503915e3140a79f0c59021bbd8e6b')" onmouseover="openCity('tab-5baaba1232754387a40c176285b1f871', 'code-block-994503915e3140a79f0c59021bbd8e6b')">
+    <div class="tab-title"> Your own hardware</div>
+    
+</div>
+
+        </div>
+        <div class="content-holder col-md-8">
+            <div class="content-toggle-holder row">
+                <div class="toggles row">
+                    
+                </div>
+            </div>
+            <div class="code-holder row">
+                
+<div id="tab-f4811823c4154d7f9f78a7e187ed0953" class="city tab-content" style="display:flex">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lightning</span> <span class="n">run</span> <span class="n">app</span> <span class="n">app</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">setup</span> <span class="o">--</span><span class="n">cloud</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-0d1591261fd0425eb9f8e76374c2846e" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># first create a cluster (creation could take ~30 minutes)</span>
+<span class="n">lightning</span> <span class="n">create</span> <span class="n">cluster</span> <span class="n">pikachu</span> <span class="o">--</span><span class="n">provider</span> <span class="n">aws</span> <span class="o">--</span><span class="n">role</span><span class="o">-</span><span class="n">arn</span> <span class="n">arn</span><span class="p">:</span><span class="n">aws</span><span class="p">:</span><span class="n">iam</span><span class="p">::</span><span class="mi">1234567890</span><span class="p">:</span><span class="n">role</span><span class="o">/</span><span class="n">lai</span><span class="o">-</span><span class="n">byoc</span>
+
+<span class="c1"># run on that cluster</span>
+<span class="hll"><span class="n">lightning</span> <span class="n">run</span> <span class="n">app</span> <span class="n">app</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">setup</span> <span class="o">--</span><span class="n">cloud</span> <span class="n">pikachu</span>
+</span></pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-5baaba1232754387a40c176285b1f871" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lightning</span> <span class="n">run</span> <span class="n">app</span> <span class="n">app</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">setup</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+            </div>
+        </div>
+    
+    
+    <script type = "text/javascript">
+                        function openCity(a,b){var c,d=document.getElementById(b),e=d.getElementsByClassName("city");for(c=0;c<e.length;c++)e[c].style.display="none";document.getElementById(a).style.display="flex";var c,e=d.getElementsByClassName("tab");for(c=0;c<e.length;c++)e[c].classList.remove("tab-selected");document.getElementById("tab-"+a).classList.add("tab-selected")}
+    </script>
+    <script type = "text/javascript">
+                        function showCode(a){var b=document.getElementById(a),c="toggle-button-selected";Array.from(b.getElementsByClassName("toggle-btn-img")).forEach(a=>{var d=a.classList.contains(c);if(d){a.classList.remove(c);var a=b.getElementsByClassName("tab-code");for(i=0;i<a.length;i++)a[i].style.display="flex";var a=b.getElementsByClassName("tab-helper");for(i=0;i<a.length;i++)a[i].style.display="none"}else{a.classList.add(c);var a=b.getElementsByClassName("tab-code");for(i=0;i<a.length;i++)a[i].style.display="none";var a=b.getElementsByClassName("tab-helper");for(i=0;i<a.length;i++)a[i].style.display="flex"}})}
+    </script>
+    <script type = "text/javascript">
+                        function toggleHelperImage(a,b,c,d){var e,f=document.getElementById(a),g=f.getElementsByClassName(b);for(e=0;e<g.length;e++){function a(b){// toggle the width of the code
+            new_size=b?`calc(100% - ${c})`:"100%",Array.from(f.getElementsByClassName("tab-code")).forEach(a=>{a.style.width=new_size})}function b(a){selectedClass="toggle-button-selected",Array.from(f.getElementsByClassName("toggle-btn-img")).forEach(b=>{a?b.classList.add(selectedClass):b.classList.remove(selectedClass)})}function i(a){Array.from(f.getElementsByClassName("copybtn")).forEach(b=>{a?(b.classList.add("copybtn-split-open"),b.classList.remove("copybtn-split-closed")):(b.classList.add("copybtn-split-closed"),b.classList.remove("copybtn-split-open"))})}function j(a){Array.from(f.getElementsByClassName("tab-description")).forEach(b=>{a?b.classList.add("tab-description-img-active"):b.classList.remove("tab-description-img-active")})}function k(a){// toggle the width of the tabs
+            // tabs-holder col-md-4 -> col-md-2
+            // content-holder col-md-10
+            tabs_holder=f.getElementsByClassName("tabs-holder")[0],content_holder=f.getElementsByClassName("content-holder")[0],code_rows=12-d,a?(tabs_holder.classList.remove(`col-md-${d}`),tabs_holder.classList.add("col-md-2"),content_holder.classList.remove(`col-md-${code_rows}`),content_holder.classList.add("col-md-10")):(tabs_holder.classList.remove("col-md-2"),tabs_holder.classList.add(`col-md-${d}`),content_holder.classList.remove("col-md-10"),content_holder.classList.add(`col-md-${code_rows}`))}var h="none"==g[e].style.display;// toggle the image block
+            new_display=h?"flex":"none",g[e].style.display=new_display,a(h),k(h),j(h),i(h),b(h)}}
+    </script>
+    
+    
+    <script type = "text/javascript">
+                        function adjustCopyButton(a){var b=document.getElementById(a);Array.from(b.getElementsByClassName("copybtn")).forEach(a=>{a.classList.add("copybtn-default")})}
+    </script>
+    <script type = "text/javascript">
+        window.addEventListener('load', function() {
+            adjustCopyButton('code-block-994503915e3140a79f0c59021bbd8e6b');
+        });
+    </script>
+        
+    
+    
+    
+<script type = "text/javascript">
+                    (function(){function a(a,c,d,e){const f=document.createElement("button");f.className="run-button",f.title="deploy this code on lightning.ai instantly",f.addEventListener("click",a&&"None"!==a?function(){window.LAI.runApp(a)}:function(){const a=b(d.innerText,"",!1,!0,!0,!0,"","");window.LAI.runAppFromCodeString(a,e)});const g=document.createElement("img");return g.className="tab-svg",g.src=c,f.appendChild(g),f}// The method below is copied from the copybutton we use in sphinx to copy the source code
+            // This logic will go away once the tab list is refactored to be shareable with the web app
+            // Callback when a copy button is clicked. Will be passed the node that was clicked
+            // should then grab the text and replace pieces of text that shouldn't be used in output
+            function b(a,b,d=!1,e=!0,f=!0,g=!0,h="",i=""){var j,k;j=d?new RegExp("^("+b+")(.*)"):new RegExp("^("+c(b)+")(.*)");const l=[];var m=!1,n=!1,o=!1;const p=[];for(const c of a.split("\n"))k=c.match(j),k||n||o?(m=j.test(c),p.push(m),f&&m?l.push(k[2]):l.push(c),n=c.endsWith(h)&!!h,c.includes(i)&!!i&&(o=!o)):e?g&&""===c.trim()&&l.push(c):l.push(c);// If no lines with the prompt were found then just use original lines
+            return p.some(a=>!0===a)&&(a=l.join("\n")),a.endsWith("\n")&&(a=a.slice(0,-1)),a}function c(a){return a.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");// $& means the whole matched string
+            }window.addRunButton=function(b,c,d,e){const f=document.querySelectorAll("#"+b+" .tab-content");for(const g of f){const b=g.querySelector(".tab-code > .highlight-default > .highlight"),f=b.getElementsByTagName("pre")[0];if(f&&"true"===d.toLowerCase())// nothing to run
+            {let d;try{const a=g.querySelector(".work-spec").innerText.trim();a&&(d=JSON.parse(a))}catch(a){console.error("error parsing work spec",a)}const h=a(c,e,f,d);b.appendChild(h)}}}})();
+    window.addEventListener('load', function() {
+        addRunButton('code-block-994503915e3140a79f0c59021bbd8e6b', 'None', 'None', '../../_static/images/icon-launch.svg');
+    });
+</script>
+    
+    
+    
+</div></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="key-features">
+<h2>Key features<a class="headerlink" href="#key-features" title="Permalink to this headline">¶</a></h2>
+<p>You now know enough to build a self-contained component that runs any Python code on the cloud that can be connected to form a
+powerful Lightning app. Here are a few key features available to super-charge your work:</p>
+<p><div id="code-block-881f44c2fbae4b02911f60d36e38572d" class="lit-tabs-container" style="height: 430px">
+    
+        <div class="tabs-holder col-md-3">
+            
+<div id="tab-tab-0ca37083751847388146b79cbdfb695e" class="tab tab-selected" onclick="openCity('tab-0ca37083751847388146b79cbdfb695e', 'code-block-881f44c2fbae4b02911f60d36e38572d')" onmouseover="openCity('tab-0ca37083751847388146b79cbdfb695e', 'code-block-881f44c2fbae4b02911f60d36e38572d')">
+    <div class="tab-title">15+ accelerators</div>
+    
+</div>
+
+
+<div id="tab-tab-5c3c65de5b554171ba5e8563abfcad7a" class="tab" onclick="openCity('tab-5c3c65de5b554171ba5e8563abfcad7a', 'code-block-881f44c2fbae4b02911f60d36e38572d')" onmouseover="openCity('tab-5c3c65de5b554171ba5e8563abfcad7a', 'code-block-881f44c2fbae4b02911f60d36e38572d')">
+    <div class="tab-title"> Auto-stop idle machines</div>
+    
+</div>
+
+
+<div id="tab-tab-37d5fa2f22294fe2894786c4158f0503" class="tab" onclick="openCity('tab-37d5fa2f22294fe2894786c4158f0503', 'code-block-881f44c2fbae4b02911f60d36e38572d')" onmouseover="openCity('tab-37d5fa2f22294fe2894786c4158f0503', 'code-block-881f44c2fbae4b02911f60d36e38572d')">
+    <div class="tab-title"> Auto-timeout submitted work</div>
+    
+</div>
+
+
+<div id="tab-tab-2d6d3c4f3ec940cab3e025725e60537d" class="tab" onclick="openCity('tab-2d6d3c4f3ec940cab3e025725e60537d', 'code-block-881f44c2fbae4b02911f60d36e38572d')" onmouseover="openCity('tab-2d6d3c4f3ec940cab3e025725e60537d', 'code-block-881f44c2fbae4b02911f60d36e38572d')">
+    <div class="tab-title"> Use spot machines (~70% discount)</div>
+    
+</div>
+
+
+<div id="tab-tab-11535ce7c5d945ffbd50e286a409f2c6" class="tab" onclick="openCity('tab-11535ce7c5d945ffbd50e286a409f2c6', 'code-block-881f44c2fbae4b02911f60d36e38572d')" onmouseover="openCity('tab-11535ce7c5d945ffbd50e286a409f2c6', 'code-block-881f44c2fbae4b02911f60d36e38572d')">
+    <div class="tab-title"> Work with massive datasets</div>
+    
+</div>
+
+
+<div id="tab-tab-33622ea1a46e47cab9da3a8cee2a8bd8" class="tab" onclick="openCity('tab-33622ea1a46e47cab9da3a8cee2a8bd8', 'code-block-881f44c2fbae4b02911f60d36e38572d')" onmouseover="openCity('tab-33622ea1a46e47cab9da3a8cee2a8bd8', 'code-block-881f44c2fbae4b02911f60d36e38572d')">
+    <div class="tab-title"> Mount cloud storage</div>
+    
+</div>
+
+
+<div id="tab-tab-6f6f0aaeec2348649623acf607370d68" class="tab" onclick="openCity('tab-6f6f0aaeec2348649623acf607370d68', 'code-block-881f44c2fbae4b02911f60d36e38572d')" onmouseover="openCity('tab-6f6f0aaeec2348649623acf607370d68', 'code-block-881f44c2fbae4b02911f60d36e38572d')">
+    <div class="tab-title"> Use a custom container</div>
+    
+</div>
+
+        </div>
+        <div class="content-holder col-md-9">
+            <div class="content-toggle-holder row">
+                <div class="toggles row">
+                    
+                </div>
+            </div>
+            <div class="code-holder row">
+                
+<div id="tab-0ca37083751847388146b79cbdfb695e" class="city tab-content" style="display:flex">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+
+<span class="k">class</span> <span class="nc">YourComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+   <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;RUN ANY PYTHON CODE HERE&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># custom accelerators</span>
+<span class="hll"><span class="n">compute</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;gpu&#39;</span><span class="p">)</span>
+</span><span class="n">component</span> <span class="o">=</span> <span class="n">YourComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">compute</span><span class="p">)</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+
+<span class="c1"># OTHER ACCELERATORS:</span>
+<span class="c1"># compute = L.CloudCompute(&#39;default&#39;)          # 1 CPU</span>
+<span class="c1"># compute = L.CloudCompute(&#39;cpu-medium&#39;)       # 8 CPUs</span>
+<span class="c1"># compute = L.CloudCompute(&#39;gpu&#39;)              # 1 T4 GPU</span>
+<span class="c1"># compute = L.CloudCompute(&#39;gpu-fast-multi&#39;)   # 4 V100 GPU</span>
+<span class="c1"># compute = L.CloudCompute(&#39;p4d.24xlarge&#39;)     # AWS instance name (8 A100 GPU)</span>
+<span class="c1"># compute = ...</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-5c3c65de5b554171ba5e8563abfcad7a" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+
+<span class="k">class</span> <span class="nc">YourComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+   <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;RUN ANY PYTHON CODE HERE&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># stop the machine when idle for 10 seconds</span>
+<span class="hll"><span class="n">compute</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;gpu&#39;</span><span class="p">,</span> <span class="n">idle_timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</span><span class="n">component</span> <span class="o">=</span> <span class="n">YourComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">compute</span><span class="p">)</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-37d5fa2f22294fe2894786c4158f0503" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+
+<span class="k">class</span> <span class="nc">YourComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+   <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;RUN ANY PYTHON CODE HERE&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># if the machine hasn&#39;t started after 60 seconds, cancel the work</span>
+<span class="hll"><span class="n">compute</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;gpu&#39;</span><span class="p">,</span> <span class="n">wait_timeout</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+</span><span class="n">component</span> <span class="o">=</span> <span class="n">YourComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">compute</span><span class="p">)</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-2d6d3c4f3ec940cab3e025725e60537d" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+
+<span class="k">class</span> <span class="nc">YourComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+   <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;RUN ANY PYTHON CODE HERE&#39;</span><span class="p">)</span>
+
+<span class="c1"># spot machines can be turned off without notice, use for non-critical, resumable work</span>
+<span class="c1"># request a spot machine, after 60 seconds of waiting switch to full-price</span>
+<span class="hll"><span class="n">compute</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;gpu&#39;</span><span class="p">,</span> <span class="n">wait_timeout</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">spot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span class="n">component</span> <span class="o">=</span> <span class="n">YourComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">compute</span><span class="p">)</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-11535ce7c5d945ffbd50e286a409f2c6" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+
+<span class="k">class</span> <span class="nc">YourComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+   <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;RUN ANY PYTHON CODE HERE&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># use 100 GB of space on that machine (max size: 64 TB)</span>
+<span class="hll"><span class="n">compute</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;gpu&#39;</span><span class="p">,</span> <span class="n">disk_size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</span><span class="n">component</span> <span class="o">=</span> <span class="n">YourComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">compute</span><span class="p">)</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-33622ea1a46e47cab9da3a8cee2a8bd8" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="hll"><span class="kn">import</span> <span class="nn">os</span>
+</span>
+
+<span class="k">class</span> <span class="nc">YourComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+   <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="hll">      <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">&#39;/foo&#39;</span><span class="p">)</span>
+</span>
+<span class="c1"># mount the files on the s3 bucket under this path</span>
+<span class="hll"><span class="n">mount</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Mount</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s2">&quot;s3://lightning-example-public/&quot;</span><span class="p">,</span> <span class="n">mount_path</span><span class="o">=</span><span class="s2">&quot;/foo&quot;</span><span class="p">)</span>
+</span><span class="hll"><span class="n">compute</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="n">mounts</span><span class="o">=</span><span class="n">mount</span><span class="p">)</span>
+</span><span class="n">component</span> <span class="o">=</span> <span class="n">YourComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">compute</span><span class="p">)</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-6f6f0aaeec2348649623acf607370d68" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+
+<span class="k">class</span> <span class="nc">YourComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+   <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;RUN ANY PYTHON CODE HERE&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># custom image (from any provider)</span>
+<span class="hll"><span class="n">config</span><span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">BuildConfig</span><span class="p">(</span><span class="n">image</span><span class="o">=</span><span class="s2">&quot;gcr.io/google-samples/hello-app:1.0&quot;</span><span class="p">)</span>
+</span><span class="n">component</span> <span class="o">=</span> <span class="n">YourComponent</span><span class="p">(</span><span class="n">cloud_build_config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+            </div>
+        </div>
+    
+    
+    <script type = "text/javascript">
+                        function openCity(a,b){var c,d=document.getElementById(b),e=d.getElementsByClassName("city");for(c=0;c<e.length;c++)e[c].style.display="none";document.getElementById(a).style.display="flex";var c,e=d.getElementsByClassName("tab");for(c=0;c<e.length;c++)e[c].classList.remove("tab-selected");document.getElementById("tab-"+a).classList.add("tab-selected")}
+    </script>
+    <script type = "text/javascript">
+                        function showCode(a){var b=document.getElementById(a),c="toggle-button-selected";Array.from(b.getElementsByClassName("toggle-btn-img")).forEach(a=>{var d=a.classList.contains(c);if(d){a.classList.remove(c);var a=b.getElementsByClassName("tab-code");for(i=0;i<a.length;i++)a[i].style.display="flex";var a=b.getElementsByClassName("tab-helper");for(i=0;i<a.length;i++)a[i].style.display="none"}else{a.classList.add(c);var a=b.getElementsByClassName("tab-code");for(i=0;i<a.length;i++)a[i].style.display="none";var a=b.getElementsByClassName("tab-helper");for(i=0;i<a.length;i++)a[i].style.display="flex"}})}
+    </script>
+    <script type = "text/javascript">
+                        function toggleHelperImage(a,b,c,d){var e,f=document.getElementById(a),g=f.getElementsByClassName(b);for(e=0;e<g.length;e++){function a(b){// toggle the width of the code
+            new_size=b?`calc(100% - ${c})`:"100%",Array.from(f.getElementsByClassName("tab-code")).forEach(a=>{a.style.width=new_size})}function b(a){selectedClass="toggle-button-selected",Array.from(f.getElementsByClassName("toggle-btn-img")).forEach(b=>{a?b.classList.add(selectedClass):b.classList.remove(selectedClass)})}function i(a){Array.from(f.getElementsByClassName("copybtn")).forEach(b=>{a?(b.classList.add("copybtn-split-open"),b.classList.remove("copybtn-split-closed")):(b.classList.add("copybtn-split-closed"),b.classList.remove("copybtn-split-open"))})}function j(a){Array.from(f.getElementsByClassName("tab-description")).forEach(b=>{a?b.classList.add("tab-description-img-active"):b.classList.remove("tab-description-img-active")})}function k(a){// toggle the width of the tabs
+            // tabs-holder col-md-4 -> col-md-2
+            // content-holder col-md-10
+            tabs_holder=f.getElementsByClassName("tabs-holder")[0],content_holder=f.getElementsByClassName("content-holder")[0],code_rows=12-d,a?(tabs_holder.classList.remove(`col-md-${d}`),tabs_holder.classList.add("col-md-2"),content_holder.classList.remove(`col-md-${code_rows}`),content_holder.classList.add("col-md-10")):(tabs_holder.classList.remove("col-md-2"),tabs_holder.classList.add(`col-md-${d}`),content_holder.classList.remove("col-md-10"),content_holder.classList.add(`col-md-${code_rows}`))}var h="none"==g[e].style.display;// toggle the image block
+            new_display=h?"flex":"none",g[e].style.display=new_display,a(h),k(h),j(h),i(h),b(h)}}
+    </script>
+    
+    
+    <script type = "text/javascript">
+                        function adjustCopyButton(a){var b=document.getElementById(a);Array.from(b.getElementsByClassName("copybtn")).forEach(a=>{a.classList.add("copybtn-default")})}
+    </script>
+    <script type = "text/javascript">
+        window.addEventListener('load', function() {
+            adjustCopyButton('code-block-881f44c2fbae4b02911f60d36e38572d');
+        });
+    </script>
+        
+    
+    <script type = "text/javascript">
+                        function adjustCopyButtonForRunOnly(a){var b=document.getElementById(a);Array.from(b.getElementsByClassName("copybtn")).forEach(a=>{a.classList.add("copybtn-run-only-closed")})}
+    </script>
+    <script type = "text/javascript">
+        window.addEventListener('load', function() {
+            adjustCopyButtonForRunOnly('code-block-881f44c2fbae4b02911f60d36e38572d');
+        });
+    </script>
+        
+    
+    
+<script type = "text/javascript">
+                    (function(){function a(a,c,d,e){const f=document.createElement("button");f.className="run-button",f.title="deploy this code on lightning.ai instantly",f.addEventListener("click",a&&"None"!==a?function(){window.LAI.runApp(a)}:function(){const a=b(d.innerText,"",!1,!0,!0,!0,"","");window.LAI.runAppFromCodeString(a,e)});const g=document.createElement("img");return g.className="tab-svg",g.src=c,f.appendChild(g),f}// The method below is copied from the copybutton we use in sphinx to copy the source code
+            // This logic will go away once the tab list is refactored to be shareable with the web app
+            // Callback when a copy button is clicked. Will be passed the node that was clicked
+            // should then grab the text and replace pieces of text that shouldn't be used in output
+            function b(a,b,d=!1,e=!0,f=!0,g=!0,h="",i=""){var j,k;j=d?new RegExp("^("+b+")(.*)"):new RegExp("^("+c(b)+")(.*)");const l=[];var m=!1,n=!1,o=!1;const p=[];for(const c of a.split("\n"))k=c.match(j),k||n||o?(m=j.test(c),p.push(m),f&&m?l.push(k[2]):l.push(c),n=c.endsWith(h)&!!h,c.includes(i)&!!i&&(o=!o)):e?g&&""===c.trim()&&l.push(c):l.push(c);// If no lines with the prompt were found then just use original lines
+            return p.some(a=>!0===a)&&(a=l.join("\n")),a.endsWith("\n")&&(a=a.slice(0,-1)),a}function c(a){return a.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");// $& means the whole matched string
+            }window.addRunButton=function(b,c,d,e){const f=document.querySelectorAll("#"+b+" .tab-content");for(const g of f){const b=g.querySelector(".tab-code > .highlight-default > .highlight"),f=b.getElementsByTagName("pre")[0];if(f&&"true"===d.toLowerCase())// nothing to run
+            {let d;try{const a=g.querySelector(".work-spec").innerText.trim();a&&(d=JSON.parse(a))}catch(a){console.error("error parsing work spec",a)}const h=a(c,e,f,d);b.appendChild(h)}}}})();
+    window.addEventListener('load', function() {
+        addRunButton('code-block-881f44c2fbae4b02911f60d36e38572d', 'None', 'true', '../../_static/images/icon-launch.svg');
+    });
+</script>
+    
+    
+    
+</div></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="next-explore-real-component-implementations">
+<h2>Next: Explore real component implementations<a class="headerlink" href="#next-explore-real-component-implementations" title="Permalink to this headline">¶</a></h2>
+<p>In this section we introduced components. Let’s explore
+real component implementations in-depth.</p>
+<div class="display-card-container">
+    <div class="row"><p><div class="col-md-12">
+    <a href='real_lightning_component_implementations.html'>
+    <div class="display-card display-card-hover" style='height:150px'>
+            <div class=""></div>
+            <h3>Level 2: Explore real component implementations</h3>
+            <p class="body-paragraph">Go deep into real component implementations.</p>
+    </div>
+    </a>
+    <div class='card-tag'>beginner</div>
+</div></p>
+    </div>
+</div></div>
+</div>
+
+
+             </article>
+             
+            </div>
+          </div>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              <ul>
+<li><a class="reference internal" href="#">Level 1: Package code in a lightning component</a><ul>
+<li><a class="reference internal" href="#why-you-need-lightning-components">Why you need Lightning components</a></li>
+<li><a class="reference internal" href="#install-lightning">Install Lightning</a></li>
+<li><a class="reference internal" href="#build-your-first-component">Build your first component</a></li>
+<li><a class="reference internal" href="#key-features">Key features</a></li>
+<li><a class="reference internal" href="#next-explore-real-component-implementations">Next: Explore real component implementations</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+         <script src="../../_static/jquery.js"></script>
+         <script src="../../_static/underscore.js"></script>
+         <script src="../../_static/doctools.js"></script>
+         <script src="../../_static/clipboard.min.js"></script>
+         <script src="../../_static/copybutton.js"></script>
+         <script src="../../_static/copybutton.js"></script>
+         <script>let toggleHintShow = 'Click to show';</script>
+         <script>let toggleHintHide = 'Click to hide';</script>
+         <script>let toggleOpenOnPrint = 'true';</script>
+         <script src="../../_static/togglebutton.js"></script>
+         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+     
+
+  
+
+  <script type="text/javascript" src="../../_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="../../_static/js/vendor/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  <!-- The `block footer` is required for docs search to work -->
+ 
+<script script type="text/javascript">
+  var collapsedSections = ['App Building Skills', 'Practical Examples', 'Common Workflows', 'Core API Reference', 'Addons API Reference', 'Glossary'];
+</script>
+
+
+
+  <div id="lightning-ai-footer"></div>
+
+  <div class="cookie-banner-wrapper">
+  <div class="container">
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. Read PyTorch Lightning's <a href="https://pytorchlightning.ai/privacy-policy">Privacy Policy</a>.</p>
+    <img class="close-button" src="../../_static/images/pytorch-x.svg">
+  </div>
+</div>
+
+  <script src="https://lightning.ai/shared/inject-lai-bundle.js" crossorigin></script>
+
+  <script type="text/javascript" src="../../_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+      mainMenuDropdown.bind();
+      filterTags.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PQBQ3CV"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+ </body>
+</html>

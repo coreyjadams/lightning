@@ -1,0 +1,756 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-PQBQ3CV');
+  </script>
+  <!-- End Google Tag Manager -->
+
+  <meta charset="utf-8">
+  
+  <meta name="google-site-verification" content="okUst94cAlWSsUsGZTB4xSS4UKTtRV8Nu5XZ9pdd3Aw" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CloudRuntime &mdash; lightning 2.0.0dev documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/icon.svg"/>
+  
+  
+  
+    <link rel="canonical" href="https://github.com/Lightning-AI/lightning/api_reference/generated/lightning_app.runners.cloud.CloudRuntime.html"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/togglebutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/main.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sphinx_paramlinks.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="MultiProcessRuntime" href="lightning_app.runners.multiprocess.MultiProcessRuntime.html" />
+    <link rel="prev" title="lightning.app.runners" href="../runners.html" />
+  <!-- Google Analytics -->
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D3Q2ESCTZR"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-D3Q2ESCTZR');
+    </script>
+  
+  <!-- End Google Analytics -->
+  
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/UCity/UCity-Light.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/UCity/UCity-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/UCity/UCity-Semibold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/Inconsolata/Inconsolata.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+  <script defer src="https://use.fontawesome.com/releases/v6.1.1/js/all.js" integrity="sha384-xBXmu0dk1bEoiwd71wOonQLyH+VpgR1XcDH3rtxrLww5ajNTuMvBdL5SOiFZnNdp" crossorigin="anonymous"></script>
+
+  <script src="../../_static/js/react.production.min.js"></script>
+  <script src="../../_static/js/react-dom.production.min.js"></script>
+  <script src="../../_static/js/material-ui.production.min.js"></script>
+
+  <!-- TODO(yurij): only include the babel in the local env, or get rid of it completely, even in the local env -->
+  <script src="../../_static/js/babel.min.js"></script>
+
+  <script src="../../_static/js/react.js"></script>
+</head>
+
+<body class="pytorch-body">
+
+  <!-- header-holder is required by the theme for the sidebars to function properly` -->
+  <div id="header-holder">
+    <div id="lightning-ai-header">
+      
+    </div>
+  </div>
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <script>
+      function setColor() {
+        document.querySelectorAll('*[id^="codecell"]').forEach((x) => {
+          x.style.color = "#e0dbc9";
+        })
+      };
+      setTimeout(() => {
+        setColor();
+      }, 200)
+    </script>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+
+            
+              
+              
+                <div class="version">
+                  2.0.0dev
+                </div>
+              
+            
+
+            
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+            
+          </div>
+
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Home</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Welcome to ⚡ Lightning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install/installation.html">Install</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Get started in steps</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../levels/basic/index.html">Basic skills</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../levels/intermediate/index.html">Intermediate skills</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../levels/advanced/index.html">Advanced skills</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Core API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../core_api/lightning_app/index.html">LightningApp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../core_api/lightning_flow.html">LightningFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../core_api/lightning_work/index.html">LightningWork</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Addons API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../components.html">lightning.app.components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../frontend.html">lightning.app.frontend</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../runners.html">lightning.app.runners</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../storage.html">lightning.app.storage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">More</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://lightning.ai/components">Start from component templates</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://lightning.ai/apps">Start from app templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary/index.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../workflows/index.html">How to:</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="../../index.html">
+          
+            Docs
+          
+        </a> &gt;
+      </li>
+
+        
+          <li><a href="../runners.html">lightning.app.runners</a> &gt;</li>
+        
+      <li>CloudRuntime</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/api_reference/generated/lightning_app.runners.cloud.CloudRuntime.rst.txt" rel="nofollow"><img src="../../_static/images/view-page-source-icon.svg"></a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+
+        
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <div class="section" id="cloudruntime">
+<h1>CloudRuntime<a class="headerlink" href="#cloudruntime" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lightning_app.runners.cloud.</span></span><span class="sig-name descname"><span class="pre">CloudRuntime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entrypoint=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_server=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host='http://127.0.0.1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port=7501</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">processes=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">work_runners=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">done=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend='cloud'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_vars=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">secrets=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_app_comment_commands=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_basic_auth=''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L123-L947"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">lightning_app.runners.runtime.Runtime</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime._api_create_cloudspace_if_not_exists">
+<span class="sig-name descname"><span class="pre">_api_create_cloudspace_if_not_exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">existing_cloudspace</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L791-L804"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime._api_create_cloudspace_if_not_exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the cloudspace if it doesn’t exist.</p>
+<p>Return the cloudspace ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime._api_create_run">
+<span class="sig-name descname"><span class="pre">_api_create_run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cloudspace_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_body</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L829-L833"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime._api_create_run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and return the run.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">V1LightningRun</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime._api_create_run_instance">
+<span class="sig-name descname"><span class="pre">_api_create_run_instance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cluster_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cloudspace_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cloudspace_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">desired_state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">queue_server_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_vars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L870-L895"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime._api_create_run_instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new instance of the given run with the given specification.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Externalv1LightningappInstance</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime._api_package_and_upload_repo">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_api_package_and_upload_repo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L897-L903"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime._api_package_and_upload_repo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Package and upload the provided local source code directory to the provided run.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime._api_stop_existing_run_instance">
+<span class="sig-name descname"><span class="pre">_api_stop_existing_run_instance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">existing_run_instance</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L806-L827"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime._api_stop_existing_run_instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>If an existing instance is provided and it isn’t stopped, stop it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime._api_transfer_run_instance">
+<span class="sig-name descname"><span class="pre">_api_transfer_run_instance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">desired_state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">queue_server_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_vars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L835-L868"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime._api_transfer_run_instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transfer an existing instance to the given run ID and update its specification.</p>
+<p>Return the instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Externalv1LightningappInstance</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime._get_auth">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_get_auth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">credentials</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L734-L745"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime._get_auth" title="Permalink to this definition">¶</a></dt>
+<dd><p>If credentials are provided, parse them and return the auth spec.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">V1LightningAuth</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime._get_drives">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_get_drives</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">work</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L599-L622"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime._get_drives" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the list of drive specifications for the provided work.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">V1LightningworkDrives</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime._get_env_vars">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_get_env_vars</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env_vars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">secrets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_app_comment_commands</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L747-L789"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime._get_env_vars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate the list of environment variable specs for the app, including variables set by the
+framework.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">V1EnvVar</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime._get_flow_servers">
+<span class="sig-name descname"><span class="pre">_get_flow_servers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L573-L580"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime._get_flow_servers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Collect a spec for each flow that contains a frontend so that the backend knows for which flows it needs
+to start servers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">V1Flowserver</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime._get_mounts">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_get_mounts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">work</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L624-L647"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime._get_mounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the list of mount specifications for the provided work.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">V1LightningworkDrives</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime._get_network_configs">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_get_network_configs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flow_servers</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L582-L597"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime._get_network_configs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the list of network configs for the run if multiple works in default container is enabled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">V1NetworkConfig</span></code>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime._get_run_body">
+<span class="sig-name descname"><span class="pre">_get_run_body</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cluster_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flow_servers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">network_configs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">works</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_cache</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_server</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L686-L732"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime._get_run_body" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the specification of the run creation request.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">CloudspaceIdRunsBody</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime._get_works">
+<span class="sig-name descname"><span class="pre">_get_works</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L649-L684"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime._get_works" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the list of work specs from the app.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">V1Work</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime._print_specs">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_print_specs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">run_body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_format</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L905-L919"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime._print_specs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the given run body in either <cite>web</cite> or <cite>gallery</cite> format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime._resolve_cloudspace_name">
+<span class="sig-name descname"><span class="pre">_resolve_cloudspace_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cloudspace_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">existing_cloudspace</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">existing_cloudspaces</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L456-L472"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime._resolve_cloudspace_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>If there are existing cloudspaces but not on the cluster - choose a randomised name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime._resolve_cluster_id">
+<span class="sig-name descname"><span class="pre">_resolve_cluster_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cluster_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">existing_cloudspaces</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L428-L435"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime._resolve_cluster_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>If cloudspaces exist and cluster is None, mimic cluster selection logic to choose a default.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime._resolve_config">
+<span class="sig-name descname"><span class="pre">_resolve_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L357-L367"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime._resolve_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find and load the config file if it exists (otherwise create an empty config).</p>
+<p>Override the name if provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">AppConfig</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime._resolve_existing_cloudspaces">
+<span class="sig-name descname"><span class="pre">_resolve_existing_cloudspaces</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cloudspace_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L413-L426"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime._resolve_existing_cloudspaces" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lists all the cloudspaces with a name matching the provided cloudspace name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">V1CloudSpace</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime._resolve_existing_run_instance">
+<span class="sig-name descname"><span class="pre">_resolve_existing_run_instance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cluster_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">existing_cloudspaces</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L437-L454"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime._resolve_existing_run_instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Look for an existing run and instance from one of the provided cloudspaces on the provided cluster.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">V1CloudSpace</span></code>], <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Externalv1LightningappInstance</span></code>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime._resolve_needs_credits">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_resolve_needs_credits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L485-L498"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime._resolve_needs_credits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the user likely needs credits to run the app with its hardware.</p>
+<p>Returns False if user has 1 or more credits.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime._resolve_open_ignore_functions">
+<span class="sig-name descname"><span class="pre">_resolve_open_ignore_functions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L376-L385"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime._resolve_open_ignore_functions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used by the <code class="docutils literal notranslate"><span class="pre">open</span></code> method.</p>
+<p>If the entrypoint is a file, return an ignore function that will ignore everything except that file so only the
+file gets uploaded.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></a>[[<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a>]], <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a>]]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime._resolve_project">
+<span class="sig-name descname"><span class="pre">_resolve_project</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L409-L411"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime._resolve_project" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine the project to run on, choosing a default if multiple projects are found.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">V1Membership</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime._resolve_queue_server_type">
+<span class="sig-name descname"><span class="pre">_resolve_queue_server_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L474-L483"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime._resolve_queue_server_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resolve the cloud queue type from the environment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">V1QueueServerType</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime._resolve_repo">
+<span class="sig-name descname"><span class="pre">_resolve_repo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_functions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L387-L407"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime._resolve_repo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gather and merge all lightningignores from the app children and create the <code class="docutils literal notranslate"><span class="pre">LocalSourceCodeDir</span></code>
+object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalSourceCodeDir</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime._resolve_root">
+<span class="sig-name descname"><span class="pre">_resolve_root</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L369-L374"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime._resolve_root" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine the root of the project.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime._validate_cluster_id">
+<span class="sig-name descname"><span class="pre">_validate_cluster_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cluster_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L532-L541"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime._validate_cluster_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check that the provided cluster exists and ensure that it is bound to the given project.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime._validate_drives">
+<span class="sig-name descname"><span class="pre">_validate_drives</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L553-L562"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime._validate_drives" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check that all drives in the app have a valid protocol.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime._validate_mounts">
+<span class="sig-name descname"><span class="pre">_validate_mounts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L564-L571"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime._validate_mounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check that all mounts in the app have a valid protocol.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime._validate_repo">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_validate_repo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repo</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L500-L530"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime._validate_repo" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is used to inform the users if their folder files are large and how to filter them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime._validate_work_build_specs_and_compute">
+<span class="sig-name descname"><span class="pre">_validate_work_build_specs_and_compute</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L543-L551"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime._validate_work_build_specs_and_compute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check that the cloud compute and build configs are valid for all works in the app.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime.dispatch">
+<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cluster_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_ui</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L211-L334"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime.dispatch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to dispatch and run the <a class="reference internal" href="../api/lightning_app.core.LightningApp.html#lightning_app.core.LightningApp" title="lightning_app.core.app.LightningApp"><code class="xref py py-class docutils literal notranslate"><span class="pre">LightningApp</span></code></a> in the cloud.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime.load_app_from_file">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_app_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L336-L355"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime.load_app_from_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a LightningApp from a file, mocking the imports.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../api/lightning_app.core.LightningApp.html#lightning_app.core.LightningApp" title="lightning_app.core.app.LightningApp"><code class="xref py py-class docutils literal notranslate"><span class="pre">LightningApp</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.runners.cloud.CloudRuntime.open">
+<span class="sig-name descname"><span class="pre">open</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cluster_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/runners/cloud.py#L127-L209"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.runners.cloud.CloudRuntime.open" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to open a CloudSpace with the root folder uploaded.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+             </article>
+             
+            </div>
+          </div>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              <ul>
+<li><a class="reference internal" href="#">CloudRuntime</a></li>
+</ul>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+         <script src="../../_static/jquery.js"></script>
+         <script src="../../_static/underscore.js"></script>
+         <script src="../../_static/doctools.js"></script>
+         <script src="../../_static/clipboard.min.js"></script>
+         <script src="../../_static/copybutton.js"></script>
+         <script src="../../_static/copybutton.js"></script>
+         <script>let toggleHintShow = 'Click to show';</script>
+         <script>let toggleHintHide = 'Click to hide';</script>
+         <script>let toggleOpenOnPrint = 'true';</script>
+         <script src="../../_static/togglebutton.js"></script>
+         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+     
+
+  
+
+  <script type="text/javascript" src="../../_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="../../_static/js/vendor/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  <!-- The `block footer` is required for docs search to work -->
+ 
+<script script type="text/javascript">
+  var collapsedSections = ['App Building Skills', 'Practical Examples', 'Common Workflows', 'Core API Reference', 'Addons API Reference', 'Glossary'];
+</script>
+
+
+
+  <div id="lightning-ai-footer"></div>
+
+  <div class="cookie-banner-wrapper">
+  <div class="container">
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. Read PyTorch Lightning's <a href="https://pytorchlightning.ai/privacy-policy">Privacy Policy</a>.</p>
+    <img class="close-button" src="../../_static/images/pytorch-x.svg">
+  </div>
+</div>
+
+  <script src="https://lightning.ai/shared/inject-lai-bundle.js" crossorigin></script>
+
+  <script type="text/javascript" src="../../_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+      mainMenuDropdown.bind();
+      filterTags.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PQBQ3CV"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+ </body>
+</html>

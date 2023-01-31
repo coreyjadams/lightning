@@ -1,0 +1,1567 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-PQBQ3CV');
+  </script>
+  <!-- End Google Tag Manager -->
+
+  <meta charset="utf-8">
+  
+  <meta name="google-site-verification" content="okUst94cAlWSsUsGZTB4xSS4UKTtRV8Nu5XZ9pdd3Aw" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Level 4: Connect components into a full stack AI app &mdash; lightning 2.0.0dev documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/icon.svg"/>
+  
+  
+  
+    <link rel="canonical" href="https://github.com/Lightning-AI/lightning/levels/intermediate/connect_lightning_components.html"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/togglebutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/main.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sphinx_paramlinks.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Level 5: Debug A Lightning app" href="debug_a_lightning_app.html" />
+    <link rel="prev" title="Intermediate skills" href="index.html" />
+  <!-- Google Analytics -->
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D3Q2ESCTZR"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-D3Q2ESCTZR');
+    </script>
+  
+  <!-- End Google Analytics -->
+  
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/UCity/UCity-Light.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/UCity/UCity-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/UCity/UCity-Semibold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/Inconsolata/Inconsolata.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+  <script defer src="https://use.fontawesome.com/releases/v6.1.1/js/all.js" integrity="sha384-xBXmu0dk1bEoiwd71wOonQLyH+VpgR1XcDH3rtxrLww5ajNTuMvBdL5SOiFZnNdp" crossorigin="anonymous"></script>
+
+  <script src="../../_static/js/react.production.min.js"></script>
+  <script src="../../_static/js/react-dom.production.min.js"></script>
+  <script src="../../_static/js/material-ui.production.min.js"></script>
+
+  <!-- TODO(yurij): only include the babel in the local env, or get rid of it completely, even in the local env -->
+  <script src="../../_static/js/babel.min.js"></script>
+
+  <script src="../../_static/js/react.js"></script>
+</head>
+
+<body class="pytorch-body">
+
+  <!-- header-holder is required by the theme for the sidebars to function properly` -->
+  <div id="header-holder">
+    <div id="lightning-ai-header">
+      
+    </div>
+  </div>
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <script>
+      function setColor() {
+        document.querySelectorAll('*[id^="codecell"]').forEach((x) => {
+          x.style.color = "#e0dbc9";
+        })
+      };
+      setTimeout(() => {
+        setColor();
+      }, 200)
+    </script>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+
+            
+              
+              
+                <div class="version">
+                  2.0.0dev
+                </div>
+              
+            
+
+            
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+            
+          </div>
+
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Home</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Welcome to ⚡ Lightning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install/installation.html">Install</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Get started in steps</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../basic/index.html">Basic skills</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Intermediate skills</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Advanced skills</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Core API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../core_api/lightning_app/index.html">LightningApp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../core_api/lightning_flow.html">LightningFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../core_api/lightning_work/index.html">LightningWork</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Addons API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference/components.html">lightning.app.components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference/frontend.html">lightning.app.frontend</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference/runners.html">lightning.app.runners</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference/storage.html">lightning.app.storage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">More</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://lightning.ai/components">Start from component templates</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://lightning.ai/apps">Start from app templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary/index.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../workflows/index.html">How to:</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="../../index.html">
+          
+            Docs
+          
+        </a> &gt;
+      </li>
+
+        
+          <li><a href="index.html">Intermediate skills</a> &gt;</li>
+        
+      <li>Level 4: Connect components into a full stack AI app</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/levels/intermediate/connect_lightning_components.rst.txt" rel="nofollow"><img src="../../_static/images/view-page-source-icon.svg"></a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+
+        
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <div class="section" id="level-4-connect-components-into-a-full-stack-ai-app">
+<h1>Level 4: Connect components into a full stack AI app<a class="headerlink" href="#level-4-connect-components-into-a-full-stack-ai-app" title="Permalink to this headline">¶</a></h1>
+<p><strong>Audience:</strong> Users who want to build apps with multiple components.</p>
+<p><strong>Prereqs:</strong> You know how to <a class="reference external" href="../basic/build_a_lightning_component.html">build a component</a>.</p>
+<hr class="docutils" />
+<div class="section" id="what-is-a-full-stack-ai-app">
+<h2>What is a full stack AI app?<a class="headerlink" href="#what-is-a-full-stack-ai-app" title="Permalink to this headline">¶</a></h2>
+<p>In the ML world, workflows coordinate multiple pieces of code working together. In Lightning,
+when we coordinate 2 or more <a class="reference external" href="../basic/build_a_lightning_component.html">Lightning components</a> working together,
+we instead call it a Lightning App. The difference will become more obvious when we introduce reactive
+workflows in the advanced section.</p>
+<p>For the time being, we’ll go over how to coordinate 2 components together in a traditional workflow setting
+and explain how it works.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you’ve used workflow tools for Python, this page describes conventional DAGs.
+In <a class="reference external" href="./run_lightning_work_in_parallel.html">level 6</a>, we introduce reactive workflows that generalize beyond DAGs
+so you can build complex systems without much effort.</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="the-toy-app">
+<h2>The toy app<a class="headerlink" href="#the-toy-app" title="Permalink to this headline">¶</a></h2>
+<p>In this app, we define two components that run across 2 separate machines. One to train a model on a GPU machine and one to analyze the model
+on a separate CPU machine. We save money by stopping the GPU machine when the work is done.</p>
+<p><div id="code-block-22212aed121a4edab89ab411ad87350b" class="lit-tabs-container" style="height: 460px">
+    
+        <div class="tabs-holder col-md-4">
+            
+<div id="tab-tab-01bbc0e7cc334f628ae84b998c5d3dfe" class="tab tab-selected" onclick="openCity('tab-01bbc0e7cc334f628ae84b998c5d3dfe', 'code-block-22212aed121a4edab89ab411ad87350b')" onmouseover="openCity('tab-01bbc0e7cc334f628ae84b998c5d3dfe', 'code-block-22212aed121a4edab89ab411ad87350b')">
+    <div class="tab-title">Import Lightning</div>
+    <div class="tab-description">First, import Lightning</div>
+</div>
+
+
+<div id="tab-tab-a8081d3f0001492989cac66db629bdf0" class="tab" onclick="openCity('tab-a8081d3f0001492989cac66db629bdf0', 'code-block-22212aed121a4edab89ab411ad87350b')" onmouseover="openCity('tab-a8081d3f0001492989cac66db629bdf0', 'code-block-22212aed121a4edab89ab411ad87350b')">
+    <div class="tab-title"> Define Component 1</div>
+    <div class="tab-description"> This component trains a model on a GPU machine</div>
+</div>
+
+
+<div id="tab-tab-af7fb85c4e2745838426c5f73a751e66" class="tab" onclick="openCity('tab-af7fb85c4e2745838426c5f73a751e66', 'code-block-22212aed121a4edab89ab411ad87350b')" onmouseover="openCity('tab-af7fb85c4e2745838426c5f73a751e66', 'code-block-22212aed121a4edab89ab411ad87350b')">
+    <div class="tab-title">  Define Component 2</div>
+    <div class="tab-description"> This component analyzes a model on a CPU machine</div>
+</div>
+
+
+<div id="tab-tab-93dcc26c58c943f18ce13637989dcc04" class="tab" onclick="openCity('tab-93dcc26c58c943f18ce13637989dcc04', 'code-block-22212aed121a4edab89ab411ad87350b')" onmouseover="openCity('tab-93dcc26c58c943f18ce13637989dcc04', 'code-block-22212aed121a4edab89ab411ad87350b')">
+    <div class="tab-title"> Orchestrator</div>
+    <div class="tab-description"> Define the LightningFlow that orchestrates components</div>
+</div>
+
+
+<div id="tab-tab-785fc51c1adb433398567eb849513859" class="tab" onclick="openCity('tab-785fc51c1adb433398567eb849513859', 'code-block-22212aed121a4edab89ab411ad87350b')" onmouseover="openCity('tab-785fc51c1adb433398567eb849513859', 'code-block-22212aed121a4edab89ab411ad87350b')">
+    <div class="tab-title"> Connect component 1</div>
+    <div class="tab-description"> Component 1 will run on a CPU machine</div>
+</div>
+
+
+<div id="tab-tab-f375aeb08a8e407fa79a5cda2b1fd2ec" class="tab" onclick="openCity('tab-f375aeb08a8e407fa79a5cda2b1fd2ec', 'code-block-22212aed121a4edab89ab411ad87350b')" onmouseover="openCity('tab-f375aeb08a8e407fa79a5cda2b1fd2ec', 'code-block-22212aed121a4edab89ab411ad87350b')">
+    <div class="tab-title"> Connect component 2</div>
+    <div class="tab-description"> Component 2 will run on an accelerated GPU machine</div>
+</div>
+
+
+<div id="tab-tab-9b68a18631454a0ba4d1a7a328705b7d" class="tab" onclick="openCity('tab-9b68a18631454a0ba4d1a7a328705b7d', 'code-block-22212aed121a4edab89ab411ad87350b')" onmouseover="openCity('tab-9b68a18631454a0ba4d1a7a328705b7d', 'code-block-22212aed121a4edab89ab411ad87350b')">
+    <div class="tab-title"> Implement run</div>
+    <div class="tab-description"> Describe the workflow in the run method</div>
+</div>
+
+
+<div id="tab-tab-a26dcb6ca9a649b5850d694116036149" class="tab" onclick="openCity('tab-a26dcb6ca9a649b5850d694116036149', 'code-block-22212aed121a4edab89ab411ad87350b')" onmouseover="openCity('tab-a26dcb6ca9a649b5850d694116036149', 'code-block-22212aed121a4edab89ab411ad87350b')">
+    <div class="tab-title"> Train</div>
+    <div class="tab-description"> Training runs first and completes</div>
+</div>
+
+
+<div id="tab-tab-c8fa25e97ed749b9b04fb23102d749be" class="tab" onclick="openCity('tab-c8fa25e97ed749b9b04fb23102d749be', 'code-block-22212aed121a4edab89ab411ad87350b')" onmouseover="openCity('tab-c8fa25e97ed749b9b04fb23102d749be', 'code-block-22212aed121a4edab89ab411ad87350b')">
+    <div class="tab-title"> Analyze</div>
+    <div class="tab-description"> Analyze runs after training completes</div>
+</div>
+
+
+<div id="tab-tab-df4100197bbb4e4081c7a29ed28889bd" class="tab" onclick="openCity('tab-df4100197bbb4e4081c7a29ed28889bd', 'code-block-22212aed121a4edab89ab411ad87350b')" onmouseover="openCity('tab-df4100197bbb4e4081c7a29ed28889bd', 'code-block-22212aed121a4edab89ab411ad87350b')">
+    <div class="tab-title"> Define app placeholder</div>
+    <div class="tab-description"> This allows the app to be runnable</div>
+</div>
+
+        </div>
+        <div class="content-holder col-md-8">
+            <div class="content-toggle-holder row">
+                <div class="toggles row">
+                    
+                </div>
+            </div>
+            <div class="code-holder row">
+                
+<div id="tab-01bbc0e7cc334f628ae84b998c5d3dfe" class="city tab-content" style="display:flex">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="hll"><span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+</span>
+
+<span class="k">class</span> <span class="nc">TrainComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;train a model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">AnalyzeComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;analyze model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">WorkflowOrchestrator</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span> <span class="o">=</span> <span class="n">TrainComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span> <span class="o">=</span> <span class="n">AnalyzeComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;gpu&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;CPU machine 1&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;GPU machine 2&quot;</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">WorkflowOrchestrator</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-a8081d3f0001492989cac66db629bdf0" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+
+<span class="hll"><span class="k">class</span> <span class="nc">TrainComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+</span><span class="hll">    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+</span><span class="hll">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;train a model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span>
+<span class="k">class</span> <span class="nc">AnalyzeComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;analyze model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">WorkflowOrchestrator</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span> <span class="o">=</span> <span class="n">TrainComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span> <span class="o">=</span> <span class="n">AnalyzeComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;gpu&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;CPU machine 1&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;GPU machine 2&quot;</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">WorkflowOrchestrator</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-af7fb85c4e2745838426c5f73a751e66" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+
+<span class="k">class</span> <span class="nc">TrainComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;train a model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="hll"><span class="k">class</span> <span class="nc">AnalyzeComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+</span><span class="hll">    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+</span><span class="hll">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;analyze model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span>
+<span class="k">class</span> <span class="nc">WorkflowOrchestrator</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span> <span class="o">=</span> <span class="n">TrainComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span> <span class="o">=</span> <span class="n">AnalyzeComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;gpu&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;CPU machine 1&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;GPU machine 2&quot;</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">WorkflowOrchestrator</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-93dcc26c58c943f18ce13637989dcc04" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+
+<span class="k">class</span> <span class="nc">TrainComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;train a model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">AnalyzeComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;analyze model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="hll"><span class="k">class</span> <span class="nc">WorkflowOrchestrator</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span> <span class="o">=</span> <span class="n">TrainComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span> <span class="o">=</span> <span class="n">AnalyzeComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;gpu&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;CPU machine 1&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;GPU machine 2&quot;</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">WorkflowOrchestrator</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-785fc51c1adb433398567eb849513859" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+
+<span class="k">class</span> <span class="nc">TrainComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;train a model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">AnalyzeComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;analyze model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">WorkflowOrchestrator</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+<span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">train</span> <span class="o">=</span> <span class="n">TrainComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">))</span>
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span> <span class="o">=</span> <span class="n">AnalyzeComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;gpu&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;CPU machine 1&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;GPU machine 2&quot;</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">WorkflowOrchestrator</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-f375aeb08a8e407fa79a5cda2b1fd2ec" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+
+<span class="k">class</span> <span class="nc">TrainComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;train a model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">AnalyzeComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;analyze model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">WorkflowOrchestrator</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span> <span class="o">=</span> <span class="n">TrainComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">))</span>
+<span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span> <span class="o">=</span> <span class="n">AnalyzeComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;gpu&#39;</span><span class="p">))</span>
+</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;CPU machine 1&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;GPU machine 2&quot;</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">WorkflowOrchestrator</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-9b68a18631454a0ba4d1a7a328705b7d" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+
+<span class="k">class</span> <span class="nc">TrainComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;train a model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">AnalyzeComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;analyze model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">WorkflowOrchestrator</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span> <span class="o">=</span> <span class="n">TrainComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span> <span class="o">=</span> <span class="n">AnalyzeComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;gpu&#39;</span><span class="p">))</span>
+
+<span class="hll">    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;CPU machine 1&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;GPU machine 2&quot;</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">WorkflowOrchestrator</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-a26dcb6ca9a649b5850d694116036149" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+
+<span class="k">class</span> <span class="nc">TrainComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;train a model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">AnalyzeComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;analyze model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">WorkflowOrchestrator</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span> <span class="o">=</span> <span class="n">TrainComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span> <span class="o">=</span> <span class="n">AnalyzeComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;gpu&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;CPU machine 1&quot;</span><span class="p">)</span>
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;GPU machine 2&quot;</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">WorkflowOrchestrator</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-c8fa25e97ed749b9b04fb23102d749be" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+
+<span class="k">class</span> <span class="nc">TrainComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;train a model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">AnalyzeComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;analyze model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">WorkflowOrchestrator</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span> <span class="o">=</span> <span class="n">TrainComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span> <span class="o">=</span> <span class="n">AnalyzeComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;gpu&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;CPU machine 1&quot;</span><span class="p">)</span>
+<span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;GPU machine 2&quot;</span><span class="p">)</span>
+</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">WorkflowOrchestrator</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-df4100197bbb4e4081c7a29ed28889bd" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+
+<span class="k">class</span> <span class="nc">TrainComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;train a model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">AnalyzeComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;analyze model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">WorkflowOrchestrator</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span> <span class="o">=</span> <span class="n">TrainComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span> <span class="o">=</span> <span class="n">AnalyzeComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;gpu&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;CPU machine 1&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;GPU machine 2&quot;</span><span class="p">)</span>
+
+<span class="hll"><span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">WorkflowOrchestrator</span><span class="p">())</span>
+</span></pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+            </div>
+        </div>
+    
+    
+    <script type = "text/javascript">
+                        function openCity(a,b){var c,d=document.getElementById(b),e=d.getElementsByClassName("city");for(c=0;c<e.length;c++)e[c].style.display="none";document.getElementById(a).style.display="flex";var c,e=d.getElementsByClassName("tab");for(c=0;c<e.length;c++)e[c].classList.remove("tab-selected");document.getElementById("tab-"+a).classList.add("tab-selected")}
+    </script>
+    <script type = "text/javascript">
+                        function showCode(a){var b=document.getElementById(a),c="toggle-button-selected";Array.from(b.getElementsByClassName("toggle-btn-img")).forEach(a=>{var d=a.classList.contains(c);if(d){a.classList.remove(c);var a=b.getElementsByClassName("tab-code");for(i=0;i<a.length;i++)a[i].style.display="flex";var a=b.getElementsByClassName("tab-helper");for(i=0;i<a.length;i++)a[i].style.display="none"}else{a.classList.add(c);var a=b.getElementsByClassName("tab-code");for(i=0;i<a.length;i++)a[i].style.display="none";var a=b.getElementsByClassName("tab-helper");for(i=0;i<a.length;i++)a[i].style.display="flex"}})}
+    </script>
+    <script type = "text/javascript">
+                        function toggleHelperImage(a,b,c,d){var e,f=document.getElementById(a),g=f.getElementsByClassName(b);for(e=0;e<g.length;e++){function a(b){// toggle the width of the code
+            new_size=b?`calc(100% - ${c})`:"100%",Array.from(f.getElementsByClassName("tab-code")).forEach(a=>{a.style.width=new_size})}function b(a){selectedClass="toggle-button-selected",Array.from(f.getElementsByClassName("toggle-btn-img")).forEach(b=>{a?b.classList.add(selectedClass):b.classList.remove(selectedClass)})}function i(a){Array.from(f.getElementsByClassName("copybtn")).forEach(b=>{a?(b.classList.add("copybtn-split-open"),b.classList.remove("copybtn-split-closed")):(b.classList.add("copybtn-split-closed"),b.classList.remove("copybtn-split-open"))})}function j(a){Array.from(f.getElementsByClassName("tab-description")).forEach(b=>{a?b.classList.add("tab-description-img-active"):b.classList.remove("tab-description-img-active")})}function k(a){// toggle the width of the tabs
+            // tabs-holder col-md-4 -> col-md-2
+            // content-holder col-md-10
+            tabs_holder=f.getElementsByClassName("tabs-holder")[0],content_holder=f.getElementsByClassName("content-holder")[0],code_rows=12-d,a?(tabs_holder.classList.remove(`col-md-${d}`),tabs_holder.classList.add("col-md-2"),content_holder.classList.remove(`col-md-${code_rows}`),content_holder.classList.add("col-md-10")):(tabs_holder.classList.remove("col-md-2"),tabs_holder.classList.add(`col-md-${d}`),content_holder.classList.remove("col-md-10"),content_holder.classList.add(`col-md-${code_rows}`))}var h="none"==g[e].style.display;// toggle the image block
+            new_display=h?"flex":"none",g[e].style.display=new_display,a(h),k(h),j(h),i(h),b(h)}}
+    </script>
+    
+    
+    <script type = "text/javascript">
+                        function adjustCopyButton(a){var b=document.getElementById(a);Array.from(b.getElementsByClassName("copybtn")).forEach(a=>{a.classList.add("copybtn-default")})}
+    </script>
+    <script type = "text/javascript">
+        window.addEventListener('load', function() {
+            adjustCopyButton('code-block-22212aed121a4edab89ab411ad87350b');
+        });
+    </script>
+        
+    
+    <script type = "text/javascript">
+                        function adjustCopyButtonForRunOnly(a){var b=document.getElementById(a);Array.from(b.getElementsByClassName("copybtn")).forEach(a=>{a.classList.add("copybtn-run-only-closed")})}
+    </script>
+    <script type = "text/javascript">
+        window.addEventListener('load', function() {
+            adjustCopyButtonForRunOnly('code-block-22212aed121a4edab89ab411ad87350b');
+        });
+    </script>
+        
+    
+    
+<script type = "text/javascript">
+                    (function(){function a(a,c,d,e){const f=document.createElement("button");f.className="run-button",f.title="deploy this code on lightning.ai instantly",f.addEventListener("click",a&&"None"!==a?function(){window.LAI.runApp(a)}:function(){const a=b(d.innerText,"",!1,!0,!0,!0,"","");window.LAI.runAppFromCodeString(a,e)});const g=document.createElement("img");return g.className="tab-svg",g.src=c,f.appendChild(g),f}// The method below is copied from the copybutton we use in sphinx to copy the source code
+            // This logic will go away once the tab list is refactored to be shareable with the web app
+            // Callback when a copy button is clicked. Will be passed the node that was clicked
+            // should then grab the text and replace pieces of text that shouldn't be used in output
+            function b(a,b,d=!1,e=!0,f=!0,g=!0,h="",i=""){var j,k;j=d?new RegExp("^("+b+")(.*)"):new RegExp("^("+c(b)+")(.*)");const l=[];var m=!1,n=!1,o=!1;const p=[];for(const c of a.split("\n"))k=c.match(j),k||n||o?(m=j.test(c),p.push(m),f&&m?l.push(k[2]):l.push(c),n=c.endsWith(h)&!!h,c.includes(i)&!!i&&(o=!o)):e?g&&""===c.trim()&&l.push(c):l.push(c);// If no lines with the prompt were found then just use original lines
+            return p.some(a=>!0===a)&&(a=l.join("\n")),a.endsWith("\n")&&(a=a.slice(0,-1)),a}function c(a){return a.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");// $& means the whole matched string
+            }window.addRunButton=function(b,c,d,e){const f=document.querySelectorAll("#"+b+" .tab-content");for(const g of f){const b=g.querySelector(".tab-code > .highlight-default > .highlight"),f=b.getElementsByTagName("pre")[0];if(f&&"true"===d.toLowerCase())// nothing to run
+            {let d;try{const a=g.querySelector(".work-spec").innerText.trim();a&&(d=JSON.parse(a))}catch(a){console.error("error parsing work spec",a)}const h=a(c,e,f,d);b.appendChild(h)}}}})();
+    window.addEventListener('load', function() {
+        addRunButton('code-block-22212aed121a4edab89ab411ad87350b', 'None', 'true', '../../_static/images/icon-launch.svg');
+    });
+</script>
+    
+    
+    
+</div></p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now run the app:</p>
+<p><div id="code-block-6423b69aad4a43938f7e07cdbfa6a8fa" class="lit-tabs-container" style="height: 195px">
+    
+        <div class="tabs-holder col-md-7">
+            
+<div id="tab-tab-5a3846c6daa8408d827df403e93103c6" class="tab tab-selected" onclick="openCity('tab-5a3846c6daa8408d827df403e93103c6', 'code-block-6423b69aad4a43938f7e07cdbfa6a8fa')" onmouseover="openCity('tab-5a3846c6daa8408d827df403e93103c6', 'code-block-6423b69aad4a43938f7e07cdbfa6a8fa')">
+    <div class="tab-title">Run on Lightning cloud</div>
+    <div class="tab-description">Run to see these 2 components execute on separate machines 🤯</div>
+</div>
+
+
+<div id="tab-tab-93eb9915a8ee4141922dd0224988b5f5" class="tab" onclick="openCity('tab-93eb9915a8ee4141922dd0224988b5f5', 'code-block-6423b69aad4a43938f7e07cdbfa6a8fa')" onmouseover="openCity('tab-93eb9915a8ee4141922dd0224988b5f5', 'code-block-6423b69aad4a43938f7e07cdbfa6a8fa')">
+    <div class="tab-title"> Your own hardware</div>
+    <div class="tab-description"> Run it locally without code changes 🤯🤯</div>
+</div>
+
+        </div>
+        <div class="content-holder col-md-5">
+            <div class="content-toggle-holder row">
+                <div class="toggles row">
+                    
+                </div>
+            </div>
+            <div class="code-holder row">
+                
+<div id="tab-5a3846c6daa8408d827df403e93103c6" class="city tab-content" style="display:flex">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lightning</span> <span class="n">run</span> <span class="n">app</span> <span class="n">app</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">cloud</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-93eb9915a8ee4141922dd0224988b5f5" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lightning</span> <span class="n">run</span> <span class="n">app</span> <span class="n">app</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+            </div>
+        </div>
+    
+    
+    <script type = "text/javascript">
+                        function openCity(a,b){var c,d=document.getElementById(b),e=d.getElementsByClassName("city");for(c=0;c<e.length;c++)e[c].style.display="none";document.getElementById(a).style.display="flex";var c,e=d.getElementsByClassName("tab");for(c=0;c<e.length;c++)e[c].classList.remove("tab-selected");document.getElementById("tab-"+a).classList.add("tab-selected")}
+    </script>
+    <script type = "text/javascript">
+                        function showCode(a){var b=document.getElementById(a),c="toggle-button-selected";Array.from(b.getElementsByClassName("toggle-btn-img")).forEach(a=>{var d=a.classList.contains(c);if(d){a.classList.remove(c);var a=b.getElementsByClassName("tab-code");for(i=0;i<a.length;i++)a[i].style.display="flex";var a=b.getElementsByClassName("tab-helper");for(i=0;i<a.length;i++)a[i].style.display="none"}else{a.classList.add(c);var a=b.getElementsByClassName("tab-code");for(i=0;i<a.length;i++)a[i].style.display="none";var a=b.getElementsByClassName("tab-helper");for(i=0;i<a.length;i++)a[i].style.display="flex"}})}
+    </script>
+    <script type = "text/javascript">
+                        function toggleHelperImage(a,b,c,d){var e,f=document.getElementById(a),g=f.getElementsByClassName(b);for(e=0;e<g.length;e++){function a(b){// toggle the width of the code
+            new_size=b?`calc(100% - ${c})`:"100%",Array.from(f.getElementsByClassName("tab-code")).forEach(a=>{a.style.width=new_size})}function b(a){selectedClass="toggle-button-selected",Array.from(f.getElementsByClassName("toggle-btn-img")).forEach(b=>{a?b.classList.add(selectedClass):b.classList.remove(selectedClass)})}function i(a){Array.from(f.getElementsByClassName("copybtn")).forEach(b=>{a?(b.classList.add("copybtn-split-open"),b.classList.remove("copybtn-split-closed")):(b.classList.add("copybtn-split-closed"),b.classList.remove("copybtn-split-open"))})}function j(a){Array.from(f.getElementsByClassName("tab-description")).forEach(b=>{a?b.classList.add("tab-description-img-active"):b.classList.remove("tab-description-img-active")})}function k(a){// toggle the width of the tabs
+            // tabs-holder col-md-4 -> col-md-2
+            // content-holder col-md-10
+            tabs_holder=f.getElementsByClassName("tabs-holder")[0],content_holder=f.getElementsByClassName("content-holder")[0],code_rows=12-d,a?(tabs_holder.classList.remove(`col-md-${d}`),tabs_holder.classList.add("col-md-2"),content_holder.classList.remove(`col-md-${code_rows}`),content_holder.classList.add("col-md-10")):(tabs_holder.classList.remove("col-md-2"),tabs_holder.classList.add(`col-md-${d}`),content_holder.classList.remove("col-md-10"),content_holder.classList.add(`col-md-${code_rows}`))}var h="none"==g[e].style.display;// toggle the image block
+            new_display=h?"flex":"none",g[e].style.display=new_display,a(h),k(h),j(h),i(h),b(h)}}
+    </script>
+    
+    
+    <script type = "text/javascript">
+                        function adjustCopyButton(a){var b=document.getElementById(a);Array.from(b.getElementsByClassName("copybtn")).forEach(a=>{a.classList.add("copybtn-default")})}
+    </script>
+    <script type = "text/javascript">
+        window.addEventListener('load', function() {
+            adjustCopyButton('code-block-6423b69aad4a43938f7e07cdbfa6a8fa');
+        });
+    </script>
+        
+    
+    
+    
+<script type = "text/javascript">
+                    (function(){function a(a,c,d,e){const f=document.createElement("button");f.className="run-button",f.title="deploy this code on lightning.ai instantly",f.addEventListener("click",a&&"None"!==a?function(){window.LAI.runApp(a)}:function(){const a=b(d.innerText,"",!1,!0,!0,!0,"","");window.LAI.runAppFromCodeString(a,e)});const g=document.createElement("img");return g.className="tab-svg",g.src=c,f.appendChild(g),f}// The method below is copied from the copybutton we use in sphinx to copy the source code
+            // This logic will go away once the tab list is refactored to be shareable with the web app
+            // Callback when a copy button is clicked. Will be passed the node that was clicked
+            // should then grab the text and replace pieces of text that shouldn't be used in output
+            function b(a,b,d=!1,e=!0,f=!0,g=!0,h="",i=""){var j,k;j=d?new RegExp("^("+b+")(.*)"):new RegExp("^("+c(b)+")(.*)");const l=[];var m=!1,n=!1,o=!1;const p=[];for(const c of a.split("\n"))k=c.match(j),k||n||o?(m=j.test(c),p.push(m),f&&m?l.push(k[2]):l.push(c),n=c.endsWith(h)&!!h,c.includes(i)&!!i&&(o=!o)):e?g&&""===c.trim()&&l.push(c):l.push(c);// If no lines with the prompt were found then just use original lines
+            return p.some(a=>!0===a)&&(a=l.join("\n")),a.endsWith("\n")&&(a=a.slice(0,-1)),a}function c(a){return a.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");// $& means the whole matched string
+            }window.addRunButton=function(b,c,d,e){const f=document.querySelectorAll("#"+b+" .tab-content");for(const g of f){const b=g.querySelector(".tab-code > .highlight-default > .highlight"),f=b.getElementsByTagName("pre")[0];if(f&&"true"===d.toLowerCase())// nothing to run
+            {let d;try{const a=g.querySelector(".work-spec").innerText.trim();a&&(d=JSON.parse(a))}catch(a){console.error("error parsing work spec",a)}const h=a(c,e,f,d);b.appendChild(h)}}}})();
+    window.addEventListener('load', function() {
+        addRunButton('code-block-6423b69aad4a43938f7e07cdbfa6a8fa', 'None', 'None', '../../_static/images/icon-launch.svg');
+    });
+</script>
+    
+    
+    
+</div></p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Now you can develop distributed cloud apps on your laptop 🤯🤯🤯🤯!</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="now-you-know">
+<h2>Now you know:<a class="headerlink" href="#now-you-know" title="Permalink to this headline">¶</a></h2>
+<p>Without going out of your way, you’re now doing the following: (Hint: Click <strong>visualize</strong> to see an animation describing the code).</p>
+<p><div id="code-block-6e19cd384a3c4e789296174f733859c3" class="lit-tabs-container" style="height: 470px">
+    
+        <div class="tabs-holder col-md-4">
+            
+<div id="tab-tab-1c8de86e740c4fd9aea4dcca1a29c8cc" class="tab tab-selected" onclick="openCity('tab-1c8de86e740c4fd9aea4dcca1a29c8cc', 'code-block-6e19cd384a3c4e789296174f733859c3')" onmouseover="openCity('tab-1c8de86e740c4fd9aea4dcca1a29c8cc', 'code-block-6e19cd384a3c4e789296174f733859c3')">
+    <div class="tab-title">Orchestration</div>
+    <div class="tab-description">Define orchestration in Python with full control-flow</div>
+</div>
+
+
+<div id="tab-tab-5c6b30b87a89411abbfe34d2d8cab451" class="tab" onclick="openCity('tab-5c6b30b87a89411abbfe34d2d8cab451', 'code-block-6e19cd384a3c4e789296174f733859c3')" onmouseover="openCity('tab-5c6b30b87a89411abbfe34d2d8cab451', 'code-block-6e19cd384a3c4e789296174f733859c3')">
+    <div class="tab-title"> Distributed cloud computing</div>
+    <div class="tab-description"> The two pieces of independent Python code ran on separate machines 🤯🤯</div>
+</div>
+
+
+<div id="tab-tab-0a745e6231db499f88287c41af1ea5ae" class="tab" onclick="openCity('tab-0a745e6231db499f88287c41af1ea5ae', 'code-block-6e19cd384a3c4e789296174f733859c3')" onmouseover="openCity('tab-0a745e6231db499f88287c41af1ea5ae', 'code-block-6e19cd384a3c4e789296174f733859c3')">
+    <div class="tab-title"> Multi-machine communication</div>
+    <div class="tab-description"> The text "CPU machine 1" was sent from the flow machine to the machine running the TrainComponent</div>
+</div>
+
+
+<div id="tab-tab-5162916523c446cd9bb735c028a13090" class="tab" onclick="openCity('tab-5162916523c446cd9bb735c028a13090', 'code-block-6e19cd384a3c4e789296174f733859c3')" onmouseover="openCity('tab-5162916523c446cd9bb735c028a13090', 'code-block-6e19cd384a3c4e789296174f733859c3')">
+    <div class="tab-title"> Multi-machine communication</div>
+    <div class="tab-description">  The text "GPU machine 2" was sent from the flow machine to the machine running the AnalyzeComponent</div>
+</div>
+
+
+<div id="tab-tab-807c2573f11042c3945959bc949d2b78" class="tab" onclick="openCity('tab-807c2573f11042c3945959bc949d2b78', 'code-block-6e19cd384a3c4e789296174f733859c3')" onmouseover="openCity('tab-807c2573f11042c3945959bc949d2b78', 'code-block-6e19cd384a3c4e789296174f733859c3')">
+    <div class="tab-title"> Multi-cloud</div>
+    <div class="tab-description"> The full Lightning app can move across clusters and clouds</div>
+</div>
+
+        </div>
+        <div class="content-holder col-md-8">
+            <div class="content-toggle-holder row">
+                <div class="toggles row">
+                    
+        <button class="toggle-button-visualize toggle-btn-img" onclick="showCode('code-block-6e19cd384a3c4e789296174f733859c3', 'helper')" title="show visual">visualize</button>
+    
+                </div>
+            </div>
+            <div class="code-holder row">
+                
+<div id="tab-1c8de86e740c4fd9aea4dcca1a29c8cc" class="city tab-content" style="display:flex">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+
+<span class="k">class</span> <span class="nc">TrainComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;train a model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">AnalyzeComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;analyze model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">WorkflowOrchestrator</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span> <span class="o">=</span> <span class="n">TrainComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span> <span class="o">=</span> <span class="n">AnalyzeComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;gpu&#39;</span><span class="p">))</span>
+
+<span class="hll">    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;CPU machine 1&quot;</span><span class="p">)</span>
+</span><span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;GPU machine 2&quot;</span><span class="p">)</span>
+</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">WorkflowOrchestrator</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    <img src="https://pl-bolts-doc-images.s3.us-east-2.amazonaws.com/orchestration.gif" style="max-height: 430px; width: auto"></img>
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-5c6b30b87a89411abbfe34d2d8cab451" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+
+<span class="k">class</span> <span class="nc">TrainComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;train a model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">AnalyzeComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;analyze model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">WorkflowOrchestrator</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+<span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">train</span> <span class="o">=</span> <span class="n">TrainComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">))</span>
+</span><span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span> <span class="o">=</span> <span class="n">AnalyzeComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;gpu&#39;</span><span class="p">))</span>
+</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;CPU machine 1&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;GPU machine 2&quot;</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">WorkflowOrchestrator</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    <img src="https://pl-bolts-doc-images.s3.us-east-2.amazonaws.com/distributed_computing.gif" style="max-height: 430px; width: auto"></img>
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-0a745e6231db499f88287c41af1ea5ae" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+
+<span class="k">class</span> <span class="nc">TrainComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;train a model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">AnalyzeComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;analyze model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">WorkflowOrchestrator</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span> <span class="o">=</span> <span class="n">TrainComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span> <span class="o">=</span> <span class="n">AnalyzeComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;gpu&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;CPU machine 1&quot;</span><span class="p">)</span>
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;GPU machine 2&quot;</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">WorkflowOrchestrator</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    <img src="https://pl-bolts-doc-images.s3.us-east-2.amazonaws.com/multi_machine_comms.gif" style="max-height: 430px; width: auto"></img>
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-5162916523c446cd9bb735c028a13090" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+
+<span class="k">class</span> <span class="nc">TrainComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;train a model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">AnalyzeComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;analyze model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">WorkflowOrchestrator</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span> <span class="o">=</span> <span class="n">TrainComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span> <span class="o">=</span> <span class="n">AnalyzeComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;gpu&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;CPU machine 1&quot;</span><span class="p">)</span>
+<span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;GPU machine 2&quot;</span><span class="p">)</span>
+</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">WorkflowOrchestrator</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    <img src="https://pl-bolts-doc-images.s3.us-east-2.amazonaws.com/multi_machine_comms.gif" style="max-height: 430px; width: auto"></img>
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-807c2573f11042c3945959bc949d2b78" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># run on lightning cloud (fully managed)</span>
+<span class="hll"><span class="n">lightning</span> <span class="n">run</span> <span class="n">app</span> <span class="n">app</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">cloud</span>
+</span>
+<span class="c1"># run on a cluster you created called pikachu</span>
+<span class="n">lightning</span> <span class="n">create</span> <span class="n">cluster</span> <span class="n">pikachu</span> <span class="o">--</span><span class="n">provider</span> <span class="n">aws</span> <span class="o">--</span><span class="n">role</span><span class="o">-</span><span class="n">arn</span> <span class="n">arn</span><span class="p">:</span><span class="n">aws</span><span class="p">:</span><span class="n">iam</span><span class="p">::</span><span class="mi">1234567890</span><span class="p">:</span><span class="n">role</span><span class="o">/</span><span class="n">lai</span><span class="o">-</span><span class="n">byoc</span>
+<span class="hll"><span class="n">lightning</span> <span class="n">run</span> <span class="n">app</span> <span class="n">app</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">cloud</span> <span class="n">pikachu</span>
+</span>
+<span class="c1"># run on a cluster you created called bolt</span>
+<span class="n">lightning</span> <span class="n">create</span> <span class="n">cluster</span> <span class="n">bolt</span> <span class="o">--</span><span class="n">provider</span> <span class="n">aws</span> <span class="o">--</span><span class="n">role</span><span class="o">-</span><span class="n">arn</span> <span class="n">arn</span><span class="p">:</span><span class="n">aws</span><span class="p">:</span><span class="n">iam</span><span class="p">::</span><span class="mi">1234567890</span><span class="p">:</span><span class="n">role</span><span class="o">/</span><span class="n">lai</span><span class="o">-</span><span class="n">byoc</span>
+<span class="hll"><span class="n">lightning</span> <span class="n">run</span> <span class="n">app</span> <span class="n">app</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">cloud</span> <span class="n">bolt</span>
+</span></pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    <img src="https://pl-bolts-doc-images.s3.us-east-2.amazonaws.com/multi_cloud.gif" style="max-height: 430px; width: auto"></img>
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+            </div>
+        </div>
+    
+    
+    <script type = "text/javascript">
+                        function openCity(a,b){var c,d=document.getElementById(b),e=d.getElementsByClassName("city");for(c=0;c<e.length;c++)e[c].style.display="none";document.getElementById(a).style.display="flex";var c,e=d.getElementsByClassName("tab");for(c=0;c<e.length;c++)e[c].classList.remove("tab-selected");document.getElementById("tab-"+a).classList.add("tab-selected")}
+    </script>
+    <script type = "text/javascript">
+                        function showCode(a){var b=document.getElementById(a),c="toggle-button-selected";Array.from(b.getElementsByClassName("toggle-btn-img")).forEach(a=>{var d=a.classList.contains(c);if(d){a.classList.remove(c);var a=b.getElementsByClassName("tab-code");for(i=0;i<a.length;i++)a[i].style.display="flex";var a=b.getElementsByClassName("tab-helper");for(i=0;i<a.length;i++)a[i].style.display="none"}else{a.classList.add(c);var a=b.getElementsByClassName("tab-code");for(i=0;i<a.length;i++)a[i].style.display="none";var a=b.getElementsByClassName("tab-helper");for(i=0;i<a.length;i++)a[i].style.display="flex"}})}
+    </script>
+    <script type = "text/javascript">
+                        function toggleHelperImage(a,b,c,d){var e,f=document.getElementById(a),g=f.getElementsByClassName(b);for(e=0;e<g.length;e++){function a(b){// toggle the width of the code
+            new_size=b?`calc(100% - ${c})`:"100%",Array.from(f.getElementsByClassName("tab-code")).forEach(a=>{a.style.width=new_size})}function b(a){selectedClass="toggle-button-selected",Array.from(f.getElementsByClassName("toggle-btn-img")).forEach(b=>{a?b.classList.add(selectedClass):b.classList.remove(selectedClass)})}function i(a){Array.from(f.getElementsByClassName("copybtn")).forEach(b=>{a?(b.classList.add("copybtn-split-open"),b.classList.remove("copybtn-split-closed")):(b.classList.add("copybtn-split-closed"),b.classList.remove("copybtn-split-open"))})}function j(a){Array.from(f.getElementsByClassName("tab-description")).forEach(b=>{a?b.classList.add("tab-description-img-active"):b.classList.remove("tab-description-img-active")})}function k(a){// toggle the width of the tabs
+            // tabs-holder col-md-4 -> col-md-2
+            // content-holder col-md-10
+            tabs_holder=f.getElementsByClassName("tabs-holder")[0],content_holder=f.getElementsByClassName("content-holder")[0],code_rows=12-d,a?(tabs_holder.classList.remove(`col-md-${d}`),tabs_holder.classList.add("col-md-2"),content_holder.classList.remove(`col-md-${code_rows}`),content_holder.classList.add("col-md-10")):(tabs_holder.classList.remove("col-md-2"),tabs_holder.classList.add(`col-md-${d}`),content_holder.classList.remove("col-md-10"),content_holder.classList.add(`col-md-${code_rows}`))}var h="none"==g[e].style.display;// toggle the image block
+            new_display=h?"flex":"none",g[e].style.display=new_display,a(h),k(h),j(h),i(h),b(h)}}
+    </script>
+    
+    
+    
+    
+    
+<script type = "text/javascript">
+                    (function(){function a(a,c,d,e){const f=document.createElement("button");f.className="run-button",f.title="deploy this code on lightning.ai instantly",f.addEventListener("click",a&&"None"!==a?function(){window.LAI.runApp(a)}:function(){const a=b(d.innerText,"",!1,!0,!0,!0,"","");window.LAI.runAppFromCodeString(a,e)});const g=document.createElement("img");return g.className="tab-svg",g.src=c,f.appendChild(g),f}// The method below is copied from the copybutton we use in sphinx to copy the source code
+            // This logic will go away once the tab list is refactored to be shareable with the web app
+            // Callback when a copy button is clicked. Will be passed the node that was clicked
+            // should then grab the text and replace pieces of text that shouldn't be used in output
+            function b(a,b,d=!1,e=!0,f=!0,g=!0,h="",i=""){var j,k;j=d?new RegExp("^("+b+")(.*)"):new RegExp("^("+c(b)+")(.*)");const l=[];var m=!1,n=!1,o=!1;const p=[];for(const c of a.split("\n"))k=c.match(j),k||n||o?(m=j.test(c),p.push(m),f&&m?l.push(k[2]):l.push(c),n=c.endsWith(h)&!!h,c.includes(i)&!!i&&(o=!o)):e?g&&""===c.trim()&&l.push(c):l.push(c);// If no lines with the prompt were found then just use original lines
+            return p.some(a=>!0===a)&&(a=l.join("\n")),a.endsWith("\n")&&(a=a.slice(0,-1)),a}function c(a){return a.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");// $& means the whole matched string
+            }window.addRunButton=function(b,c,d,e){const f=document.querySelectorAll("#"+b+" .tab-content");for(const g of f){const b=g.querySelector(".tab-code > .highlight-default > .highlight"),f=b.getElementsByTagName("pre")[0];if(f&&"true"===d.toLowerCase())// nothing to run
+            {let d;try{const a=g.querySelector(".work-spec").innerText.trim();a&&(d=JSON.parse(a))}catch(a){console.error("error parsing work spec",a)}const h=a(c,e,f,d);b.appendChild(h)}}}})();
+    window.addEventListener('load', function() {
+        addRunButton('code-block-6e19cd384a3c4e789296174f733859c3', 'None', 'None', '../../_static/images/icon-launch.svg');
+    });
+</script>
+    
+    
+    
+</div></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="maintain-full-control">
+<h2>Maintain full control<a class="headerlink" href="#maintain-full-control" title="Permalink to this headline">¶</a></h2>
+<p>Although we’ve abstracted the infrastructure, you still have full control when you need it:</p>
+<p><div id="code-block-18aaaf20f4a843b89afcf4520d7ca5e5" class="lit-tabs-container" style="height: 700px">
+    
+        <div class="tabs-holder col-md-4">
+            
+<div id="tab-tab-c6e14451ffb44d9e989d1022fcfcf2f1" class="tab tab-selected" onclick="openCity('tab-c6e14451ffb44d9e989d1022fcfcf2f1', 'code-block-18aaaf20f4a843b89afcf4520d7ca5e5')" onmouseover="openCity('tab-c6e14451ffb44d9e989d1022fcfcf2f1', 'code-block-18aaaf20f4a843b89afcf4520d7ca5e5')">
+    <div class="tab-title">Scheduler</div>
+    <div class="tab-description">Although you can use Python timers, we have a scheduler short-hand</div>
+</div>
+
+
+<div id="tab-tab-ccce7a6c477c4ac38949ec9dc7e49a1d" class="tab" onclick="openCity('tab-ccce7a6c477c4ac38949ec9dc7e49a1d', 'code-block-18aaaf20f4a843b89afcf4520d7ca5e5')" onmouseover="openCity('tab-ccce7a6c477c4ac38949ec9dc7e49a1d', 'code-block-18aaaf20f4a843b89afcf4520d7ca5e5')">
+    <div class="tab-title"> Crontab syntax</div>
+    <div class="tab-description"> You can also use full cron syntax</div>
+</div>
+
+
+<div id="tab-tab-2de4b3b972844cd7b550542f8175a9ab" class="tab" onclick="openCity('tab-2de4b3b972844cd7b550542f8175a9ab', 'code-block-18aaaf20f4a843b89afcf4520d7ca5e5')" onmouseover="openCity('tab-2de4b3b972844cd7b550542f8175a9ab', 'code-block-18aaaf20f4a843b89afcf4520d7ca5e5')">
+    <div class="tab-title"> Auto-scaling</div>
+    <div class="tab-description"> Code your own auto-scaling syntax (Lightning plays well with Kubernetes)</div>
+</div>
+
+
+<div id="tab-tab-0a6997c307744f75a31d6f0882ecc31b" class="tab" onclick="openCity('tab-0a6997c307744f75a31d6f0882ecc31b', 'code-block-18aaaf20f4a843b89afcf4520d7ca5e5')" onmouseover="openCity('tab-0a6997c307744f75a31d6f0882ecc31b', 'code-block-18aaaf20f4a843b89afcf4520d7ca5e5')">
+    <div class="tab-title"> Organized Python</div>
+    <div class="tab-description"> *Remember* components organize ANY Python code which can even call external non-python scripts such as optimized C++ model servers </div>
+</div>
+
+
+<div id="tab-tab-a748352a0ee64e88926e08e0260d1037" class="tab" onclick="openCity('tab-a748352a0ee64e88926e08e0260d1037', 'code-block-18aaaf20f4a843b89afcf4520d7ca5e5')" onmouseover="openCity('tab-a748352a0ee64e88926e08e0260d1037', 'code-block-18aaaf20f4a843b89afcf4520d7ca5e5')">
+    <div class="tab-title"> Full terraform control</div>
+    <div class="tab-description">Experts have the option to use terraform to configure Lightning clusters</div>
+</div>
+
+        </div>
+        <div class="content-holder col-md-8">
+            <div class="content-toggle-holder row">
+                <div class="toggles row">
+                    
+                </div>
+            </div>
+            <div class="code-holder row">
+                
+<div id="tab-c6e14451ffb44d9e989d1022fcfcf2f1" class="city tab-content" style="display:flex">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+
+<span class="k">class</span> <span class="nc">TrainComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;train a model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">AnalyzeComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;analyze model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">WorkflowOrchestrator</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span> <span class="o">=</span> <span class="n">TrainComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span> <span class="o">=</span> <span class="n">AnalyzeComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;gpu&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># run training once</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;GPU machine 1&quot;</span><span class="p">)</span>
+
+        <span class="c1"># run analysis once, then every hour again...</span>
+<span class="hll">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">schedule</span><span class="p">(</span><span class="s2">&quot;hourly&quot;</span><span class="p">):</span>
+</span>            <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;CPU machine 2&quot;</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">WorkflowOrchestrator</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-ccce7a6c477c4ac38949ec9dc7e49a1d" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+
+<span class="k">class</span> <span class="nc">TrainComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;train a model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">AnalyzeComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;analyze model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">WorkflowOrchestrator</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span> <span class="o">=</span> <span class="n">TrainComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span> <span class="o">=</span> <span class="n">AnalyzeComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;gpu&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># run training once</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;GPU machine 1&quot;</span><span class="p">)</span>
+
+        <span class="c1"># run analysis once, then every hour again...</span>
+<span class="hll">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">schedule</span><span class="p">(</span><span class="s2">&quot;5 4 * * *&quot;</span><span class="p">):</span>
+</span>            <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;CPU machine 2&quot;</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">WorkflowOrchestrator</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-2de4b3b972844cd7b550542f8175a9ab" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+
+<span class="k">class</span> <span class="nc">TrainComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;train a model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">AnalyzeComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;analyze model on </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">WorkflowOrchestrator</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span> <span class="o">=</span> <span class="n">TrainComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span> <span class="o">=</span> <span class="n">AnalyzeComponent</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;gpu&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># run() starts the machine</span>
+<span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;GPU machine 1&quot;</span><span class="p">)</span>
+</span>
+        <span class="c1"># stop() stops the machine</span>
+<span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+</span>
+        <span class="c1"># run analysis ONLY when machine 1 stopped</span>
+<span class="hll">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">STOPPED</span><span class="p">:</span>
+</span><span class="hll">            <span class="bp">self</span><span class="o">.</span><span class="n">analyze</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;CPU machine 2&quot;</span><span class="p">)</span>
+</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">WorkflowOrchestrator</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-0a6997c307744f75a31d6f0882ecc31b" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+
+<span class="k">class</span> <span class="nc">ExternalModelServer</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="c1"># compile</span>
+<span class="hll">        <span class="n">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="s1">&#39;g++ model_server.cpp -o model_server&#39;</span><span class="p">)</span>
+</span>        <span class="n">process</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+        <span class="n">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="s1">&#39;./model_server&#39;</span><span class="p">)</span>
+        <span class="n">process</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">LocustLoadTester</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="hll">        <span class="n">cmd</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;locust --master-host </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="si">}</span><span class="s1"> --master-port </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="si">}</span><span class="s1">&#39;</span>
+</span><span class="hll">        <span class="n">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+</span>        <span class="n">process</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">WorkflowOrchestrator</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">serve</span> <span class="o">=</span> <span class="n">ExternalModelServer</span><span class="p">(</span>
+            <span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">),</span> <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_test</span> <span class="o">=</span> <span class="n">LocustLoadTester</span><span class="p">(</span><span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># start the server (on a CPU machine 1)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">serve</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+        <span class="c1"># load testing when the server is up (on a separate cpu machine 2)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">serve</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">RUNNING</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load_test</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">WorkflowOrchestrator</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-a748352a0ee64e88926e08e0260d1037" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># custom control for optimized clusters with tools like terraform</span>
+<span class="c1"># are only supported on the enterprise tier (support@lightning.ai)</span>
+
+<span class="c1"># once the cluster is created you can run any app on it</span>
+<span class="hll"><span class="n">lightning</span> <span class="n">run</span> <span class="n">app</span> <span class="n">app</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">cloud</span> <span class="n">my</span><span class="o">-</span><span class="n">custom</span><span class="o">-</span><span class="n">optimized</span><span class="o">-</span><span class="n">cluster</span>
+</span></pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+            </div>
+        </div>
+    
+    
+    <script type = "text/javascript">
+                        function openCity(a,b){var c,d=document.getElementById(b),e=d.getElementsByClassName("city");for(c=0;c<e.length;c++)e[c].style.display="none";document.getElementById(a).style.display="flex";var c,e=d.getElementsByClassName("tab");for(c=0;c<e.length;c++)e[c].classList.remove("tab-selected");document.getElementById("tab-"+a).classList.add("tab-selected")}
+    </script>
+    <script type = "text/javascript">
+                        function showCode(a){var b=document.getElementById(a),c="toggle-button-selected";Array.from(b.getElementsByClassName("toggle-btn-img")).forEach(a=>{var d=a.classList.contains(c);if(d){a.classList.remove(c);var a=b.getElementsByClassName("tab-code");for(i=0;i<a.length;i++)a[i].style.display="flex";var a=b.getElementsByClassName("tab-helper");for(i=0;i<a.length;i++)a[i].style.display="none"}else{a.classList.add(c);var a=b.getElementsByClassName("tab-code");for(i=0;i<a.length;i++)a[i].style.display="none";var a=b.getElementsByClassName("tab-helper");for(i=0;i<a.length;i++)a[i].style.display="flex"}})}
+    </script>
+    <script type = "text/javascript">
+                        function toggleHelperImage(a,b,c,d){var e,f=document.getElementById(a),g=f.getElementsByClassName(b);for(e=0;e<g.length;e++){function a(b){// toggle the width of the code
+            new_size=b?`calc(100% - ${c})`:"100%",Array.from(f.getElementsByClassName("tab-code")).forEach(a=>{a.style.width=new_size})}function b(a){selectedClass="toggle-button-selected",Array.from(f.getElementsByClassName("toggle-btn-img")).forEach(b=>{a?b.classList.add(selectedClass):b.classList.remove(selectedClass)})}function i(a){Array.from(f.getElementsByClassName("copybtn")).forEach(b=>{a?(b.classList.add("copybtn-split-open"),b.classList.remove("copybtn-split-closed")):(b.classList.add("copybtn-split-closed"),b.classList.remove("copybtn-split-open"))})}function j(a){Array.from(f.getElementsByClassName("tab-description")).forEach(b=>{a?b.classList.add("tab-description-img-active"):b.classList.remove("tab-description-img-active")})}function k(a){// toggle the width of the tabs
+            // tabs-holder col-md-4 -> col-md-2
+            // content-holder col-md-10
+            tabs_holder=f.getElementsByClassName("tabs-holder")[0],content_holder=f.getElementsByClassName("content-holder")[0],code_rows=12-d,a?(tabs_holder.classList.remove(`col-md-${d}`),tabs_holder.classList.add("col-md-2"),content_holder.classList.remove(`col-md-${code_rows}`),content_holder.classList.add("col-md-10")):(tabs_holder.classList.remove("col-md-2"),tabs_holder.classList.add(`col-md-${d}`),content_holder.classList.remove("col-md-10"),content_holder.classList.add(`col-md-${code_rows}`))}var h="none"==g[e].style.display;// toggle the image block
+            new_display=h?"flex":"none",g[e].style.display=new_display,a(h),k(h),j(h),i(h),b(h)}}
+    </script>
+    
+    
+    <script type = "text/javascript">
+                        function adjustCopyButton(a){var b=document.getElementById(a);Array.from(b.getElementsByClassName("copybtn")).forEach(a=>{a.classList.add("copybtn-default")})}
+    </script>
+    <script type = "text/javascript">
+        window.addEventListener('load', function() {
+            adjustCopyButton('code-block-18aaaf20f4a843b89afcf4520d7ca5e5');
+        });
+    </script>
+        
+    
+    
+    
+<script type = "text/javascript">
+                    (function(){function a(a,c,d,e){const f=document.createElement("button");f.className="run-button",f.title="deploy this code on lightning.ai instantly",f.addEventListener("click",a&&"None"!==a?function(){window.LAI.runApp(a)}:function(){const a=b(d.innerText,"",!1,!0,!0,!0,"","");window.LAI.runAppFromCodeString(a,e)});const g=document.createElement("img");return g.className="tab-svg",g.src=c,f.appendChild(g),f}// The method below is copied from the copybutton we use in sphinx to copy the source code
+            // This logic will go away once the tab list is refactored to be shareable with the web app
+            // Callback when a copy button is clicked. Will be passed the node that was clicked
+            // should then grab the text and replace pieces of text that shouldn't be used in output
+            function b(a,b,d=!1,e=!0,f=!0,g=!0,h="",i=""){var j,k;j=d?new RegExp("^("+b+")(.*)"):new RegExp("^("+c(b)+")(.*)");const l=[];var m=!1,n=!1,o=!1;const p=[];for(const c of a.split("\n"))k=c.match(j),k||n||o?(m=j.test(c),p.push(m),f&&m?l.push(k[2]):l.push(c),n=c.endsWith(h)&!!h,c.includes(i)&!!i&&(o=!o)):e?g&&""===c.trim()&&l.push(c):l.push(c);// If no lines with the prompt were found then just use original lines
+            return p.some(a=>!0===a)&&(a=l.join("\n")),a.endsWith("\n")&&(a=a.slice(0,-1)),a}function c(a){return a.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");// $& means the whole matched string
+            }window.addRunButton=function(b,c,d,e){const f=document.querySelectorAll("#"+b+" .tab-content");for(const g of f){const b=g.querySelector(".tab-code > .highlight-default > .highlight"),f=b.getElementsByTagName("pre")[0];if(f&&"true"===d.toLowerCase())// nothing to run
+            {let d;try{const a=g.querySelector(".work-spec").innerText.trim();a&&(d=JSON.parse(a))}catch(a){console.error("error parsing work spec",a)}const h=a(c,e,f,d);b.appendChild(h)}}}})();
+    window.addEventListener('load', function() {
+        addRunButton('code-block-18aaaf20f4a843b89afcf4520d7ca5e5', 'None', 'None', '../../_static/images/icon-launch.svg');
+    });
+</script>
+    
+    
+    
+</div></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="next-review-how-to-debug">
+<h2>Next: Review how to debug<a class="headerlink" href="#next-review-how-to-debug" title="Permalink to this headline">¶</a></h2>
+<p>The next levels does a 2 minute review to make sure you know how to debug a Lightning app.</p>
+<div class="display-card-container">
+    <div class="row"><p><div class="col-md-12">
+    <a href='debug_a_lightning_app.html'>
+    <div class="display-card display-card-hover" style='height:170px'>
+            <div class=""></div>
+            <h3>Level 5: Debug a Lightning App</h3>
+            <p class="body-paragraph">Learn to debug a lightning app.</p>
+    </div>
+    </a>
+    <div class='card-tag'>10 minutes</div>
+</div></p>
+    </div>
+</div></div>
+</div>
+
+
+             </article>
+             
+            </div>
+          </div>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              <ul>
+<li><a class="reference internal" href="#">Level 4: Connect components into a full stack AI app</a><ul>
+<li><a class="reference internal" href="#what-is-a-full-stack-ai-app">What is a full stack AI app?</a></li>
+<li><a class="reference internal" href="#the-toy-app">The toy app</a></li>
+<li><a class="reference internal" href="#now-you-know">Now you know:</a></li>
+<li><a class="reference internal" href="#maintain-full-control">Maintain full control</a></li>
+<li><a class="reference internal" href="#next-review-how-to-debug">Next: Review how to debug</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+         <script src="../../_static/jquery.js"></script>
+         <script src="../../_static/underscore.js"></script>
+         <script src="../../_static/doctools.js"></script>
+         <script src="../../_static/clipboard.min.js"></script>
+         <script src="../../_static/copybutton.js"></script>
+         <script src="../../_static/copybutton.js"></script>
+         <script>let toggleHintShow = 'Click to show';</script>
+         <script>let toggleHintHide = 'Click to hide';</script>
+         <script>let toggleOpenOnPrint = 'true';</script>
+         <script src="../../_static/togglebutton.js"></script>
+         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+     
+
+  
+
+  <script type="text/javascript" src="../../_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="../../_static/js/vendor/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  <!-- The `block footer` is required for docs search to work -->
+ 
+<script script type="text/javascript">
+  var collapsedSections = ['App Building Skills', 'Practical Examples', 'Common Workflows', 'Core API Reference', 'Addons API Reference', 'Glossary'];
+</script>
+
+
+
+  <div id="lightning-ai-footer"></div>
+
+  <div class="cookie-banner-wrapper">
+  <div class="container">
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. Read PyTorch Lightning's <a href="https://pytorchlightning.ai/privacy-policy">Privacy Policy</a>.</p>
+    <img class="close-button" src="../../_static/images/pytorch-x.svg">
+  </div>
+</div>
+
+  <script src="https://lightning.ai/shared/inject-lai-bundle.js" crossorigin></script>
+
+  <script type="text/javascript" src="../../_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+      mainMenuDropdown.bind();
+      filterTags.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PQBQ3CV"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+ </body>
+</html>

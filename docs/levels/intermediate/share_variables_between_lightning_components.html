@@ -1,0 +1,1659 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-PQBQ3CV');
+  </script>
+  <!-- End Google Tag Manager -->
+
+  <meta charset="utf-8">
+  
+  <meta name="google-site-verification" content="okUst94cAlWSsUsGZTB4xSS4UKTtRV8Nu5XZ9pdd3Aw" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Level 7: Share variables between components &mdash; lightning 2.0.0dev documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/icon.svg"/>
+  
+  
+  
+    <link rel="canonical" href="https://github.com/Lightning-AI/lightning/levels/intermediate/share_variables_between_lightning_components.html"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/togglebutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/main.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sphinx_paramlinks.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Level 8: Share files between components" href="share_files_between_components.html" />
+    <link rel="prev" title="Level 6: Run a Lightning component in parallel" href="run_lightning_work_in_parallel.html" />
+  <!-- Google Analytics -->
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D3Q2ESCTZR"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-D3Q2ESCTZR');
+    </script>
+  
+  <!-- End Google Analytics -->
+  
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/UCity/UCity-Light.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/UCity/UCity-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/UCity/UCity-Semibold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/Inconsolata/Inconsolata.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+  <script defer src="https://use.fontawesome.com/releases/v6.1.1/js/all.js" integrity="sha384-xBXmu0dk1bEoiwd71wOonQLyH+VpgR1XcDH3rtxrLww5ajNTuMvBdL5SOiFZnNdp" crossorigin="anonymous"></script>
+
+  <script src="../../_static/js/react.production.min.js"></script>
+  <script src="../../_static/js/react-dom.production.min.js"></script>
+  <script src="../../_static/js/material-ui.production.min.js"></script>
+
+  <!-- TODO(yurij): only include the babel in the local env, or get rid of it completely, even in the local env -->
+  <script src="../../_static/js/babel.min.js"></script>
+
+  <script src="../../_static/js/react.js"></script>
+</head>
+
+<body class="pytorch-body">
+
+  <!-- header-holder is required by the theme for the sidebars to function properly` -->
+  <div id="header-holder">
+    <div id="lightning-ai-header">
+      
+    </div>
+  </div>
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <script>
+      function setColor() {
+        document.querySelectorAll('*[id^="codecell"]').forEach((x) => {
+          x.style.color = "#e0dbc9";
+        })
+      };
+      setTimeout(() => {
+        setColor();
+      }, 200)
+    </script>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+
+            
+              
+              
+                <div class="version">
+                  2.0.0dev
+                </div>
+              
+            
+
+            
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+            
+          </div>
+
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Home</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Welcome to ⚡ Lightning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install/installation.html">Install</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Get started in steps</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../basic/index.html">Basic skills</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Intermediate skills</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Advanced skills</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Core API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../core_api/lightning_app/index.html">LightningApp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../core_api/lightning_flow.html">LightningFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../core_api/lightning_work/index.html">LightningWork</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Addons API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference/components.html">lightning.app.components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference/frontend.html">lightning.app.frontend</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference/runners.html">lightning.app.runners</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference/storage.html">lightning.app.storage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">More</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://lightning.ai/components">Start from component templates</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://lightning.ai/apps">Start from app templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary/index.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../workflows/index.html">How to:</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="../../index.html">
+          
+            Docs
+          
+        </a> &gt;
+      </li>
+
+        
+          <li><a href="index.html">Intermediate skills</a> &gt;</li>
+        
+      <li>Level 7: Share variables between components</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/levels/intermediate/share_variables_between_lightning_components.rst.txt" rel="nofollow"><img src="../../_static/images/view-page-source-icon.svg"></a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+
+        
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <div class="section" id="level-7-share-variables-between-components">
+<h1>Level 7: Share variables between components<a class="headerlink" href="#level-7-share-variables-between-components" title="Permalink to this headline">¶</a></h1>
+<p><strong>Audience:</strong> Users who want to share variables and files across Lightning components.</p>
+<p><strong>Prereqs:</strong> You must have finished <a class="reference internal" href="run_lightning_work_in_parallel.html"><span class="doc">intermediate level 5+</span></a>.</p>
+<hr class="docutils" />
+<div class="section" id="send-a-variable-from-flow-to-a-component">
+<h2>Send a variable from Flow to a Component<a class="headerlink" href="#send-a-variable-from-flow-to-a-component" title="Permalink to this headline">¶</a></h2>
+<p>When a variable is defined on the LightningFlow (orchestrator), and
+then it’s passed into functions for the work components, under the hood
+Lightning sends the variables across the machines for you automatically.</p>
+<p><div id="code-block-cce4731152084bbea56ae41e0b687902" class="lit-tabs-container" style="height: 380px">
+    
+        <div class="tabs-holder col-md-3">
+            
+<div id="tab-tab-ceff8caaeb96436db5d36a44371239d3" class="tab tab-selected" onclick="openCity('tab-ceff8caaeb96436db5d36a44371239d3', 'code-block-cce4731152084bbea56ae41e0b687902')" onmouseover="openCity('tab-ceff8caaeb96436db5d36a44371239d3', 'code-block-cce4731152084bbea56ae41e0b687902')">
+    
+    <div class="tab-description">Remember this component may live on its own machine</div>
+</div>
+
+
+<div id="tab-tab-193a62b1a71b4454b5a611b88e14cc8a" class="tab" onclick="openCity('tab-193a62b1a71b4454b5a611b88e14cc8a', 'code-block-cce4731152084bbea56ae41e0b687902')" onmouseover="openCity('tab-193a62b1a71b4454b5a611b88e14cc8a', 'code-block-cce4731152084bbea56ae41e0b687902')">
+    
+    <div class="tab-description"> The flow may be on a separate machine as well</div>
+</div>
+
+
+<div id="tab-tab-54b2779aa0514ab68b62eebf770ec259" class="tab" onclick="openCity('tab-54b2779aa0514ab68b62eebf770ec259', 'code-block-cce4731152084bbea56ae41e0b687902')" onmouseover="openCity('tab-54b2779aa0514ab68b62eebf770ec259', 'code-block-cce4731152084bbea56ae41e0b687902')">
+    
+    <div class="tab-description"> This variable is on the flow machine</div>
+</div>
+
+
+<div id="tab-tab-0869995af1f942c7ade91eab7da78056" class="tab" onclick="openCity('tab-0869995af1f942c7ade91eab7da78056', 'code-block-cce4731152084bbea56ae41e0b687902')" onmouseover="openCity('tab-0869995af1f942c7ade91eab7da78056', 'code-block-cce4731152084bbea56ae41e0b687902')">
+    
+    <div class="tab-description"> When passed to the work component, it is actually sent across the network under the hood.</div>
+</div>
+
+
+<div id="tab-tab-6101bc1435f24e6db85d4c08cd33b109" class="tab" onclick="openCity('tab-6101bc1435f24e6db85d4c08cd33b109', 'code-block-cce4731152084bbea56ae41e0b687902')" onmouseover="openCity('tab-6101bc1435f24e6db85d4c08cd33b109', 'code-block-cce4731152084bbea56ae41e0b687902')">
+    
+    <div class="tab-description"> When it prints here, it prints on the work component machine (not the flow machine)</div>
+</div>
+
+
+<div id="tab-tab-cd7b2ba902f04f959b4063b7ae169036" class="tab" onclick="openCity('tab-cd7b2ba902f04f959b4063b7ae169036', 'code-block-cce4731152084bbea56ae41e0b687902')" onmouseover="openCity('tab-cd7b2ba902f04f959b4063b7ae169036', 'code-block-cce4731152084bbea56ae41e0b687902')">
+    
+    <div class="tab-description"> The second string was directly created on machine 1</div>
+</div>
+
+        </div>
+        <div class="content-holder col-md-9">
+            <div class="content-toggle-holder row">
+                <div class="toggles row">
+                    
+                </div>
+            </div>
+            <div class="code-holder row">
+                
+<div id="tab-ceff8caaeb96436db5d36a44371239d3" class="city tab-content" style="display:flex">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+<span class="hll"><span class="k">class</span> <span class="nc">Component</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+</span><span class="hll">    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+</span><span class="hll">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;MACHINE 1: this string came from machine 0: &quot;</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+</span><span class="hll">        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;MACHINE 1: this string is on machine 1&#39;</span><span class="p">)</span>
+</span>
+<span class="k">class</span> <span class="nc">WorkflowOrchestrator</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">component</span> <span class="o">=</span> <span class="n">Component</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;hello from machine 0&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">component</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">WorkflowOrchestrator</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-193a62b1a71b4454b5a611b88e14cc8a" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+<span class="k">class</span> <span class="nc">Component</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;MACHINE 1: this string came from machine 0: &quot;</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;MACHINE 1: this string is on machine 1&#39;</span><span class="p">)</span>
+
+<span class="hll"><span class="k">class</span> <span class="nc">WorkflowOrchestrator</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+</span><span class="hll">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span class="hll">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+</span><span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">component</span> <span class="o">=</span> <span class="n">Component</span><span class="p">()</span>
+</span><span class="hll">
+</span><span class="hll">    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class="hll">        <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;hello from machine 0&#39;</span>
+</span><span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">component</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">WorkflowOrchestrator</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-54b2779aa0514ab68b62eebf770ec259" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+<span class="k">class</span> <span class="nc">Component</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;MACHINE 1: this string came from machine 0: &quot;</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;MACHINE 1: this string is on machine 1&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">WorkflowOrchestrator</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">component</span> <span class="o">=</span> <span class="n">Component</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="hll">        <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;hello from machine 0&#39;</span>
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">component</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">WorkflowOrchestrator</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-0869995af1f942c7ade91eab7da78056" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+<span class="k">class</span> <span class="nc">Component</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;MACHINE 1: this string came from machine 0: &quot;</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;MACHINE 1: this string is on machine 1&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">WorkflowOrchestrator</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">component</span> <span class="o">=</span> <span class="n">Component</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;hello from machine 0&#39;</span>
+<span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">component</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">WorkflowOrchestrator</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-6101bc1435f24e6db85d4c08cd33b109" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+<span class="k">class</span> <span class="nc">Component</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="hll">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;MACHINE 1: this string came from machine 0: &quot;</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+</span>        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;MACHINE 1: this string is on machine 1&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">WorkflowOrchestrator</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">component</span> <span class="o">=</span> <span class="n">Component</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;hello from machine 0&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">component</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">WorkflowOrchestrator</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-cd7b2ba902f04f959b4063b7ae169036" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+<span class="k">class</span> <span class="nc">Component</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;MACHINE 1: this string came from machine 0: &quot;</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+<span class="hll">        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;MACHINE 1: this string is on machine 1&#39;</span><span class="p">)</span>
+</span>
+<span class="k">class</span> <span class="nc">WorkflowOrchestrator</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">component</span> <span class="o">=</span> <span class="n">Component</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;hello from machine 0&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">component</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">WorkflowOrchestrator</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+            </div>
+        </div>
+    
+    
+    <script type = "text/javascript">
+                        function openCity(a,b){var c,d=document.getElementById(b),e=d.getElementsByClassName("city");for(c=0;c<e.length;c++)e[c].style.display="none";document.getElementById(a).style.display="flex";var c,e=d.getElementsByClassName("tab");for(c=0;c<e.length;c++)e[c].classList.remove("tab-selected");document.getElementById("tab-"+a).classList.add("tab-selected")}
+    </script>
+    <script type = "text/javascript">
+                        function showCode(a){var b=document.getElementById(a),c="toggle-button-selected";Array.from(b.getElementsByClassName("toggle-btn-img")).forEach(a=>{var d=a.classList.contains(c);if(d){a.classList.remove(c);var a=b.getElementsByClassName("tab-code");for(i=0;i<a.length;i++)a[i].style.display="flex";var a=b.getElementsByClassName("tab-helper");for(i=0;i<a.length;i++)a[i].style.display="none"}else{a.classList.add(c);var a=b.getElementsByClassName("tab-code");for(i=0;i<a.length;i++)a[i].style.display="none";var a=b.getElementsByClassName("tab-helper");for(i=0;i<a.length;i++)a[i].style.display="flex"}})}
+    </script>
+    <script type = "text/javascript">
+                        function toggleHelperImage(a,b,c,d){var e,f=document.getElementById(a),g=f.getElementsByClassName(b);for(e=0;e<g.length;e++){function a(b){// toggle the width of the code
+            new_size=b?`calc(100% - ${c})`:"100%",Array.from(f.getElementsByClassName("tab-code")).forEach(a=>{a.style.width=new_size})}function b(a){selectedClass="toggle-button-selected",Array.from(f.getElementsByClassName("toggle-btn-img")).forEach(b=>{a?b.classList.add(selectedClass):b.classList.remove(selectedClass)})}function i(a){Array.from(f.getElementsByClassName("copybtn")).forEach(b=>{a?(b.classList.add("copybtn-split-open"),b.classList.remove("copybtn-split-closed")):(b.classList.add("copybtn-split-closed"),b.classList.remove("copybtn-split-open"))})}function j(a){Array.from(f.getElementsByClassName("tab-description")).forEach(b=>{a?b.classList.add("tab-description-img-active"):b.classList.remove("tab-description-img-active")})}function k(a){// toggle the width of the tabs
+            // tabs-holder col-md-4 -> col-md-2
+            // content-holder col-md-10
+            tabs_holder=f.getElementsByClassName("tabs-holder")[0],content_holder=f.getElementsByClassName("content-holder")[0],code_rows=12-d,a?(tabs_holder.classList.remove(`col-md-${d}`),tabs_holder.classList.add("col-md-2"),content_holder.classList.remove(`col-md-${code_rows}`),content_holder.classList.add("col-md-10")):(tabs_holder.classList.remove("col-md-2"),tabs_holder.classList.add(`col-md-${d}`),content_holder.classList.remove("col-md-10"),content_holder.classList.add(`col-md-${code_rows}`))}var h="none"==g[e].style.display;// toggle the image block
+            new_display=h?"flex":"none",g[e].style.display=new_display,a(h),k(h),j(h),i(h),b(h)}}
+    </script>
+    
+    
+    <script type = "text/javascript">
+                        function adjustCopyButton(a){var b=document.getElementById(a);Array.from(b.getElementsByClassName("copybtn")).forEach(a=>{a.classList.add("copybtn-default")})}
+    </script>
+    <script type = "text/javascript">
+        window.addEventListener('load', function() {
+            adjustCopyButton('code-block-cce4731152084bbea56ae41e0b687902');
+        });
+    </script>
+        
+    
+    <script type = "text/javascript">
+                        function adjustCopyButtonForRunOnly(a){var b=document.getElementById(a);Array.from(b.getElementsByClassName("copybtn")).forEach(a=>{a.classList.add("copybtn-run-only-closed")})}
+    </script>
+    <script type = "text/javascript">
+        window.addEventListener('load', function() {
+            adjustCopyButtonForRunOnly('code-block-cce4731152084bbea56ae41e0b687902');
+        });
+    </script>
+        
+    
+    
+<script type = "text/javascript">
+                    (function(){function a(a,c,d,e){const f=document.createElement("button");f.className="run-button",f.title="deploy this code on lightning.ai instantly",f.addEventListener("click",a&&"None"!==a?function(){window.LAI.runApp(a)}:function(){const a=b(d.innerText,"",!1,!0,!0,!0,"","");window.LAI.runAppFromCodeString(a,e)});const g=document.createElement("img");return g.className="tab-svg",g.src=c,f.appendChild(g),f}// The method below is copied from the copybutton we use in sphinx to copy the source code
+            // This logic will go away once the tab list is refactored to be shareable with the web app
+            // Callback when a copy button is clicked. Will be passed the node that was clicked
+            // should then grab the text and replace pieces of text that shouldn't be used in output
+            function b(a,b,d=!1,e=!0,f=!0,g=!0,h="",i=""){var j,k;j=d?new RegExp("^("+b+")(.*)"):new RegExp("^("+c(b)+")(.*)");const l=[];var m=!1,n=!1,o=!1;const p=[];for(const c of a.split("\n"))k=c.match(j),k||n||o?(m=j.test(c),p.push(m),f&&m?l.push(k[2]):l.push(c),n=c.endsWith(h)&!!h,c.includes(i)&!!i&&(o=!o)):e?g&&""===c.trim()&&l.push(c):l.push(c);// If no lines with the prompt were found then just use original lines
+            return p.some(a=>!0===a)&&(a=l.join("\n")),a.endsWith("\n")&&(a=a.slice(0,-1)),a}function c(a){return a.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");// $& means the whole matched string
+            }window.addRunButton=function(b,c,d,e){const f=document.querySelectorAll("#"+b+" .tab-content");for(const g of f){const b=g.querySelector(".tab-code > .highlight-default > .highlight"),f=b.getElementsByTagName("pre")[0];if(f&&"true"===d.toLowerCase())// nothing to run
+            {let d;try{const a=g.querySelector(".work-spec").innerText.trim();a&&(d=JSON.parse(a))}catch(a){console.error("error parsing work spec",a)}const h=a(c,e,f,d);b.appendChild(h)}}}})();
+    window.addEventListener('load', function() {
+        addRunButton('code-block-cce4731152084bbea56ae41e0b687902', 'None', 'true', '../../_static/images/icon-launch.svg');
+    });
+</script>
+    
+    
+    
+</div></p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<details class="summary-cli-output">
+<summary>CLI output</summary><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ lightning run app app.py --open-ui=false
+
+Your Lightning App is starting. This won&#39;t take long.
+INFO: Your app has started. View it in your browser: http://127.0.0.1:7501/view
+MACHINE 1: this string came from machine 0: &quot;hello from machine 0&quot;
+MACHINE 1: this string is on machine 1
+</pre></div>
+</div>
+</details><div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>In this example, we learned that we can send variables to components like in regular Python.
+On a local machine, it will behave like Python. When the workflow is distributed on the cloud,
+it makes network calls under the hood, but still functions like Python to you.</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="send-a-variable-between-two-components">
+<h2>Send a variable between two components<a class="headerlink" href="#send-a-variable-between-two-components" title="Permalink to this headline">¶</a></h2>
+<p>A majority of workflows (especially in ML), require components to respond to a change in a component
+likely running on a separate machine or even cluster.</p>
+<p>Example Continuous deployment: Every time a model saves a checkpoint, we redeploy a model:</p>
+<p><div id="code-block-e9772f2f10684f2d9a88db2ada2f6d62" class="lit-tabs-container" style="height: 690px">
+    
+        <div class="tabs-holder col-md-3">
+            
+<div id="tab-tab-ceb907e4f718432682643778e5a5eb92" class="tab tab-selected" onclick="openCity('tab-ceb907e4f718432682643778e5a5eb92', 'code-block-e9772f2f10684f2d9a88db2ada2f6d62')" onmouseover="openCity('tab-ceb907e4f718432682643778e5a5eb92', 'code-block-e9772f2f10684f2d9a88db2ada2f6d62')">
+    
+    <div class="tab-description">Define a component that simulates training</div>
+</div>
+
+
+<div id="tab-tab-596782431fe04b92a56873ed5509c71d" class="tab" onclick="openCity('tab-596782431fe04b92a56873ed5509c71d', 'code-block-e9772f2f10684f2d9a88db2ada2f6d62')" onmouseover="openCity('tab-596782431fe04b92a56873ed5509c71d', 'code-block-e9772f2f10684f2d9a88db2ada2f6d62')">
+    
+    <div class="tab-description"> Define a component that simulates deployment</div>
+</div>
+
+
+<div id="tab-tab-841a3b5bab7243eaaab489471438cfc8" class="tab" onclick="openCity('tab-841a3b5bab7243eaaab489471438cfc8', 'code-block-e9772f2f10684f2d9a88db2ada2f6d62')" onmouseover="openCity('tab-841a3b5bab7243eaaab489471438cfc8', 'code-block-e9772f2f10684f2d9a88db2ada2f6d62')">
+    
+    <div class="tab-description"> Training will happen in parallel over a long period</div>
+</div>
+
+
+<div id="tab-tab-4eb6dd35053646cca0f793a486e10c2e" class="tab" onclick="openCity('tab-4eb6dd35053646cca0f793a486e10c2e', 'code-block-e9772f2f10684f2d9a88db2ada2f6d62')" onmouseover="openCity('tab-4eb6dd35053646cca0f793a486e10c2e', 'code-block-e9772f2f10684f2d9a88db2ada2f6d62')">
+    
+    <div class="tab-description"> The deployment server also runs in parallel forever</div>
+</div>
+
+
+<div id="tab-tab-40eb14c21be9483aa59c0363b862ea02" class="tab" onclick="openCity('tab-40eb14c21be9483aa59c0363b862ea02', 'code-block-e9772f2f10684f2d9a88db2ada2f6d62')" onmouseover="openCity('tab-40eb14c21be9483aa59c0363b862ea02', 'code-block-e9772f2f10684f2d9a88db2ada2f6d62')">
+    
+    <div class="tab-description"> Start training in parallel (could take months)</div>
+</div>
+
+
+<div id="tab-tab-cab102230e944c58a2d0307a14e77eb9" class="tab" onclick="openCity('tab-cab102230e944c58a2d0307a14e77eb9', 'code-block-e9772f2f10684f2d9a88db2ada2f6d62')" onmouseover="openCity('tab-cab102230e944c58a2d0307a14e77eb9', 'code-block-e9772f2f10684f2d9a88db2ada2f6d62')">
+    
+    <div class="tab-description"> Whenever the model has a checkpoint deploy</div>
+</div>
+
+
+<div id="tab-tab-6931abcd6a83477da150d20d1ed4c319" class="tab" onclick="openCity('tab-6931abcd6a83477da150d20d1ed4c319', 'code-block-e9772f2f10684f2d9a88db2ada2f6d62')" onmouseover="openCity('tab-6931abcd6a83477da150d20d1ed4c319', 'code-block-e9772f2f10684f2d9a88db2ada2f6d62')">
+    
+    <div class="tab-description"> When the checkpoint is updated, model re-deploys</div>
+</div>
+
+        </div>
+        <div class="content-holder col-md-9">
+            <div class="content-toggle-holder row">
+                <div class="toggles row">
+                    
+                </div>
+            </div>
+            <div class="code-holder row">
+                
+<div id="tab-ceb907e4f718432682643778e5a5eb92" class="city tab-content" style="display:flex">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="hll"><span class="k">class</span> <span class="nc">TrainComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+</span><span class="hll">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span class="hll">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">last_checkpoint_path</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span class="hll">
+</span><span class="hll">    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class="hll">        <span class="c1"># pretend to train and save a checkpoint every 10 steps</span>
+</span><span class="hll">        <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">)):</span>
+</span><span class="hll">            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+</span><span class="hll">            <span class="n">fake_loss</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">step</span> <span class="o">+</span> <span class="mf">0.00001</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>
+</span><span class="hll">            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">step</span><span class="si">=}</span><span class="s1">: </span><span class="si">{</span><span class="n">fake_loss</span><span class="si">=}</span><span class="s1"> &#39;</span><span class="p">)</span>
+</span><span class="hll">            <span class="k">if</span> <span class="n">step</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span><span class="hll">                <span class="bp">self</span><span class="o">.</span><span class="n">last_checkpoint_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;/some/path/</span><span class="si">{</span><span class="n">step</span><span class="si">=}</span><span class="s1">_</span><span class="si">{</span><span class="n">fake_loss</span><span class="si">=}</span><span class="s1">&#39;</span>
+</span><span class="hll">                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;TRAIN COMPONENT: saved new checkpoint: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">last_checkpoint_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span>
+<span class="k">class</span> <span class="nc">ModelDeploymentComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_checkpoint</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;DEPLOY COMPONENT: load new model from checkpoint: </span><span class="si">{</span><span class="n">new_checkpoint</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">ContinuousDeployment</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span> <span class="o">=</span> <span class="n">TrainComponent</span><span class="p">(</span><span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_deployment</span> <span class="o">=</span> <span class="n">ModelDeploymentComponent</span><span class="p">(</span><span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">last_checkpoint_path</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model_deployment</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">last_checkpoint_path</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">ContinuousDeployment</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-596782431fe04b92a56873ed5509c71d" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">class</span> <span class="nc">TrainComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_checkpoint_path</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># pretend to train and save a checkpoint every 10 steps</span>
+        <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">)):</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">fake_loss</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">step</span> <span class="o">+</span> <span class="mf">0.00001</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">step</span><span class="si">=}</span><span class="s1">: </span><span class="si">{</span><span class="n">fake_loss</span><span class="si">=}</span><span class="s1"> &#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">step</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">last_checkpoint_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;/some/path/</span><span class="si">{</span><span class="n">step</span><span class="si">=}</span><span class="s1">_</span><span class="si">{</span><span class="n">fake_loss</span><span class="si">=}</span><span class="s1">&#39;</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;TRAIN COMPONENT: saved new checkpoint: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">last_checkpoint_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="hll"><span class="k">class</span> <span class="nc">ModelDeploymentComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+</span><span class="hll">    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_checkpoint</span><span class="p">):</span>
+</span><span class="hll">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;DEPLOY COMPONENT: load new model from checkpoint: </span><span class="si">{</span><span class="n">new_checkpoint</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span>
+<span class="k">class</span> <span class="nc">ContinuousDeployment</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span> <span class="o">=</span> <span class="n">TrainComponent</span><span class="p">(</span><span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_deployment</span> <span class="o">=</span> <span class="n">ModelDeploymentComponent</span><span class="p">(</span><span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">last_checkpoint_path</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model_deployment</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">last_checkpoint_path</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">ContinuousDeployment</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-841a3b5bab7243eaaab489471438cfc8" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">class</span> <span class="nc">TrainComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_checkpoint_path</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># pretend to train and save a checkpoint every 10 steps</span>
+        <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">)):</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">fake_loss</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">step</span> <span class="o">+</span> <span class="mf">0.00001</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">step</span><span class="si">=}</span><span class="s1">: </span><span class="si">{</span><span class="n">fake_loss</span><span class="si">=}</span><span class="s1"> &#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">step</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">last_checkpoint_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;/some/path/</span><span class="si">{</span><span class="n">step</span><span class="si">=}</span><span class="s1">_</span><span class="si">{</span><span class="n">fake_loss</span><span class="si">=}</span><span class="s1">&#39;</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;TRAIN COMPONENT: saved new checkpoint: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">last_checkpoint_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">ModelDeploymentComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_checkpoint</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;DEPLOY COMPONENT: load new model from checkpoint: </span><span class="si">{</span><span class="n">new_checkpoint</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">ContinuousDeployment</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+<span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">train</span> <span class="o">=</span> <span class="n">TrainComponent</span><span class="p">(</span><span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">model_deployment</span> <span class="o">=</span> <span class="n">ModelDeploymentComponent</span><span class="p">(</span><span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">last_checkpoint_path</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model_deployment</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">last_checkpoint_path</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">ContinuousDeployment</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-4eb6dd35053646cca0f793a486e10c2e" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">class</span> <span class="nc">TrainComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_checkpoint_path</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># pretend to train and save a checkpoint every 10 steps</span>
+        <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">)):</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">fake_loss</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">step</span> <span class="o">+</span> <span class="mf">0.00001</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">step</span><span class="si">=}</span><span class="s1">: </span><span class="si">{</span><span class="n">fake_loss</span><span class="si">=}</span><span class="s1"> &#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">step</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">last_checkpoint_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;/some/path/</span><span class="si">{</span><span class="n">step</span><span class="si">=}</span><span class="s1">_</span><span class="si">{</span><span class="n">fake_loss</span><span class="si">=}</span><span class="s1">&#39;</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;TRAIN COMPONENT: saved new checkpoint: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">last_checkpoint_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">ModelDeploymentComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_checkpoint</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;DEPLOY COMPONENT: load new model from checkpoint: </span><span class="si">{</span><span class="n">new_checkpoint</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">ContinuousDeployment</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span> <span class="o">=</span> <span class="n">TrainComponent</span><span class="p">(</span><span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">model_deployment</span> <span class="o">=</span> <span class="n">ModelDeploymentComponent</span><span class="p">(</span><span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">last_checkpoint_path</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model_deployment</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">last_checkpoint_path</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">ContinuousDeployment</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-40eb14c21be9483aa59c0363b862ea02" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">class</span> <span class="nc">TrainComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_checkpoint_path</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># pretend to train and save a checkpoint every 10 steps</span>
+        <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">)):</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">fake_loss</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">step</span> <span class="o">+</span> <span class="mf">0.00001</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">step</span><span class="si">=}</span><span class="s1">: </span><span class="si">{</span><span class="n">fake_loss</span><span class="si">=}</span><span class="s1"> &#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">step</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">last_checkpoint_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;/some/path/</span><span class="si">{</span><span class="n">step</span><span class="si">=}</span><span class="s1">_</span><span class="si">{</span><span class="n">fake_loss</span><span class="si">=}</span><span class="s1">&#39;</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;TRAIN COMPONENT: saved new checkpoint: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">last_checkpoint_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">ModelDeploymentComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_checkpoint</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;DEPLOY COMPONENT: load new model from checkpoint: </span><span class="si">{</span><span class="n">new_checkpoint</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">ContinuousDeployment</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span> <span class="o">=</span> <span class="n">TrainComponent</span><span class="p">(</span><span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_deployment</span> <span class="o">=</span> <span class="n">ModelDeploymentComponent</span><span class="p">(</span><span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">last_checkpoint_path</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model_deployment</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">last_checkpoint_path</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">ContinuousDeployment</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-cab102230e944c58a2d0307a14e77eb9" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">class</span> <span class="nc">TrainComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_checkpoint_path</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># pretend to train and save a checkpoint every 10 steps</span>
+        <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">)):</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">fake_loss</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">step</span> <span class="o">+</span> <span class="mf">0.00001</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">step</span><span class="si">=}</span><span class="s1">: </span><span class="si">{</span><span class="n">fake_loss</span><span class="si">=}</span><span class="s1"> &#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">step</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">last_checkpoint_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;/some/path/</span><span class="si">{</span><span class="n">step</span><span class="si">=}</span><span class="s1">_</span><span class="si">{</span><span class="n">fake_loss</span><span class="si">=}</span><span class="s1">&#39;</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;TRAIN COMPONENT: saved new checkpoint: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">last_checkpoint_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">ModelDeploymentComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_checkpoint</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;DEPLOY COMPONENT: load new model from checkpoint: </span><span class="si">{</span><span class="n">new_checkpoint</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">ContinuousDeployment</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span> <span class="o">=</span> <span class="n">TrainComponent</span><span class="p">(</span><span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_deployment</span> <span class="o">=</span> <span class="n">ModelDeploymentComponent</span><span class="p">(</span><span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="hll">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">last_checkpoint_path</span><span class="p">:</span>
+</span><span class="hll">            <span class="bp">self</span><span class="o">.</span><span class="n">model_deployment</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">last_checkpoint_path</span><span class="p">)</span>
+</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">ContinuousDeployment</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-6931abcd6a83477da150d20d1ed4c319" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">class</span> <span class="nc">TrainComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_checkpoint_path</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># pretend to train and save a checkpoint every 10 steps</span>
+        <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">)):</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">fake_loss</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">step</span> <span class="o">+</span> <span class="mf">0.00001</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">step</span><span class="si">=}</span><span class="s1">: </span><span class="si">{</span><span class="n">fake_loss</span><span class="si">=}</span><span class="s1"> &#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">step</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">last_checkpoint_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;/some/path/</span><span class="si">{</span><span class="n">step</span><span class="si">=}</span><span class="s1">_</span><span class="si">{</span><span class="n">fake_loss</span><span class="si">=}</span><span class="s1">&#39;</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;TRAIN COMPONENT: saved new checkpoint: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">last_checkpoint_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">ModelDeploymentComponent</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_checkpoint</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;DEPLOY COMPONENT: load new model from checkpoint: </span><span class="si">{</span><span class="n">new_checkpoint</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">ContinuousDeployment</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span> <span class="o">=</span> <span class="n">TrainComponent</span><span class="p">(</span><span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_deployment</span> <span class="o">=</span> <span class="n">ModelDeploymentComponent</span><span class="p">(</span><span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">last_checkpoint_path</span><span class="p">:</span>
+<span class="hll">            <span class="bp">self</span><span class="o">.</span><span class="n">model_deployment</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">last_checkpoint_path</span><span class="p">)</span>
+</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">ContinuousDeployment</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+            </div>
+        </div>
+    
+    
+    <script type = "text/javascript">
+                        function openCity(a,b){var c,d=document.getElementById(b),e=d.getElementsByClassName("city");for(c=0;c<e.length;c++)e[c].style.display="none";document.getElementById(a).style.display="flex";var c,e=d.getElementsByClassName("tab");for(c=0;c<e.length;c++)e[c].classList.remove("tab-selected");document.getElementById("tab-"+a).classList.add("tab-selected")}
+    </script>
+    <script type = "text/javascript">
+                        function showCode(a){var b=document.getElementById(a),c="toggle-button-selected";Array.from(b.getElementsByClassName("toggle-btn-img")).forEach(a=>{var d=a.classList.contains(c);if(d){a.classList.remove(c);var a=b.getElementsByClassName("tab-code");for(i=0;i<a.length;i++)a[i].style.display="flex";var a=b.getElementsByClassName("tab-helper");for(i=0;i<a.length;i++)a[i].style.display="none"}else{a.classList.add(c);var a=b.getElementsByClassName("tab-code");for(i=0;i<a.length;i++)a[i].style.display="none";var a=b.getElementsByClassName("tab-helper");for(i=0;i<a.length;i++)a[i].style.display="flex"}})}
+    </script>
+    <script type = "text/javascript">
+                        function toggleHelperImage(a,b,c,d){var e,f=document.getElementById(a),g=f.getElementsByClassName(b);for(e=0;e<g.length;e++){function a(b){// toggle the width of the code
+            new_size=b?`calc(100% - ${c})`:"100%",Array.from(f.getElementsByClassName("tab-code")).forEach(a=>{a.style.width=new_size})}function b(a){selectedClass="toggle-button-selected",Array.from(f.getElementsByClassName("toggle-btn-img")).forEach(b=>{a?b.classList.add(selectedClass):b.classList.remove(selectedClass)})}function i(a){Array.from(f.getElementsByClassName("copybtn")).forEach(b=>{a?(b.classList.add("copybtn-split-open"),b.classList.remove("copybtn-split-closed")):(b.classList.add("copybtn-split-closed"),b.classList.remove("copybtn-split-open"))})}function j(a){Array.from(f.getElementsByClassName("tab-description")).forEach(b=>{a?b.classList.add("tab-description-img-active"):b.classList.remove("tab-description-img-active")})}function k(a){// toggle the width of the tabs
+            // tabs-holder col-md-4 -> col-md-2
+            // content-holder col-md-10
+            tabs_holder=f.getElementsByClassName("tabs-holder")[0],content_holder=f.getElementsByClassName("content-holder")[0],code_rows=12-d,a?(tabs_holder.classList.remove(`col-md-${d}`),tabs_holder.classList.add("col-md-2"),content_holder.classList.remove(`col-md-${code_rows}`),content_holder.classList.add("col-md-10")):(tabs_holder.classList.remove("col-md-2"),tabs_holder.classList.add(`col-md-${d}`),content_holder.classList.remove("col-md-10"),content_holder.classList.add(`col-md-${code_rows}`))}var h="none"==g[e].style.display;// toggle the image block
+            new_display=h?"flex":"none",g[e].style.display=new_display,a(h),k(h),j(h),i(h),b(h)}}
+    </script>
+    
+    
+    <script type = "text/javascript">
+                        function adjustCopyButton(a){var b=document.getElementById(a);Array.from(b.getElementsByClassName("copybtn")).forEach(a=>{a.classList.add("copybtn-default")})}
+    </script>
+    <script type = "text/javascript">
+        window.addEventListener('load', function() {
+            adjustCopyButton('code-block-e9772f2f10684f2d9a88db2ada2f6d62');
+        });
+    </script>
+        
+    
+    <script type = "text/javascript">
+                        function adjustCopyButtonForRunOnly(a){var b=document.getElementById(a);Array.from(b.getElementsByClassName("copybtn")).forEach(a=>{a.classList.add("copybtn-run-only-closed")})}
+    </script>
+    <script type = "text/javascript">
+        window.addEventListener('load', function() {
+            adjustCopyButtonForRunOnly('code-block-e9772f2f10684f2d9a88db2ada2f6d62');
+        });
+    </script>
+        
+    
+    
+<script type = "text/javascript">
+                    (function(){function a(a,c,d,e){const f=document.createElement("button");f.className="run-button",f.title="deploy this code on lightning.ai instantly",f.addEventListener("click",a&&"None"!==a?function(){window.LAI.runApp(a)}:function(){const a=b(d.innerText,"",!1,!0,!0,!0,"","");window.LAI.runAppFromCodeString(a,e)});const g=document.createElement("img");return g.className="tab-svg",g.src=c,f.appendChild(g),f}// The method below is copied from the copybutton we use in sphinx to copy the source code
+            // This logic will go away once the tab list is refactored to be shareable with the web app
+            // Callback when a copy button is clicked. Will be passed the node that was clicked
+            // should then grab the text and replace pieces of text that shouldn't be used in output
+            function b(a,b,d=!1,e=!0,f=!0,g=!0,h="",i=""){var j,k;j=d?new RegExp("^("+b+")(.*)"):new RegExp("^("+c(b)+")(.*)");const l=[];var m=!1,n=!1,o=!1;const p=[];for(const c of a.split("\n"))k=c.match(j),k||n||o?(m=j.test(c),p.push(m),f&&m?l.push(k[2]):l.push(c),n=c.endsWith(h)&!!h,c.includes(i)&!!i&&(o=!o)):e?g&&""===c.trim()&&l.push(c):l.push(c);// If no lines with the prompt were found then just use original lines
+            return p.some(a=>!0===a)&&(a=l.join("\n")),a.endsWith("\n")&&(a=a.slice(0,-1)),a}function c(a){return a.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");// $& means the whole matched string
+            }window.addRunButton=function(b,c,d,e){const f=document.querySelectorAll("#"+b+" .tab-content");for(const g of f){const b=g.querySelector(".tab-code > .highlight-default > .highlight"),f=b.getElementsByTagName("pre")[0];if(f&&"true"===d.toLowerCase())// nothing to run
+            {let d;try{const a=g.querySelector(".work-spec").innerText.trim();a&&(d=JSON.parse(a))}catch(a){console.error("error parsing work spec",a)}const h=a(c,e,f,d);b.appendChild(h)}}}})();
+    window.addEventListener('load', function() {
+        addRunButton('code-block-e9772f2f10684f2d9a88db2ada2f6d62', 'None', 'true', '../../_static/images/icon-launch.svg');
+    });
+</script>
+    
+    
+    
+</div></p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<details class="summary-cli-output">
+<summary>CLI output:</summary><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ lightning run app app.py --open-ui=false
+
+Your Lightning App is starting. This won&#39;t take long.
+INFO: Your app has started. View it in your browser: http://127.0.0.1:7501/view
+step=0: fake_loss=100000.0
+TRAIN COMPONENT: saved new checkpoint: /some/path/step=0_fake_loss=100000.0
+step=1: fake_loss=1.0
+DEPLOY COMPONENT: load new model from checkpoint: /some/path/step=0_fake_loss=100000.0
+step=2: fake_loss=0.5
+step=3: fake_loss=0.3333
+step=4: fake_loss=0.25
+step=5: fake_loss=0.2
+step=6: fake_loss=0.1667
+step=7: fake_loss=0.1429
+step=8: fake_loss=0.125
+step=9: fake_loss=0.1111
+step=10: fake_loss=0.1
+TRAIN COMPONENT: saved new checkpoint: /some/path/step=10_fake_loss=0.1
+DEPLOY COMPONENT: load new model from checkpoint: /some/path/step=10_fake_loss=0.1
+step=11: fake_loss=0.0909
+step=12: fake_loss=0.0833
+step=13: fake_loss=0.0769
+step=14: fake_loss=0.0714
+step=15: fake_loss=0.0667
+step=16: fake_loss=0.0625
+step=17: fake_loss=0.0588
+step=18: fake_loss=0.0556
+step=19: fake_loss=0.0526
+step=20: fake_loss=0.05
+TRAIN COMPONENT: saved new checkpoint: /some/path/step=20_fake_loss=0.05
+DEPLOY COMPONENT: load new model from checkpoint: /some/path/step=20_fake_loss=0.05
+step=21: fake_loss=0.0476
+</pre></div>
+</div>
+</details></div>
+<hr class="docutils" />
+<div class="section" id="send-a-large-variable-between-two-components">
+<h2>Send a large variable between two components<a class="headerlink" href="#send-a-large-variable-between-two-components" title="Permalink to this headline">¶</a></h2>
+<p>For large variables such as arrays, tensors, embeddings and so on, use Payload to enable
+transfering them across components.</p>
+<p><div id="code-block-96adfa66418d4225a7c0246d640fe3d3" class="lit-tabs-container" style="height: 600px">
+    
+        <div class="tabs-holder col-md-3">
+            
+<div id="tab-tab-aa0a6592e4b54e23bfd3764ebf842f39" class="tab tab-selected" onclick="openCity('tab-aa0a6592e4b54e23bfd3764ebf842f39', 'code-block-96adfa66418d4225a7c0246d640fe3d3')" onmouseover="openCity('tab-aa0a6592e4b54e23bfd3764ebf842f39', 'code-block-96adfa66418d4225a7c0246d640fe3d3')">
+    
+    <div class="tab-description">Let's define a component to simulate generating embeddings (from a DB, feature store, etc...)</div>
+</div>
+
+
+<div id="tab-tab-922cd6fafc214f81a1b0a707706152cc" class="tab" onclick="openCity('tab-922cd6fafc214f81a1b0a707706152cc', 'code-block-96adfa66418d4225a7c0246d640fe3d3')" onmouseover="openCity('tab-922cd6fafc214f81a1b0a707706152cc', 'code-block-96adfa66418d4225a7c0246d640fe3d3')">
+    
+    <div class="tab-description"> This component simulates a server that will use the embeddings.</div>
+</div>
+
+
+<div id="tab-tab-aaa2b36d2aa1451785ea11bf03fe7225" class="tab" onclick="openCity('tab-aaa2b36d2aa1451785ea11bf03fe7225', 'code-block-96adfa66418d4225a7c0246d640fe3d3')" onmouseover="openCity('tab-aaa2b36d2aa1451785ea11bf03fe7225', 'code-block-96adfa66418d4225a7c0246d640fe3d3')">
+    
+    <div class="tab-description"> Run the component to generate the embeddings</div>
+</div>
+
+
+<div id="tab-tab-9bd4049f325447159793dac5fa665755" class="tab" onclick="openCity('tab-9bd4049f325447159793dac5fa665755', 'code-block-96adfa66418d4225a7c0246d640fe3d3')" onmouseover="openCity('tab-9bd4049f325447159793dac5fa665755', 'code-block-96adfa66418d4225a7c0246d640fe3d3')">
+    
+    <div class="tab-description"> Simulate embeddings as an array. Here you would query a DB, load from a feature store or disk or even use a neural network to extract the embedding.</div>
+</div>
+
+
+<div id="tab-tab-c6c957124694421f9544b21db1c13289" class="tab" onclick="openCity('tab-c6c957124694421f9544b21db1c13289', 'code-block-96adfa66418d4225a7c0246d640fe3d3')" onmouseover="openCity('tab-c6c957124694421f9544b21db1c13289', 'code-block-96adfa66418d4225a7c0246d640fe3d3')">
+    
+    <div class="tab-description"> Allow the embeddings to be transfered efficiently by wrapping them in the Payload object.</div>
+</div>
+
+
+<div id="tab-tab-3758a65274824791aeed6b815c167f82" class="tab" onclick="openCity('tab-3758a65274824791aeed6b815c167f82', 'code-block-96adfa66418d4225a7c0246d640fe3d3')" onmouseover="openCity('tab-3758a65274824791aeed6b815c167f82', 'code-block-96adfa66418d4225a7c0246d640fe3d3')">
+    
+    <div class="tab-description"> Pass the variable to the EmbeddingServer (just the pointer).</div>
+</div>
+
+
+<div id="tab-tab-231ab577dc684d608c7c2a1226a7ebc8" class="tab" onclick="openCity('tab-231ab577dc684d608c7c2a1226a7ebc8', 'code-block-96adfa66418d4225a7c0246d640fe3d3')" onmouseover="openCity('tab-231ab577dc684d608c7c2a1226a7ebc8', 'code-block-96adfa66418d4225a7c0246d640fe3d3')">
+    
+    <div class="tab-description"> The data gets transfered once you use the .value attribute in the other component.</div>
+</div>
+
+        </div>
+        <div class="content-holder col-md-9">
+            <div class="content-toggle-holder row">
+                <div class="toggles row">
+                    
+                </div>
+            </div>
+            <div class="code-holder row">
+                
+<div id="tab-aa0a6592e4b54e23bfd3764ebf842f39" class="city tab-content" style="display:flex">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+
+<span class="hll"><span class="k">class</span> <span class="nc">EmbeddingProcessor</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+</span><span class="hll">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span class="hll">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">embeddings</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span class="hll">
+</span><span class="hll">    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class="hll">        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;PROCESSOR: Generating embeddings...&#39;</span><span class="p">)</span>
+</span><span class="hll">        <span class="n">fake_embeddings</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]]</span>
+</span><span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">Payload</span><span class="p">(</span><span class="n">fake_embeddings</span><span class="p">)</span>
+</span>
+<span class="k">class</span> <span class="nc">EmbeddingServer</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;SERVER: Using embeddings from processor&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
+        <span class="n">embeddings</span> <span class="o">=</span> <span class="n">payload</span><span class="o">.</span><span class="n">value</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;serving embeddings sent from EmbeddingProcessor: &#39;</span><span class="p">,</span> <span class="n">embeddings</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">WorkflowOrchestrator</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">processor</span> <span class="o">=</span> <span class="n">EmbeddingProcessor</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span> <span class="o">=</span> <span class="n">EmbeddingServer</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">processor</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">processor</span><span class="o">.</span><span class="n">embeddings</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">WorkflowOrchestrator</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-922cd6fafc214f81a1b0a707706152cc" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+
+<span class="k">class</span> <span class="nc">EmbeddingProcessor</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embeddings</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;PROCESSOR: Generating embeddings...&#39;</span><span class="p">)</span>
+        <span class="n">fake_embeddings</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">Payload</span><span class="p">(</span><span class="n">fake_embeddings</span><span class="p">)</span>
+
+<span class="hll"><span class="k">class</span> <span class="nc">EmbeddingServer</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+</span><span class="hll">    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
+</span><span class="hll">        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;SERVER: Using embeddings from processor&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
+</span><span class="hll">        <span class="n">embeddings</span> <span class="o">=</span> <span class="n">payload</span><span class="o">.</span><span class="n">value</span>
+</span><span class="hll">        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;serving embeddings sent from EmbeddingProcessor: &#39;</span><span class="p">,</span> <span class="n">embeddings</span><span class="p">)</span>
+</span>
+<span class="k">class</span> <span class="nc">WorkflowOrchestrator</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">processor</span> <span class="o">=</span> <span class="n">EmbeddingProcessor</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span> <span class="o">=</span> <span class="n">EmbeddingServer</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">processor</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">processor</span><span class="o">.</span><span class="n">embeddings</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">WorkflowOrchestrator</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-aaa2b36d2aa1451785ea11bf03fe7225" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+
+<span class="k">class</span> <span class="nc">EmbeddingProcessor</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embeddings</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;PROCESSOR: Generating embeddings...&#39;</span><span class="p">)</span>
+        <span class="n">fake_embeddings</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">Payload</span><span class="p">(</span><span class="n">fake_embeddings</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">EmbeddingServer</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;SERVER: Using embeddings from processor&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
+        <span class="n">embeddings</span> <span class="o">=</span> <span class="n">payload</span><span class="o">.</span><span class="n">value</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;serving embeddings sent from EmbeddingProcessor: &#39;</span><span class="p">,</span> <span class="n">embeddings</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">WorkflowOrchestrator</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">processor</span> <span class="o">=</span> <span class="n">EmbeddingProcessor</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span> <span class="o">=</span> <span class="n">EmbeddingServer</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">processor</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">processor</span><span class="o">.</span><span class="n">embeddings</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">WorkflowOrchestrator</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-9bd4049f325447159793dac5fa665755" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+
+<span class="k">class</span> <span class="nc">EmbeddingProcessor</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embeddings</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;PROCESSOR: Generating embeddings...&#39;</span><span class="p">)</span>
+<span class="hll">        <span class="n">fake_embeddings</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]]</span>
+</span>        <span class="bp">self</span><span class="o">.</span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">Payload</span><span class="p">(</span><span class="n">fake_embeddings</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">EmbeddingServer</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;SERVER: Using embeddings from processor&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
+        <span class="n">embeddings</span> <span class="o">=</span> <span class="n">payload</span><span class="o">.</span><span class="n">value</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;serving embeddings sent from EmbeddingProcessor: &#39;</span><span class="p">,</span> <span class="n">embeddings</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">WorkflowOrchestrator</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">processor</span> <span class="o">=</span> <span class="n">EmbeddingProcessor</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span> <span class="o">=</span> <span class="n">EmbeddingServer</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">processor</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">processor</span><span class="o">.</span><span class="n">embeddings</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">WorkflowOrchestrator</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-c6c957124694421f9544b21db1c13289" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+
+<span class="k">class</span> <span class="nc">EmbeddingProcessor</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embeddings</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;PROCESSOR: Generating embeddings...&#39;</span><span class="p">)</span>
+        <span class="n">fake_embeddings</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]]</span>
+<span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">Payload</span><span class="p">(</span><span class="n">fake_embeddings</span><span class="p">)</span>
+</span>
+<span class="k">class</span> <span class="nc">EmbeddingServer</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;SERVER: Using embeddings from processor&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
+        <span class="n">embeddings</span> <span class="o">=</span> <span class="n">payload</span><span class="o">.</span><span class="n">value</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;serving embeddings sent from EmbeddingProcessor: &#39;</span><span class="p">,</span> <span class="n">embeddings</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">WorkflowOrchestrator</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">processor</span> <span class="o">=</span> <span class="n">EmbeddingProcessor</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span> <span class="o">=</span> <span class="n">EmbeddingServer</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">processor</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">processor</span><span class="o">.</span><span class="n">embeddings</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">WorkflowOrchestrator</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-3758a65274824791aeed6b815c167f82" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+
+<span class="k">class</span> <span class="nc">EmbeddingProcessor</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embeddings</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;PROCESSOR: Generating embeddings...&#39;</span><span class="p">)</span>
+        <span class="n">fake_embeddings</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">Payload</span><span class="p">(</span><span class="n">fake_embeddings</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">EmbeddingServer</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;SERVER: Using embeddings from processor&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
+        <span class="n">embeddings</span> <span class="o">=</span> <span class="n">payload</span><span class="o">.</span><span class="n">value</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;serving embeddings sent from EmbeddingProcessor: &#39;</span><span class="p">,</span> <span class="n">embeddings</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">WorkflowOrchestrator</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">processor</span> <span class="o">=</span> <span class="n">EmbeddingProcessor</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span> <span class="o">=</span> <span class="n">EmbeddingServer</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">processor</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">processor</span><span class="o">.</span><span class="n">embeddings</span><span class="p">)</span>
+</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">WorkflowOrchestrator</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-231ab577dc684d608c7c2a1226a7ebc8" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+
+<span class="k">class</span> <span class="nc">EmbeddingProcessor</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embeddings</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;PROCESSOR: Generating embeddings...&#39;</span><span class="p">)</span>
+        <span class="n">fake_embeddings</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">Payload</span><span class="p">(</span><span class="n">fake_embeddings</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">EmbeddingServer</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;SERVER: Using embeddings from processor&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
+<span class="hll">        <span class="n">embeddings</span> <span class="o">=</span> <span class="n">payload</span><span class="o">.</span><span class="n">value</span>
+</span>        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;serving embeddings sent from EmbeddingProcessor: &#39;</span><span class="p">,</span> <span class="n">embeddings</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">WorkflowOrchestrator</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">processor</span> <span class="o">=</span> <span class="n">EmbeddingProcessor</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span> <span class="o">=</span> <span class="n">EmbeddingServer</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">processor</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">processor</span><span class="o">.</span><span class="n">embeddings</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">WorkflowOrchestrator</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+            </div>
+        </div>
+    
+    
+    <script type = "text/javascript">
+                        function openCity(a,b){var c,d=document.getElementById(b),e=d.getElementsByClassName("city");for(c=0;c<e.length;c++)e[c].style.display="none";document.getElementById(a).style.display="flex";var c,e=d.getElementsByClassName("tab");for(c=0;c<e.length;c++)e[c].classList.remove("tab-selected");document.getElementById("tab-"+a).classList.add("tab-selected")}
+    </script>
+    <script type = "text/javascript">
+                        function showCode(a){var b=document.getElementById(a),c="toggle-button-selected";Array.from(b.getElementsByClassName("toggle-btn-img")).forEach(a=>{var d=a.classList.contains(c);if(d){a.classList.remove(c);var a=b.getElementsByClassName("tab-code");for(i=0;i<a.length;i++)a[i].style.display="flex";var a=b.getElementsByClassName("tab-helper");for(i=0;i<a.length;i++)a[i].style.display="none"}else{a.classList.add(c);var a=b.getElementsByClassName("tab-code");for(i=0;i<a.length;i++)a[i].style.display="none";var a=b.getElementsByClassName("tab-helper");for(i=0;i<a.length;i++)a[i].style.display="flex"}})}
+    </script>
+    <script type = "text/javascript">
+                        function toggleHelperImage(a,b,c,d){var e,f=document.getElementById(a),g=f.getElementsByClassName(b);for(e=0;e<g.length;e++){function a(b){// toggle the width of the code
+            new_size=b?`calc(100% - ${c})`:"100%",Array.from(f.getElementsByClassName("tab-code")).forEach(a=>{a.style.width=new_size})}function b(a){selectedClass="toggle-button-selected",Array.from(f.getElementsByClassName("toggle-btn-img")).forEach(b=>{a?b.classList.add(selectedClass):b.classList.remove(selectedClass)})}function i(a){Array.from(f.getElementsByClassName("copybtn")).forEach(b=>{a?(b.classList.add("copybtn-split-open"),b.classList.remove("copybtn-split-closed")):(b.classList.add("copybtn-split-closed"),b.classList.remove("copybtn-split-open"))})}function j(a){Array.from(f.getElementsByClassName("tab-description")).forEach(b=>{a?b.classList.add("tab-description-img-active"):b.classList.remove("tab-description-img-active")})}function k(a){// toggle the width of the tabs
+            // tabs-holder col-md-4 -> col-md-2
+            // content-holder col-md-10
+            tabs_holder=f.getElementsByClassName("tabs-holder")[0],content_holder=f.getElementsByClassName("content-holder")[0],code_rows=12-d,a?(tabs_holder.classList.remove(`col-md-${d}`),tabs_holder.classList.add("col-md-2"),content_holder.classList.remove(`col-md-${code_rows}`),content_holder.classList.add("col-md-10")):(tabs_holder.classList.remove("col-md-2"),tabs_holder.classList.add(`col-md-${d}`),content_holder.classList.remove("col-md-10"),content_holder.classList.add(`col-md-${code_rows}`))}var h="none"==g[e].style.display;// toggle the image block
+            new_display=h?"flex":"none",g[e].style.display=new_display,a(h),k(h),j(h),i(h),b(h)}}
+    </script>
+    
+    
+    <script type = "text/javascript">
+                        function adjustCopyButton(a){var b=document.getElementById(a);Array.from(b.getElementsByClassName("copybtn")).forEach(a=>{a.classList.add("copybtn-default")})}
+    </script>
+    <script type = "text/javascript">
+        window.addEventListener('load', function() {
+            adjustCopyButton('code-block-96adfa66418d4225a7c0246d640fe3d3');
+        });
+    </script>
+        
+    
+    <script type = "text/javascript">
+                        function adjustCopyButtonForRunOnly(a){var b=document.getElementById(a);Array.from(b.getElementsByClassName("copybtn")).forEach(a=>{a.classList.add("copybtn-run-only-closed")})}
+    </script>
+    <script type = "text/javascript">
+        window.addEventListener('load', function() {
+            adjustCopyButtonForRunOnly('code-block-96adfa66418d4225a7c0246d640fe3d3');
+        });
+    </script>
+        
+    
+    
+<script type = "text/javascript">
+                    (function(){function a(a,c,d,e){const f=document.createElement("button");f.className="run-button",f.title="deploy this code on lightning.ai instantly",f.addEventListener("click",a&&"None"!==a?function(){window.LAI.runApp(a)}:function(){const a=b(d.innerText,"",!1,!0,!0,!0,"","");window.LAI.runAppFromCodeString(a,e)});const g=document.createElement("img");return g.className="tab-svg",g.src=c,f.appendChild(g),f}// The method below is copied from the copybutton we use in sphinx to copy the source code
+            // This logic will go away once the tab list is refactored to be shareable with the web app
+            // Callback when a copy button is clicked. Will be passed the node that was clicked
+            // should then grab the text and replace pieces of text that shouldn't be used in output
+            function b(a,b,d=!1,e=!0,f=!0,g=!0,h="",i=""){var j,k;j=d?new RegExp("^("+b+")(.*)"):new RegExp("^("+c(b)+")(.*)");const l=[];var m=!1,n=!1,o=!1;const p=[];for(const c of a.split("\n"))k=c.match(j),k||n||o?(m=j.test(c),p.push(m),f&&m?l.push(k[2]):l.push(c),n=c.endsWith(h)&!!h,c.includes(i)&!!i&&(o=!o)):e?g&&""===c.trim()&&l.push(c):l.push(c);// If no lines with the prompt were found then just use original lines
+            return p.some(a=>!0===a)&&(a=l.join("\n")),a.endsWith("\n")&&(a=a.slice(0,-1)),a}function c(a){return a.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");// $& means the whole matched string
+            }window.addRunButton=function(b,c,d,e){const f=document.querySelectorAll("#"+b+" .tab-content");for(const g of f){const b=g.querySelector(".tab-code > .highlight-default > .highlight"),f=b.getElementsByTagName("pre")[0];if(f&&"true"===d.toLowerCase())// nothing to run
+            {let d;try{const a=g.querySelector(".work-spec").innerText.trim();a&&(d=JSON.parse(a))}catch(a){console.error("error parsing work spec",a)}const h=a(c,e,f,d);b.appendChild(h)}}}})();
+    window.addEventListener('load', function() {
+        addRunButton('code-block-96adfa66418d4225a7c0246d640fe3d3', 'None', 'true', '../../_static/images/icon-launch.svg');
+    });
+</script>
+    
+    
+    
+</div></p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<details class="summary-cli-output">
+<summary>CLI output</summary><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ lightning run app app.py --open-ui=false
+
+Your Lightning App is starting. This won&#39;t take long.
+INFO: Your app has started. View it in your browser: http://127.0.0.1:7501/view
+PROCESSOR: Generating embeddings...
+SERVER: Using embeddings from processor &lt;lightning.app.storage.payload.Payload object at 0x123383d60&gt;
+serving embeddings sent from EmbeddingProcessor:  [[1, 2, 3], [2, 3, 4]]
+</pre></div>
+</div>
+</details><div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>The payload object keeps the data on the machine and passes a pointer
+to the data around the app until the data is needed by a component.</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="next-steps-share-files-between-components">
+<h2>Next steps: Share files between components<a class="headerlink" href="#next-steps-share-files-between-components" title="Permalink to this headline">¶</a></h2>
+<p>Now that you know how to run components in parallel, we’ll learn to share variables
+across components to simplify complex workflows.</p>
+<div class="display-card-container">
+    <div class="row"><p><div class="col-md-12">
+    <a href='share_files_between_components.html'>
+    <div class="display-card display-card-hover" style='height:150px'>
+            <div class=""></div>
+            <h3>Level 8: Share files between components</h3>
+            <p class="body-paragraph">Learn to share files between components.</p>
+    </div>
+    </a>
+    <div class='card-tag'>10 minutes</div>
+</div></p>
+    </div>
+</div></div>
+</div>
+
+
+             </article>
+             
+            </div>
+          </div>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              <ul>
+<li><a class="reference internal" href="#">Level 7: Share variables between components</a><ul>
+<li><a class="reference internal" href="#send-a-variable-from-flow-to-a-component">Send a variable from Flow to a Component</a></li>
+<li><a class="reference internal" href="#send-a-variable-between-two-components">Send a variable between two components</a></li>
+<li><a class="reference internal" href="#send-a-large-variable-between-two-components">Send a large variable between two components</a></li>
+<li><a class="reference internal" href="#next-steps-share-files-between-components">Next steps: Share files between components</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+         <script src="../../_static/jquery.js"></script>
+         <script src="../../_static/underscore.js"></script>
+         <script src="../../_static/doctools.js"></script>
+         <script src="../../_static/clipboard.min.js"></script>
+         <script src="../../_static/copybutton.js"></script>
+         <script src="../../_static/copybutton.js"></script>
+         <script>let toggleHintShow = 'Click to show';</script>
+         <script>let toggleHintHide = 'Click to hide';</script>
+         <script>let toggleOpenOnPrint = 'true';</script>
+         <script src="../../_static/togglebutton.js"></script>
+         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+     
+
+  
+
+  <script type="text/javascript" src="../../_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="../../_static/js/vendor/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  <!-- The `block footer` is required for docs search to work -->
+ 
+<script script type="text/javascript">
+  var collapsedSections = ['App Building Skills', 'Practical Examples', 'Common Workflows', 'Core API Reference', 'Addons API Reference', 'Glossary'];
+</script>
+
+
+
+  <div id="lightning-ai-footer"></div>
+
+  <div class="cookie-banner-wrapper">
+  <div class="container">
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. Read PyTorch Lightning's <a href="https://pytorchlightning.ai/privacy-policy">Privacy Policy</a>.</p>
+    <img class="close-button" src="../../_static/images/pytorch-x.svg">
+  </div>
+</div>
+
+  <script src="https://lightning.ai/shared/inject-lai-bundle.js" crossorigin></script>
+
+  <script type="text/javascript" src="../../_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+      mainMenuDropdown.bind();
+      filterTags.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PQBQ3CV"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+ </body>
+</html>

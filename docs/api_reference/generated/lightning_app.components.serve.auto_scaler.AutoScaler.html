@@ -1,0 +1,699 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-PQBQ3CV');
+  </script>
+  <!-- End Google Tag Manager -->
+
+  <meta charset="utf-8">
+  
+  <meta name="google-site-verification" content="okUst94cAlWSsUsGZTB4xSS4UKTtRV8Nu5XZ9pdd3Aw" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>AutoScaler &mdash; lightning 2.0.0dev documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/icon.svg"/>
+  
+  
+  
+    <link rel="canonical" href="https://github.com/Lightning-AI/lightning/api_reference/generated/lightning_app.components.serve.auto_scaler.AutoScaler.html"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/togglebutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/main.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sphinx_paramlinks.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="ColdStartProxy" href="lightning_app.components.serve.auto_scaler.ColdStartProxy.html" />
+    <link rel="prev" title="LightningTrainerMultiNode" href="lightning_app.components.multi_node.trainer.LightningTrainerMultiNode.html" />
+  <!-- Google Analytics -->
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D3Q2ESCTZR"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-D3Q2ESCTZR');
+    </script>
+  
+  <!-- End Google Analytics -->
+  
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/UCity/UCity-Light.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/UCity/UCity-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/UCity/UCity-Semibold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/Inconsolata/Inconsolata.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+  <script defer src="https://use.fontawesome.com/releases/v6.1.1/js/all.js" integrity="sha384-xBXmu0dk1bEoiwd71wOonQLyH+VpgR1XcDH3rtxrLww5ajNTuMvBdL5SOiFZnNdp" crossorigin="anonymous"></script>
+
+  <script src="../../_static/js/react.production.min.js"></script>
+  <script src="../../_static/js/react-dom.production.min.js"></script>
+  <script src="../../_static/js/material-ui.production.min.js"></script>
+
+  <!-- TODO(yurij): only include the babel in the local env, or get rid of it completely, even in the local env -->
+  <script src="../../_static/js/babel.min.js"></script>
+
+  <script src="../../_static/js/react.js"></script>
+</head>
+
+<body class="pytorch-body">
+
+  <!-- header-holder is required by the theme for the sidebars to function properly` -->
+  <div id="header-holder">
+    <div id="lightning-ai-header">
+      
+    </div>
+  </div>
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <script>
+      function setColor() {
+        document.querySelectorAll('*[id^="codecell"]').forEach((x) => {
+          x.style.color = "#e0dbc9";
+        })
+      };
+      setTimeout(() => {
+        setColor();
+      }, 200)
+    </script>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+
+            
+              
+              
+                <div class="version">
+                  2.0.0dev
+                </div>
+              
+            
+
+            
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+            
+          </div>
+
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Home</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Welcome to ⚡ Lightning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install/installation.html">Install</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Get started in steps</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../levels/basic/index.html">Basic skills</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../levels/intermediate/index.html">Intermediate skills</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../levels/advanced/index.html">Advanced skills</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Core API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../core_api/lightning_app/index.html">LightningApp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../core_api/lightning_flow.html">LightningFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../core_api/lightning_work/index.html">LightningWork</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Addons API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../components.html">lightning.app.components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../frontend.html">lightning.app.frontend</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../runners.html">lightning.app.runners</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../storage.html">lightning.app.storage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">More</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://lightning.ai/components">Start from component templates</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://lightning.ai/apps">Start from app templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary/index.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../workflows/index.html">How to:</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="../../index.html">
+          
+            Docs
+          
+        </a> &gt;
+      </li>
+
+        
+          <li><a href="../components.html">lightning.app.components</a> &gt;</li>
+        
+      <li>AutoScaler</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/api_reference/generated/lightning_app.components.serve.auto_scaler.AutoScaler.rst.txt" rel="nofollow"><img src="../../_static/images/view-page-source-icon.svg"></a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+
+        
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <div class="section" id="autoscaler">
+<h1>AutoScaler<a class="headerlink" href="#autoscaler" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="lightning_app.components.serve.auto_scaler.AutoScaler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lightning_app.components.serve.auto_scaler.</span></span><span class="sig-name descname"><span class="pre">AutoScaler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">work_cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_replicas</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_replicas</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_out_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_in_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout_batching</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'api/predict'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">typing.Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">typing.Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cold_start_proxy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">work_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">work_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/components/serve/auto_scaler.py#L481-L746"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.components.serve.auto_scaler.AutoScaler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../core_api/lightning_flow.html#lightning_app.core.flow.LightningFlow" title="lightning_app.core.flow.LightningFlow"><code class="xref py py-class docutils literal notranslate"><span class="pre">lightning_app.core.flow.LightningFlow</span></code></a></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">AutoScaler</span></code> can be used to automatically change the number of replicas of the given server in
+response to changes in the number of incoming requests. Incoming requests will be batched and balanced across
+the replicas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="lightning_app.components.serve.auto_scaler.AutoScaler.params.min_replicas"></span><strong>min_replicas</strong><a class="paramlink headerlink reference internal" href="#lightning_app.components.serve.auto_scaler.AutoScaler.params.min_replicas">¶</a> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – The number of works to start when app initializes.</p></li>
+<li><p><span class="target" id="lightning_app.components.serve.auto_scaler.AutoScaler.params.max_replicas"></span><strong>max_replicas</strong><a class="paramlink headerlink reference internal" href="#lightning_app.components.serve.auto_scaler.AutoScaler.params.max_replicas">¶</a> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – The max number of works to spawn to handle the incoming requests.</p></li>
+<li><p><span class="target" id="lightning_app.components.serve.auto_scaler.AutoScaler.params.scale_out_interval"></span><strong>scale_out_interval</strong><a class="paramlink headerlink reference internal" href="#lightning_app.components.serve.auto_scaler.AutoScaler.params.scale_out_interval">¶</a> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.SupportsFloat" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SupportsFloat</span></code></a>) – The number of seconds to wait before checking whether to increase the number of servers.</p></li>
+<li><p><span class="target" id="lightning_app.components.serve.auto_scaler.AutoScaler.params.scale_in_interval"></span><strong>scale_in_interval</strong><a class="paramlink headerlink reference internal" href="#lightning_app.components.serve.auto_scaler.AutoScaler.params.scale_in_interval">¶</a> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.SupportsFloat" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SupportsFloat</span></code></a>) – The number of seconds to wait before checking whether to decrease the number of servers.</p></li>
+<li><p><span class="target" id="lightning_app.components.serve.auto_scaler.AutoScaler.params.endpoint"></span><strong>endpoint</strong><a class="paramlink headerlink reference internal" href="#lightning_app.components.serve.auto_scaler.AutoScaler.params.endpoint">¶</a> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Provide the REST API path.</p></li>
+<li><p><span class="target" id="lightning_app.components.serve.auto_scaler.AutoScaler.params.max_batch_size"></span><strong>max_batch_size</strong><a class="paramlink headerlink reference internal" href="#lightning_app.components.serve.auto_scaler.AutoScaler.params.max_batch_size">¶</a> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – (auto-batching) The number of requests to process at once.</p></li>
+<li><p><span class="target" id="lightning_app.components.serve.auto_scaler.AutoScaler.params.timeout_batching"></span><strong>timeout_batching</strong><a class="paramlink headerlink reference internal" href="#lightning_app.components.serve.auto_scaler.AutoScaler.params.timeout_batching">¶</a> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – (auto-batching) The number of seconds to wait before sending the requests to process.</p></li>
+<li><p><span class="target" id="lightning_app.components.serve.auto_scaler.AutoScaler.params.input_type"></span><strong>input_type</strong><a class="paramlink headerlink reference internal" href="#lightning_app.components.serve.auto_scaler.AutoScaler.params.input_type">¶</a> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code>]) – Input type.</p></li>
+<li><p><span class="target" id="lightning_app.components.serve.auto_scaler.AutoScaler.params.output_type"></span><strong>output_type</strong><a class="paramlink headerlink reference internal" href="#lightning_app.components.serve.auto_scaler.AutoScaler.params.output_type">¶</a> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code>]) – Output type.</p></li>
+<li><p><span class="target" id="lightning_app.components.serve.auto_scaler.AutoScaler.params.cold_start_proxy"></span><strong>cold_start_proxy</strong><a class="paramlink headerlink reference internal" href="#lightning_app.components.serve.auto_scaler.AutoScaler.params.cold_start_proxy">¶</a> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference internal" href="lightning_app.components.serve.auto_scaler.ColdStartProxy.html#lightning_app.components.serve.auto_scaler.ColdStartProxy" title="lightning_app.components.serve.cold_start_proxy.ColdStartProxy"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColdStartProxy</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>]) – If provided, the proxy will be used while the worker machines are warming up.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+
+<span class="c1"># Example 1: Auto-scaling serve component out-of-the-box</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span>
+    <span class="n">L</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">AutoScaler</span><span class="p">(</span>
+        <span class="n">MyPythonServer</span><span class="p">,</span>
+        <span class="n">min_replicas</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">max_replicas</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+        <span class="n">scale_out_interval</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">scale_in_interval</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="c1"># Example 2: Customizing the scaling logic</span>
+<span class="k">class</span> <span class="nc">MyAutoScaler</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">AutoScaler</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">replicas</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">metrics</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">pending_requests_per_running_or_pending_work</span> <span class="o">=</span> <span class="n">metrics</span><span class="p">[</span><span class="s2">&quot;pending_requests&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span>
+            <span class="n">replicas</span> <span class="o">+</span> <span class="n">metrics</span><span class="p">[</span><span class="s2">&quot;pending_works&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+
+        <span class="c1"># upscale</span>
+        <span class="n">max_requests_per_work</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_batch_size</span>
+        <span class="k">if</span> <span class="n">pending_requests_per_running_or_pending_work</span> <span class="o">&gt;=</span> <span class="n">max_requests_per_work</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">replicas</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="c1"># downscale</span>
+        <span class="n">min_requests_per_work</span> <span class="o">=</span> <span class="n">max_requests_per_work</span> <span class="o">*</span> <span class="mf">0.25</span>
+        <span class="k">if</span> <span class="n">pending_requests_per_running_or_pending_work</span> <span class="o">&lt;</span> <span class="n">min_requests_per_work</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">replicas</span> <span class="o">-</span> <span class="mi">1</span>
+
+        <span class="k">return</span> <span class="n">replicas</span>
+
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span>
+    <span class="n">MyAutoScaler</span><span class="p">(</span>
+        <span class="n">MyPythonServer</span><span class="p">,</span>
+        <span class="n">min_replicas</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">max_replicas</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+        <span class="n">scale_out_interval</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">scale_in_interval</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">max_batch_size</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>  <span class="c1"># for auto batching</span>
+        <span class="n">timeout_batching</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># for auto batching</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>The LightningFlow is used by the <a class="reference internal" href="../api/lightning_app.core.LightningApp.html#lightning_app.core.LightningApp" title="lightning_app.core.app.LightningApp"><code class="xref py py-class docutils literal notranslate"><span class="pre">LightningApp</span></code></a> to coordinate and manage
+long- running jobs contained, the <a class="reference internal" href="../api/lightning_app.core.LightningWork.html#lightning_app.core.LightningWork" title="lightning_app.core.work.LightningWork"><code class="xref py py-class docutils literal notranslate"><span class="pre">LightningWork</span></code></a>.</p>
+<p>A LightningFlow is characterized by:</p>
+<ul class="simple">
+<li><p>A set of state variables.</p></li>
+<li><p>Long-running jobs (<a class="reference internal" href="../api/lightning_app.core.LightningWork.html#lightning_app.core.LightningWork" title="lightning_app.core.work.LightningWork"><code class="xref py py-class docutils literal notranslate"><span class="pre">LightningWork</span></code></a>).</p></li>
+<li><p>Its children <code class="docutils literal notranslate"><span class="pre">LightningFlow</span></code> or <code class="docutils literal notranslate"><span class="pre">LightningWork</span></code> with their state variables.</p></li>
+</ul>
+<p><strong>State variables</strong></p>
+<p>The LightningFlow are special classes whose attributes require to be
+json-serializable (e.g., int, float, bool, list, dict, …).</p>
+<p>They also may not reach into global variables unless they are constant.</p>
+<p>The attributes need to be all defined in <cite>__init__</cite> method,
+and eventually assigned to different values throughout the lifetime of the object.
+However, defining new attributes outside of <cite>__init__</cite> is not allowed.</p>
+<p>Attributes taken together represent the state of the component.
+Components are capable of retrieving their state and that of their
+children recursively at any time. They are also capable of setting
+an externally provided state recursively to its children.</p>
+<p><strong>Execution model and work</strong></p>
+<p>The entry point for execution is the <code class="docutils literal notranslate"><span class="pre">run</span></code> method at the root component.
+The <code class="docutils literal notranslate"><span class="pre">run</span></code> method of the root component may call the <code class="docutils literal notranslate"><span class="pre">run</span></code> method of its children, and the children
+may call the <code class="docutils literal notranslate"><span class="pre">run</span></code> methods of their children and so on.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">run</span></code> method of the root component is called repeatedly in a while loop forever until the app gets
+terminated. In this programming model (reminiscent of React, Vue or Streamlit from the JavaScript world),
+the values of the state variables, or their changes, are translated into actions throughout the component
+hierarchy. This means the flow of execution will only be affected by state changes in a component or one of
+its children, and otherwise remain idempotent.</p>
+<p>The actions themselves are self-contained within <a class="reference internal" href="../api/lightning_app.core.LightningWork.html#lightning_app.core.LightningWork" title="lightning_app.core.work.LightningWork"><code class="xref py py-class docutils literal notranslate"><span class="pre">LightningWork</span></code></a>.
+The <a class="reference internal" href="../api/lightning_app.core.LightningWork.html#lightning_app.core.LightningWork" title="lightning_app.core.work.LightningWork"><code class="xref py py-class docutils literal notranslate"><span class="pre">LightningWork</span></code></a> are typically used for long-running jobs,
+like downloading a dataset, performing a query, starting a computationally heavy script.
+While one may access any state variable in a LightningWork from a LightningFlow, one may not
+directly call methods of other components from within a LightningWork as LightningWork can’t have any children.
+This limitation allows applications to be distributed at scale.</p>
+<p><strong>Component hierarchy and App</strong></p>
+<p>Given the above characteristics, a root LightningFlow, potentially containing
+children components, can be passed to an App object and its execution
+can be distributed (each LightningWork will be run within its own process
+or different arrangements).</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">lightning_app</span> <span class="kn">import</span> <span class="n">LightningFlow</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">RootFlow</span><span class="p">(</span><span class="n">LightningFlow</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">flow</span> <span class="o">=</span> <span class="n">RootFlow</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">flow</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">flow</span><span class="o">.</span><span class="n">counter</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">flow</span><span class="o">.</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;vars&quot;</span><span class="p">][</span><span class="s2">&quot;counter&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.components.serve.auto_scaler.AutoScaler.add_work">
+<span class="sig-name descname"><span class="pre">add_work</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">work</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/components/serve/auto_scaler.py#L616-L627"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.components.serve.auto_scaler.AutoScaler.add_work" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a new LightningWork instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The name of the new work attribute.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.components.serve.auto_scaler.AutoScaler.autoscale">
+<span class="sig-name descname"><span class="pre">autoscale</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/components/serve/auto_scaler.py#L700-L739"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.components.serve.auto_scaler.AutoScaler.autoscale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adjust the number of works based on the target number returned by <code class="docutils literal notranslate"><span class="pre">self.scale</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.components.serve.auto_scaler.AutoScaler.configure_layout">
+<span class="sig-name descname"><span class="pre">configure_layout</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/components/serve/auto_scaler.py#L741-L746"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.components.serve.auto_scaler.AutoScaler.configure_layout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configure the UI layout of this LightningFlow.</p>
+<p>You can either</p>
+<ol class="arabic simple">
+<li><p>Return a single <a class="reference internal" href="lightning_app.frontend.frontend.Frontend.html#lightning_app.frontend.frontend.Frontend" title="lightning_app.frontend.frontend.Frontend"><code class="xref py py-class docutils literal notranslate"><span class="pre">Frontend</span></code></a> object to serve a user interface
+for this Flow.</p></li>
+<li><p>Return a single dictionary to expose the UI of a child flow.</p></li>
+<li><p>Return a list of dictionaries to arrange the children of this flow in one or multiple tabs.</p></li>
+</ol>
+<p><strong>Example:</strong> Serve a static directory (with at least a file index.html inside).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">lightning_app.frontend</span> <span class="kn">import</span> <span class="n">StaticWebFrontend</span>
+
+
+<span class="k">class</span> <span class="nc">Flow</span><span class="p">(</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">configure_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">StaticWebFrontend</span><span class="p">(</span><span class="s2">&quot;path/to/folder/to/serve&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Example:</strong> Serve a streamlit UI (needs the streamlit package to be installed).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">lightning_app.frontend</span> <span class="kn">import</span> <span class="n">StaticWebFrontend</span>
+
+
+<span class="k">class</span> <span class="nc">Flow</span><span class="p">(</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">configure_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">StreamlitFrontend</span><span class="p">(</span><span class="n">render_fn</span><span class="o">=</span><span class="n">my_streamlit_ui</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">my_streamlit_ui</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+    <span class="c1"># add your streamlit code here!</span>
+    <span class="kn">import</span> <span class="nn">streamlit</span> <span class="k">as</span> <span class="nn">st</span>
+</pre></div>
+</div>
+<p><strong>Example:</strong> Arrange the UI of my children in tabs (default UI by Lightning).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Flow</span><span class="p">(</span><span class="n">LightningFlow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">configure_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="nb">dict</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;First Tab&quot;</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">child0</span><span class="p">),</span>
+            <span class="nb">dict</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Second Tab&quot;</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">child1</span><span class="p">),</span>
+            <span class="nb">dict</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Lightning&quot;</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="s2">&quot;https://lightning.ai&quot;</span><span class="p">),</span>
+        <span class="p">]</span>
+</pre></div>
+</div>
+<p>If you don’t implement <code class="docutils literal notranslate"><span class="pre">configure_layout</span></code>, Lightning will collect all children and display their UI in a tab
+(if they have their own <code class="docutils literal notranslate"><span class="pre">configure_layout</span></code> implemented).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This hook gets called at the time of app creation and then again as part of the loop. If desired, the
+returned layout configuration can depend on the state. The only exception are the flows that return a
+<a class="reference internal" href="lightning_app.frontend.frontend.Frontend.html#lightning_app.frontend.frontend.Frontend" title="lightning_app.frontend.frontend.Frontend"><code class="xref py py-class docutils literal notranslate"><span class="pre">Frontend</span></code></a>. These need to be provided at the time of app creation
+in order for the runtime to start the server.</p>
+</div>
+<p><strong>Learn more about adding UI</strong></p>
+<div class="display-card-container">
+    <div class="row"><p><div class="col-md-4">
+    <a href='../../../workflows/add_web_ui/index.html'>
+    <div class="display-card display-card-hover" style='height:180px'>
+            <div class=""></div>
+            <h3>Add a web user interface (UI)</h3>
+            <p class="body-paragraph">Learn more how to integrate several UIs.</p>
+    </div>
+    </a>
+    <div class='card-tag'>Basic</div>
+</div></p>
+    </div>
+</div>
+<br /></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.components.serve.auto_scaler.AutoScaler.create_work">
+<span class="sig-name descname"><span class="pre">create_work</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/components/serve/auto_scaler.py#L605-L614"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.components.serve.auto_scaler.AutoScaler.create_work" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replicates a LightningWork instance with args and kwargs provided via <code class="docutils literal notranslate"><span class="pre">__init__</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../api/lightning_app.core.LightningWork.html#lightning_app.core.LightningWork" title="lightning_app.core.work.LightningWork"><code class="xref py py-class docutils literal notranslate"><span class="pre">LightningWork</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.components.serve.auto_scaler.AutoScaler.get_work">
+<span class="sig-name descname"><span class="pre">get_work</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/components/serve/auto_scaler.py#L638-L642"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.components.serve.auto_scaler.AutoScaler.get_work" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the <code class="docutils literal notranslate"><span class="pre">LightningWork</span></code> instance with the given index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../api/lightning_app.core.LightningWork.html#lightning_app.core.LightningWork" title="lightning_app.core.work.LightningWork"><code class="xref py py-class docutils literal notranslate"><span class="pre">LightningWork</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.components.serve.auto_scaler.AutoScaler.remove_work">
+<span class="sig-name descname"><span class="pre">remove_work</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/components/serve/auto_scaler.py#L629-L636"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.components.serve.auto_scaler.AutoScaler.remove_work" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the <code class="docutils literal notranslate"><span class="pre">index</span></code> th LightningWork instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.components.serve.auto_scaler.AutoScaler.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/components/serve/auto_scaler.py#L644-L651"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.components.serve.auto_scaler.AutoScaler.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override with your own logic.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lightning_app.components.serve.auto_scaler.AutoScaler.scale">
+<span class="sig-name descname"><span class="pre">scale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">replicas</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/master/../src/lightning_app/components/serve/auto_scaler.py#L653-L683"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.components.serve.auto_scaler.AutoScaler.scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>The default scaling logic that users can override.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="lightning_app.components.serve.auto_scaler.AutoScaler.scale.params.replicas"></span><strong>replicas</strong><a class="paramlink headerlink reference internal" href="#lightning_app.components.serve.auto_scaler.AutoScaler.scale.params.replicas">¶</a> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – The number of running works.</p></li>
+<li><p><span class="target" id="lightning_app.components.serve.auto_scaler.AutoScaler.scale.params.metrics"></span><strong>metrics</strong><a class="paramlink headerlink reference internal" href="#lightning_app.components.serve.auto_scaler.AutoScaler.scale.params.metrics">¶</a> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>) – <code class="docutils literal notranslate"><span class="pre">metrics['pending_requests']</span></code> is the total number of requests that are currently pending.
+<code class="docutils literal notranslate"><span class="pre">metrics['pending_works']</span></code> is the number of pending works.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The target number of running works. The value will be adjusted after this method runs
+so that it satisfies <code class="docutils literal notranslate"><span class="pre">min_replicas&lt;=replicas&lt;=max_replicas</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lightning_app.components.serve.auto_scaler.AutoScaler.num_pending_requests">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_pending_requests</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></em><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/lightning_app/components/serve/auto_scaler.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.components.serve.auto_scaler.AutoScaler.num_pending_requests" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches the number of pending requests via load balancer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lightning_app.components.serve.auto_scaler.AutoScaler.num_pending_works">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_pending_works</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></em><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/lightning_app/components/serve/auto_scaler.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.components.serve.auto_scaler.AutoScaler.num_pending_works" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of pending works.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lightning_app.components.serve.auto_scaler.AutoScaler.ready">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ready</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></em><a class="reference external" href="https://github.com/Lightning-AI/lightning/blob/lightning_app/components/serve/auto_scaler.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lightning_app.components.serve.auto_scaler.AutoScaler.ready" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override to customize when your App should be ready.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+             </article>
+             
+            </div>
+          </div>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              <ul>
+<li><a class="reference internal" href="#">AutoScaler</a></li>
+</ul>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+         <script src="../../_static/jquery.js"></script>
+         <script src="../../_static/underscore.js"></script>
+         <script src="../../_static/doctools.js"></script>
+         <script src="../../_static/clipboard.min.js"></script>
+         <script src="../../_static/copybutton.js"></script>
+         <script src="../../_static/copybutton.js"></script>
+         <script>let toggleHintShow = 'Click to show';</script>
+         <script>let toggleHintHide = 'Click to hide';</script>
+         <script>let toggleOpenOnPrint = 'true';</script>
+         <script src="../../_static/togglebutton.js"></script>
+         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+     
+
+  
+
+  <script type="text/javascript" src="../../_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="../../_static/js/vendor/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  <!-- The `block footer` is required for docs search to work -->
+ 
+<script script type="text/javascript">
+  var collapsedSections = ['App Building Skills', 'Practical Examples', 'Common Workflows', 'Core API Reference', 'Addons API Reference', 'Glossary'];
+</script>
+
+
+
+  <div id="lightning-ai-footer"></div>
+
+  <div class="cookie-banner-wrapper">
+  <div class="container">
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. Read PyTorch Lightning's <a href="https://pytorchlightning.ai/privacy-policy">Privacy Policy</a>.</p>
+    <img class="close-button" src="../../_static/images/pytorch-x.svg">
+  </div>
+</div>
+
+  <script src="https://lightning.ai/shared/inject-lai-bundle.js" crossorigin></script>
+
+  <script type="text/javascript" src="../../_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+      mainMenuDropdown.bind();
+      filterTags.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PQBQ3CV"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+ </body>
+</html>

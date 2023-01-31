@@ -1,0 +1,10 @@
+﻿.. role:: hidden
+    :class: hidden-section
+.. currentmodule:: lightning_app.components.multi_node.pytorch_spawn
+
+
+PyTorchSpawnMultiNode
+=====================
+
+.. autoclass:: PyTorchSpawnMultiNode
+    :members:

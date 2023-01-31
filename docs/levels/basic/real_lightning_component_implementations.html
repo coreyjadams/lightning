@@ -1,0 +1,1337 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-PQBQ3CV');
+  </script>
+  <!-- End Google Tag Manager -->
+
+  <meta charset="utf-8">
+  
+  <meta name="google-site-verification" content="okUst94cAlWSsUsGZTB4xSS4UKTtRV8Nu5XZ9pdd3Aw" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Level 2: Explore real component implementations &mdash; lightning 2.0.0dev documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/icon.svg"/>
+  
+  
+  
+    <link rel="canonical" href="https://github.com/Lightning-AI/lightning/levels/basic/real_lightning_component_implementations.html"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" /> -->
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/togglebutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/main.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/sphinx_paramlinks.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Level 3: Save money on cloud costs" href="save_money_on_cloud_costs.html" />
+    <link rel="prev" title="Level 1: Package code in a lightning component" href="build_a_lightning_component.html" />
+  <!-- Google Analytics -->
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D3Q2ESCTZR"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-D3Q2ESCTZR');
+    </script>
+  
+  <!-- End Google Analytics -->
+  
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+  <!-- Preload the theme fonts -->
+
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-book.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/IBMPlexMono/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/FreightSans/freight-sans-medium-italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/IBMPlexMono/IBMPlexMono-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/UCity/UCity-Light.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/UCity/UCity-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/UCity/UCity-Semibold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="../../_static/fonts/Inconsolata/Inconsolata.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+<!-- Preload the katex fonts -->
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Math-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Main-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size1-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size4-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size2-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Size3-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/fonts/KaTeX_Caligraphic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+  <script defer src="https://use.fontawesome.com/releases/v6.1.1/js/all.js" integrity="sha384-xBXmu0dk1bEoiwd71wOonQLyH+VpgR1XcDH3rtxrLww5ajNTuMvBdL5SOiFZnNdp" crossorigin="anonymous"></script>
+
+  <script src="../../_static/js/react.production.min.js"></script>
+  <script src="../../_static/js/react-dom.production.min.js"></script>
+  <script src="../../_static/js/material-ui.production.min.js"></script>
+
+  <!-- TODO(yurij): only include the babel in the local env, or get rid of it completely, even in the local env -->
+  <script src="../../_static/js/babel.min.js"></script>
+
+  <script src="../../_static/js/react.js"></script>
+</head>
+
+<body class="pytorch-body">
+
+  <!-- header-holder is required by the theme for the sidebars to function properly` -->
+  <div id="header-holder">
+    <div id="lightning-ai-header">
+      
+    </div>
+  </div>
+
+   
+
+    
+
+    <div class="table-of-contents-link-wrapper">
+      <span>Table of Contents</span>
+      <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
+    </div>
+
+    <script>
+      function setColor() {
+        document.querySelectorAll('*[id^="codecell"]').forEach((x) => {
+          x.style.color = "#e0dbc9";
+        })
+      };
+      setTimeout(() => {
+        setColor();
+      }, 200)
+    </script>
+
+    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
+      <div class="pytorch-side-scroll">
+        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="pytorch-left-menu-search">
+            
+
+            
+              
+              
+                <div class="version">
+                  2.0.0dev
+                </div>
+              
+            
+
+            
+
+
+  
+
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search Docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+            
+          </div>
+
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Home</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Welcome to ⚡ Lightning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install/installation.html">Install</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Get started in steps</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Basic skills</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intermediate/index.html">Intermediate skills</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Advanced skills</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Core API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../core_api/lightning_app/index.html">LightningApp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../core_api/lightning_flow.html">LightningFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../core_api/lightning_work/index.html">LightningWork</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Addons API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference/components.html">lightning.app.components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference/frontend.html">lightning.app.frontend</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference/runners.html">lightning.app.runners</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference/storage.html">lightning.app.storage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">More</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://lightning.ai/components">Start from component templates</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://lightning.ai/apps">Start from app templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary/index.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../workflows/index.html">How to:</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <div class="pytorch-container">
+      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
+        <div class="pytorch-breadcrumbs-wrapper">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="pytorch-breadcrumbs">
+    
+      <li>
+        <a href="../../index.html">
+          
+            Docs
+          
+        </a> &gt;
+      </li>
+
+        
+          <li><a href="index.html">Basic skills</a> &gt;</li>
+        
+      <li>Level 2: Explore real component implementations</li>
+    
+    
+      <li class="pytorch-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/levels/basic/real_lightning_component_implementations.rst.txt" rel="nofollow"><img src="../../_static/images/view-page-source-icon.svg"></a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+        </div>
+
+        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+          Shortcuts
+        </div>
+      </div>
+
+      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
+        <div class="pytorch-content-left">
+
+        
+          
+          <div class="rst-content">
+          
+            <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
+             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+              
+  <div class="section" id="level-2-explore-real-component-implementations">
+<h1>Level 2: Explore real component implementations<a class="headerlink" href="#level-2-explore-real-component-implementations" title="Permalink to this headline">¶</a></h1>
+<p><strong>Audience:</strong> Users who want to deeply understand what is possible with Lightning components.</p>
+<p><strong>Prereqs:</strong> You must have finished <a class="reference external" href="../basic/build_a_lightning_component.html">level 1</a>.</p>
+<hr class="docutils" />
+<div class="section" id="real-component-examples">
+<h2>Real component examples<a class="headerlink" href="#real-component-examples" title="Permalink to this headline">¶</a></h2>
+<p>Use this guide to understand what is happening in each type of component.
+These are a few prototypical components. Since each component organizes
+Python, you can build virtually infinite components for any use-case
+you can think of.</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="ex-pytorch-lightning-trainer">
+<h2>Ex: PyTorch + Lightning Trainer<a class="headerlink" href="#ex-pytorch-lightning-trainer" title="Permalink to this headline">¶</a></h2>
+<p>This example shows how to train PyTorch with the Lightning trainer on your machine
+or cloud GPUs without code changes.</p>
+<p><div id="code-block-04e0db5ab59848a181a8b2c30f375020" class="lit-tabs-container" style="height: 420px">
+    
+        <div class="tabs-holder col-md-5">
+            
+<div id="tab-tab-2c14d117ca9d449b95fc602b4aada28e" class="tab tab-selected" onclick="openCity('tab-2c14d117ca9d449b95fc602b4aada28e', 'code-block-04e0db5ab59848a181a8b2c30f375020')" onmouseover="openCity('tab-2c14d117ca9d449b95fc602b4aada28e', 'code-block-04e0db5ab59848a181a8b2c30f375020')">
+    
+    <div class="tab-description">import Lightning</div>
+</div>
+
+
+<div id="tab-tab-13cbd54ad08443c1abc55cbb5e584418" class="tab" onclick="openCity('tab-13cbd54ad08443c1abc55cbb5e584418', 'code-block-04e0db5ab59848a181a8b2c30f375020')" onmouseover="openCity('tab-13cbd54ad08443c1abc55cbb5e584418', 'code-block-04e0db5ab59848a181a8b2c30f375020')">
+    
+    <div class="tab-description"> We're using a demo LightningModule</div>
+</div>
+
+
+<div id="tab-tab-b498e0650e1f4bad82bb747b5b6d833e" class="tab" onclick="openCity('tab-b498e0650e1f4bad82bb747b5b6d833e', 'code-block-04e0db5ab59848a181a8b2c30f375020')" onmouseover="openCity('tab-b498e0650e1f4bad82bb747b5b6d833e', 'code-block-04e0db5ab59848a181a8b2c30f375020')">
+    
+    <div class="tab-description"> Move your training code here (usually your main.py)</div>
+</div>
+
+
+<div id="tab-tab-f6843930c682477caec92bf341e7776a" class="tab" onclick="openCity('tab-f6843930c682477caec92bf341e7776a', 'code-block-04e0db5ab59848a181a8b2c30f375020')" onmouseover="openCity('tab-f6843930c682477caec92bf341e7776a', 'code-block-04e0db5ab59848a181a8b2c30f375020')">
+    
+    <div class="tab-description"> Pass your component to the multi-node executor (it works on CPU or single GPUs also)</div>
+</div>
+
+
+<div id="tab-tab-d209b3a7d151478bb167a63ddf5e6f7a" class="tab" onclick="openCity('tab-d209b3a7d151478bb167a63ddf5e6f7a', 'code-block-04e0db5ab59848a181a8b2c30f375020')" onmouseover="openCity('tab-d209b3a7d151478bb167a63ddf5e6f7a', 'code-block-04e0db5ab59848a181a8b2c30f375020')">
+    
+    <div class="tab-description"> Select the number of machines (nodes). Here we choose 4.</div>
+</div>
+
+
+<div id="tab-tab-07504da7bb6a4e4089b97464017e5e10" class="tab" onclick="openCity('tab-07504da7bb6a4e4089b97464017e5e10', 'code-block-04e0db5ab59848a181a8b2c30f375020')" onmouseover="openCity('tab-07504da7bb6a4e4089b97464017e5e10', 'code-block-04e0db5ab59848a181a8b2c30f375020')">
+    
+    <div class="tab-description"> Choose from over 15+ machine types. This one has 4 v100 GPUs.</div>
+</div>
+
+
+<div id="tab-tab-c675f6d36996419b8349ae5833101bc1" class="tab" onclick="openCity('tab-c675f6d36996419b8349ae5833101bc1', 'code-block-04e0db5ab59848a181a8b2c30f375020')" onmouseover="openCity('tab-c675f6d36996419b8349ae5833101bc1', 'code-block-04e0db5ab59848a181a8b2c30f375020')">
+    
+    <div class="tab-description"> Initialize the App object that executes the component logic.</div>
+</div>
+
+        </div>
+        <div class="content-holder col-md-7">
+            <div class="content-toggle-holder row">
+                <div class="toggles row">
+                    
+                </div>
+            </div>
+            <div class="code-holder row">
+                
+<div id="tab-2c14d117ca9d449b95fc602b4aada28e" class="city tab-content" style="display:flex">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="hll"><span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+</span><span class="kn">from</span> <span class="nn">lightning.app.components</span> <span class="kn">import</span> <span class="n">LightningTrainerMultiNode</span>
+<span class="kn">from</span> <span class="nn">lightning.pytorch.demos.boring_classes</span> <span class="kn">import</span> <span class="n">BoringModel</span>
+
+
+<span class="k">class</span> <span class="nc">LightningTrainerDistributed</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">BoringModel</span><span class="p">()</span>
+        <span class="n">trainer</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Trainer</span><span class="p">(</span><span class="n">max_epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;ddp&quot;</span><span class="p">)</span>
+        <span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+
+<span class="c1"># 8 GPUs: (2 nodes of 4 x v100)</span>
+<span class="n">component</span> <span class="o">=</span> <span class="n">LightningTrainerMultiNode</span><span class="p">(</span>
+    <span class="n">LightningTrainerDistributed</span><span class="p">,</span>
+    <span class="n">num_nodes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s2">&quot;gpu-fast-multi&quot;</span><span class="p">),</span> <span class="c1"># 4 x v100</span>
+<span class="p">)</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-13cbd54ad08443c1abc55cbb5e584418" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="kn">from</span> <span class="nn">lightning.app.components</span> <span class="kn">import</span> <span class="n">LightningTrainerMultiNode</span>
+<span class="hll"><span class="kn">from</span> <span class="nn">lightning.pytorch.demos.boring_classes</span> <span class="kn">import</span> <span class="n">BoringModel</span>
+</span>
+
+<span class="k">class</span> <span class="nc">LightningTrainerDistributed</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">BoringModel</span><span class="p">()</span>
+        <span class="n">trainer</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Trainer</span><span class="p">(</span><span class="n">max_epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;ddp&quot;</span><span class="p">)</span>
+        <span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+
+<span class="c1"># 8 GPUs: (2 nodes of 4 x v100)</span>
+<span class="n">component</span> <span class="o">=</span> <span class="n">LightningTrainerMultiNode</span><span class="p">(</span>
+    <span class="n">LightningTrainerDistributed</span><span class="p">,</span>
+    <span class="n">num_nodes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s2">&quot;gpu-fast-multi&quot;</span><span class="p">),</span> <span class="c1"># 4 x v100</span>
+<span class="p">)</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-b498e0650e1f4bad82bb747b5b6d833e" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="kn">from</span> <span class="nn">lightning.app.components</span> <span class="kn">import</span> <span class="n">LightningTrainerMultiNode</span>
+<span class="kn">from</span> <span class="nn">lightning.pytorch.demos.boring_classes</span> <span class="kn">import</span> <span class="n">BoringModel</span>
+
+
+<span class="k">class</span> <span class="nc">LightningTrainerDistributed</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="hll">        <span class="n">model</span> <span class="o">=</span> <span class="n">BoringModel</span><span class="p">()</span>
+</span><span class="hll">        <span class="n">trainer</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Trainer</span><span class="p">(</span><span class="n">max_epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;ddp&quot;</span><span class="p">)</span>
+</span><span class="hll">        <span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</span>
+<span class="c1"># 8 GPUs: (2 nodes of 4 x v100)</span>
+<span class="n">component</span> <span class="o">=</span> <span class="n">LightningTrainerMultiNode</span><span class="p">(</span>
+    <span class="n">LightningTrainerDistributed</span><span class="p">,</span>
+    <span class="n">num_nodes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s2">&quot;gpu-fast-multi&quot;</span><span class="p">),</span> <span class="c1"># 4 x v100</span>
+<span class="p">)</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-f6843930c682477caec92bf341e7776a" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="kn">from</span> <span class="nn">lightning.app.components</span> <span class="kn">import</span> <span class="n">LightningTrainerMultiNode</span>
+<span class="kn">from</span> <span class="nn">lightning.pytorch.demos.boring_classes</span> <span class="kn">import</span> <span class="n">BoringModel</span>
+
+
+<span class="k">class</span> <span class="nc">LightningTrainerDistributed</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">BoringModel</span><span class="p">()</span>
+        <span class="n">trainer</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Trainer</span><span class="p">(</span><span class="n">max_epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;ddp&quot;</span><span class="p">)</span>
+        <span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+
+<span class="c1"># 8 GPUs: (2 nodes of 4 x v100)</span>
+<span class="hll"><span class="n">component</span> <span class="o">=</span> <span class="n">LightningTrainerMultiNode</span><span class="p">(</span>
+</span><span class="hll">    <span class="n">LightningTrainerDistributed</span><span class="p">,</span>
+</span><span class="hll">    <span class="n">num_nodes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+</span><span class="hll">    <span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s2">&quot;gpu-fast-multi&quot;</span><span class="p">),</span> <span class="c1"># 4 x v100</span>
+</span><span class="p">)</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-d209b3a7d151478bb167a63ddf5e6f7a" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="kn">from</span> <span class="nn">lightning.app.components</span> <span class="kn">import</span> <span class="n">LightningTrainerMultiNode</span>
+<span class="kn">from</span> <span class="nn">lightning.pytorch.demos.boring_classes</span> <span class="kn">import</span> <span class="n">BoringModel</span>
+
+
+<span class="k">class</span> <span class="nc">LightningTrainerDistributed</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">BoringModel</span><span class="p">()</span>
+        <span class="n">trainer</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Trainer</span><span class="p">(</span><span class="n">max_epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;ddp&quot;</span><span class="p">)</span>
+        <span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+
+<span class="c1"># 8 GPUs: (2 nodes of 4 x v100)</span>
+<span class="n">component</span> <span class="o">=</span> <span class="n">LightningTrainerMultiNode</span><span class="p">(</span>
+    <span class="n">LightningTrainerDistributed</span><span class="p">,</span>
+<span class="hll">    <span class="n">num_nodes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+</span>    <span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s2">&quot;gpu-fast-multi&quot;</span><span class="p">),</span> <span class="c1"># 4 x v100</span>
+<span class="p">)</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-07504da7bb6a4e4089b97464017e5e10" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="kn">from</span> <span class="nn">lightning.app.components</span> <span class="kn">import</span> <span class="n">LightningTrainerMultiNode</span>
+<span class="kn">from</span> <span class="nn">lightning.pytorch.demos.boring_classes</span> <span class="kn">import</span> <span class="n">BoringModel</span>
+
+
+<span class="k">class</span> <span class="nc">LightningTrainerDistributed</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">BoringModel</span><span class="p">()</span>
+        <span class="n">trainer</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Trainer</span><span class="p">(</span><span class="n">max_epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;ddp&quot;</span><span class="p">)</span>
+        <span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+
+<span class="c1"># 8 GPUs: (2 nodes of 4 x v100)</span>
+<span class="n">component</span> <span class="o">=</span> <span class="n">LightningTrainerMultiNode</span><span class="p">(</span>
+    <span class="n">LightningTrainerDistributed</span><span class="p">,</span>
+    <span class="n">num_nodes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+<span class="hll">    <span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s2">&quot;gpu-fast-multi&quot;</span><span class="p">),</span> <span class="c1"># 4 x v100</span>
+</span><span class="p">)</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-c675f6d36996419b8349ae5833101bc1" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># app.py</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="kn">from</span> <span class="nn">lightning.app.components</span> <span class="kn">import</span> <span class="n">LightningTrainerMultiNode</span>
+<span class="kn">from</span> <span class="nn">lightning.pytorch.demos.boring_classes</span> <span class="kn">import</span> <span class="n">BoringModel</span>
+
+
+<span class="k">class</span> <span class="nc">LightningTrainerDistributed</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningWork</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">BoringModel</span><span class="p">()</span>
+        <span class="n">trainer</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Trainer</span><span class="p">(</span><span class="n">max_epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;ddp&quot;</span><span class="p">)</span>
+        <span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+
+<span class="c1"># 8 GPUs: (2 nodes of 4 x v100)</span>
+<span class="n">component</span> <span class="o">=</span> <span class="n">LightningTrainerMultiNode</span><span class="p">(</span>
+    <span class="n">LightningTrainerDistributed</span><span class="p">,</span>
+    <span class="n">num_nodes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s2">&quot;gpu-fast-multi&quot;</span><span class="p">),</span> <span class="c1"># 4 x v100</span>
+<span class="p">)</span>
+<span class="hll"><span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+            </div>
+        </div>
+    
+    
+    <script type = "text/javascript">
+                        function openCity(a,b){var c,d=document.getElementById(b),e=d.getElementsByClassName("city");for(c=0;c<e.length;c++)e[c].style.display="none";document.getElementById(a).style.display="flex";var c,e=d.getElementsByClassName("tab");for(c=0;c<e.length;c++)e[c].classList.remove("tab-selected");document.getElementById("tab-"+a).classList.add("tab-selected")}
+    </script>
+    <script type = "text/javascript">
+                        function showCode(a){var b=document.getElementById(a),c="toggle-button-selected";Array.from(b.getElementsByClassName("toggle-btn-img")).forEach(a=>{var d=a.classList.contains(c);if(d){a.classList.remove(c);var a=b.getElementsByClassName("tab-code");for(i=0;i<a.length;i++)a[i].style.display="flex";var a=b.getElementsByClassName("tab-helper");for(i=0;i<a.length;i++)a[i].style.display="none"}else{a.classList.add(c);var a=b.getElementsByClassName("tab-code");for(i=0;i<a.length;i++)a[i].style.display="none";var a=b.getElementsByClassName("tab-helper");for(i=0;i<a.length;i++)a[i].style.display="flex"}})}
+    </script>
+    <script type = "text/javascript">
+                        function toggleHelperImage(a,b,c,d){var e,f=document.getElementById(a),g=f.getElementsByClassName(b);for(e=0;e<g.length;e++){function a(b){// toggle the width of the code
+            new_size=b?`calc(100% - ${c})`:"100%",Array.from(f.getElementsByClassName("tab-code")).forEach(a=>{a.style.width=new_size})}function b(a){selectedClass="toggle-button-selected",Array.from(f.getElementsByClassName("toggle-btn-img")).forEach(b=>{a?b.classList.add(selectedClass):b.classList.remove(selectedClass)})}function i(a){Array.from(f.getElementsByClassName("copybtn")).forEach(b=>{a?(b.classList.add("copybtn-split-open"),b.classList.remove("copybtn-split-closed")):(b.classList.add("copybtn-split-closed"),b.classList.remove("copybtn-split-open"))})}function j(a){Array.from(f.getElementsByClassName("tab-description")).forEach(b=>{a?b.classList.add("tab-description-img-active"):b.classList.remove("tab-description-img-active")})}function k(a){// toggle the width of the tabs
+            // tabs-holder col-md-4 -> col-md-2
+            // content-holder col-md-10
+            tabs_holder=f.getElementsByClassName("tabs-holder")[0],content_holder=f.getElementsByClassName("content-holder")[0],code_rows=12-d,a?(tabs_holder.classList.remove(`col-md-${d}`),tabs_holder.classList.add("col-md-2"),content_holder.classList.remove(`col-md-${code_rows}`),content_holder.classList.add("col-md-10")):(tabs_holder.classList.remove("col-md-2"),tabs_holder.classList.add(`col-md-${d}`),content_holder.classList.remove("col-md-10"),content_holder.classList.add(`col-md-${code_rows}`))}var h="none"==g[e].style.display;// toggle the image block
+            new_display=h?"flex":"none",g[e].style.display=new_display,a(h),k(h),j(h),i(h),b(h)}}
+    </script>
+    
+    
+    <script type = "text/javascript">
+                        function adjustCopyButton(a){var b=document.getElementById(a);Array.from(b.getElementsByClassName("copybtn")).forEach(a=>{a.classList.add("copybtn-default")})}
+    </script>
+    <script type = "text/javascript">
+        window.addEventListener('load', function() {
+            adjustCopyButton('code-block-04e0db5ab59848a181a8b2c30f375020');
+        });
+    </script>
+        
+    
+    <script type = "text/javascript">
+                        function adjustCopyButtonForRunOnly(a){var b=document.getElementById(a);Array.from(b.getElementsByClassName("copybtn")).forEach(a=>{a.classList.add("copybtn-run-only-closed")})}
+    </script>
+    <script type = "text/javascript">
+        window.addEventListener('load', function() {
+            adjustCopyButtonForRunOnly('code-block-04e0db5ab59848a181a8b2c30f375020');
+        });
+    </script>
+        
+    
+    
+<script type = "text/javascript">
+                    (function(){function a(a,c,d,e){const f=document.createElement("button");f.className="run-button",f.title="deploy this code on lightning.ai instantly",f.addEventListener("click",a&&"None"!==a?function(){window.LAI.runApp(a)}:function(){const a=b(d.innerText,"",!1,!0,!0,!0,"","");window.LAI.runAppFromCodeString(a,e)});const g=document.createElement("img");return g.className="tab-svg",g.src=c,f.appendChild(g),f}// The method below is copied from the copybutton we use in sphinx to copy the source code
+            // This logic will go away once the tab list is refactored to be shareable with the web app
+            // Callback when a copy button is clicked. Will be passed the node that was clicked
+            // should then grab the text and replace pieces of text that shouldn't be used in output
+            function b(a,b,d=!1,e=!0,f=!0,g=!0,h="",i=""){var j,k;j=d?new RegExp("^("+b+")(.*)"):new RegExp("^("+c(b)+")(.*)");const l=[];var m=!1,n=!1,o=!1;const p=[];for(const c of a.split("\n"))k=c.match(j),k||n||o?(m=j.test(c),p.push(m),f&&m?l.push(k[2]):l.push(c),n=c.endsWith(h)&!!h,c.includes(i)&!!i&&(o=!o)):e?g&&""===c.trim()&&l.push(c):l.push(c);// If no lines with the prompt were found then just use original lines
+            return p.some(a=>!0===a)&&(a=l.join("\n")),a.endsWith("\n")&&(a=a.slice(0,-1)),a}function c(a){return a.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");// $& means the whole matched string
+            }window.addRunButton=function(b,c,d,e){const f=document.querySelectorAll("#"+b+" .tab-content");for(const g of f){const b=g.querySelector(".tab-code > .highlight-default > .highlight"),f=b.getElementsByTagName("pre")[0];if(f&&"true"===d.toLowerCase())// nothing to run
+            {let d;try{const a=g.querySelector(".work-spec").innerText.trim();a&&(d=JSON.parse(a))}catch(a){console.error("error parsing work spec",a)}const h=a(c,e,f,d);b.appendChild(h)}}}})();
+    window.addEventListener('load', function() {
+        addRunButton('code-block-04e0db5ab59848a181a8b2c30f375020', 'None', 'true', '../../_static/images/icon-launch.svg');
+    });
+</script>
+    
+    
+    
+</div></p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Run the component on the cloud:</p>
+<p><div id="code-block-ee49354730634526b2d4740b3e28ab12" class="lit-tabs-container" style="height: 195px">
+    
+        <div class="tabs-holder col-md-4">
+            
+<div id="tab-tab-3092cc8ecf4f4b0998a7ecde3b839962" class="tab tab-selected" onclick="openCity('tab-3092cc8ecf4f4b0998a7ecde3b839962', 'code-block-ee49354730634526b2d4740b3e28ab12')" onmouseover="openCity('tab-3092cc8ecf4f4b0998a7ecde3b839962', 'code-block-ee49354730634526b2d4740b3e28ab12')">
+    <div class="tab-title">Lightning Cloud (fully-managed)</div>
+    
+</div>
+
+
+<div id="tab-tab-34ca26c2331448209d640a88aac8440e" class="tab" onclick="openCity('tab-34ca26c2331448209d640a88aac8440e', 'code-block-ee49354730634526b2d4740b3e28ab12')" onmouseover="openCity('tab-34ca26c2331448209d640a88aac8440e', 'code-block-ee49354730634526b2d4740b3e28ab12')">
+    <div class="tab-title"> Your AWS account</div>
+    
+</div>
+
+
+<div id="tab-tab-56afe382f0ad4ccc8ae725d7501d8c6f" class="tab" onclick="openCity('tab-56afe382f0ad4ccc8ae725d7501d8c6f', 'code-block-ee49354730634526b2d4740b3e28ab12')" onmouseover="openCity('tab-56afe382f0ad4ccc8ae725d7501d8c6f', 'code-block-ee49354730634526b2d4740b3e28ab12')">
+    <div class="tab-title"> Your own hardware</div>
+    
+</div>
+
+        </div>
+        <div class="content-holder col-md-8">
+            <div class="content-toggle-holder row">
+                <div class="toggles row">
+                    
+                </div>
+            </div>
+            <div class="code-holder row">
+                
+<div id="tab-3092cc8ecf4f4b0998a7ecde3b839962" class="city tab-content" style="display:flex">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lightning</span> <span class="n">run</span> <span class="n">app</span> <span class="n">app</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">cloud</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-34ca26c2331448209d640a88aac8440e" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># first create a cluster (creation could take ~30 minutes)</span>
+<span class="n">lightning</span> <span class="n">create</span> <span class="n">cluster</span> <span class="n">pikachu</span> <span class="o">--</span><span class="n">provider</span> <span class="n">aws</span> <span class="o">--</span><span class="n">role</span><span class="o">-</span><span class="n">arn</span> <span class="n">arn</span><span class="p">:</span><span class="n">aws</span><span class="p">:</span><span class="n">iam</span><span class="p">::</span><span class="mi">1234567890</span><span class="p">:</span><span class="n">role</span><span class="o">/</span><span class="n">lai</span><span class="o">-</span><span class="n">byoc</span>
+
+<span class="c1"># run on that cluster</span>
+<span class="hll"><span class="n">lightning</span> <span class="n">run</span> <span class="n">app</span> <span class="n">app</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">cloud</span> <span class="n">pikachu</span>
+</span></pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-56afe382f0ad4ccc8ae725d7501d8c6f" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lightning</span> <span class="n">run</span> <span class="n">app</span> <span class="n">app</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+            </div>
+        </div>
+    
+    
+    <script type = "text/javascript">
+                        function openCity(a,b){var c,d=document.getElementById(b),e=d.getElementsByClassName("city");for(c=0;c<e.length;c++)e[c].style.display="none";document.getElementById(a).style.display="flex";var c,e=d.getElementsByClassName("tab");for(c=0;c<e.length;c++)e[c].classList.remove("tab-selected");document.getElementById("tab-"+a).classList.add("tab-selected")}
+    </script>
+    <script type = "text/javascript">
+                        function showCode(a){var b=document.getElementById(a),c="toggle-button-selected";Array.from(b.getElementsByClassName("toggle-btn-img")).forEach(a=>{var d=a.classList.contains(c);if(d){a.classList.remove(c);var a=b.getElementsByClassName("tab-code");for(i=0;i<a.length;i++)a[i].style.display="flex";var a=b.getElementsByClassName("tab-helper");for(i=0;i<a.length;i++)a[i].style.display="none"}else{a.classList.add(c);var a=b.getElementsByClassName("tab-code");for(i=0;i<a.length;i++)a[i].style.display="none";var a=b.getElementsByClassName("tab-helper");for(i=0;i<a.length;i++)a[i].style.display="flex"}})}
+    </script>
+    <script type = "text/javascript">
+                        function toggleHelperImage(a,b,c,d){var e,f=document.getElementById(a),g=f.getElementsByClassName(b);for(e=0;e<g.length;e++){function a(b){// toggle the width of the code
+            new_size=b?`calc(100% - ${c})`:"100%",Array.from(f.getElementsByClassName("tab-code")).forEach(a=>{a.style.width=new_size})}function b(a){selectedClass="toggle-button-selected",Array.from(f.getElementsByClassName("toggle-btn-img")).forEach(b=>{a?b.classList.add(selectedClass):b.classList.remove(selectedClass)})}function i(a){Array.from(f.getElementsByClassName("copybtn")).forEach(b=>{a?(b.classList.add("copybtn-split-open"),b.classList.remove("copybtn-split-closed")):(b.classList.add("copybtn-split-closed"),b.classList.remove("copybtn-split-open"))})}function j(a){Array.from(f.getElementsByClassName("tab-description")).forEach(b=>{a?b.classList.add("tab-description-img-active"):b.classList.remove("tab-description-img-active")})}function k(a){// toggle the width of the tabs
+            // tabs-holder col-md-4 -> col-md-2
+            // content-holder col-md-10
+            tabs_holder=f.getElementsByClassName("tabs-holder")[0],content_holder=f.getElementsByClassName("content-holder")[0],code_rows=12-d,a?(tabs_holder.classList.remove(`col-md-${d}`),tabs_holder.classList.add("col-md-2"),content_holder.classList.remove(`col-md-${code_rows}`),content_holder.classList.add("col-md-10")):(tabs_holder.classList.remove("col-md-2"),tabs_holder.classList.add(`col-md-${d}`),content_holder.classList.remove("col-md-10"),content_holder.classList.add(`col-md-${code_rows}`))}var h="none"==g[e].style.display;// toggle the image block
+            new_display=h?"flex":"none",g[e].style.display=new_display,a(h),k(h),j(h),i(h),b(h)}}
+    </script>
+    
+    
+    <script type = "text/javascript">
+                        function adjustCopyButton(a){var b=document.getElementById(a);Array.from(b.getElementsByClassName("copybtn")).forEach(a=>{a.classList.add("copybtn-default")})}
+    </script>
+    <script type = "text/javascript">
+        window.addEventListener('load', function() {
+            adjustCopyButton('code-block-ee49354730634526b2d4740b3e28ab12');
+        });
+    </script>
+        
+    
+    
+    
+<script type = "text/javascript">
+                    (function(){function a(a,c,d,e){const f=document.createElement("button");f.className="run-button",f.title="deploy this code on lightning.ai instantly",f.addEventListener("click",a&&"None"!==a?function(){window.LAI.runApp(a)}:function(){const a=b(d.innerText,"",!1,!0,!0,!0,"","");window.LAI.runAppFromCodeString(a,e)});const g=document.createElement("img");return g.className="tab-svg",g.src=c,f.appendChild(g),f}// The method below is copied from the copybutton we use in sphinx to copy the source code
+            // This logic will go away once the tab list is refactored to be shareable with the web app
+            // Callback when a copy button is clicked. Will be passed the node that was clicked
+            // should then grab the text and replace pieces of text that shouldn't be used in output
+            function b(a,b,d=!1,e=!0,f=!0,g=!0,h="",i=""){var j,k;j=d?new RegExp("^("+b+")(.*)"):new RegExp("^("+c(b)+")(.*)");const l=[];var m=!1,n=!1,o=!1;const p=[];for(const c of a.split("\n"))k=c.match(j),k||n||o?(m=j.test(c),p.push(m),f&&m?l.push(k[2]):l.push(c),n=c.endsWith(h)&!!h,c.includes(i)&!!i&&(o=!o)):e?g&&""===c.trim()&&l.push(c):l.push(c);// If no lines with the prompt were found then just use original lines
+            return p.some(a=>!0===a)&&(a=l.join("\n")),a.endsWith("\n")&&(a=a.slice(0,-1)),a}function c(a){return a.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");// $& means the whole matched string
+            }window.addRunButton=function(b,c,d,e){const f=document.querySelectorAll("#"+b+" .tab-content");for(const g of f){const b=g.querySelector(".tab-code > .highlight-default > .highlight"),f=b.getElementsByTagName("pre")[0];if(f&&"true"===d.toLowerCase())// nothing to run
+            {let d;try{const a=g.querySelector(".work-spec").innerText.trim();a&&(d=JSON.parse(a))}catch(a){console.error("error parsing work spec",a)}const h=a(c,e,f,d);b.appendChild(h)}}}})();
+    window.addEventListener('load', function() {
+        addRunButton('code-block-ee49354730634526b2d4740b3e28ab12', 'None', 'None', '../../_static/images/icon-launch.svg');
+    });
+</script>
+    
+    
+    
+</div></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="ex-deploy-a-pytorch-api-endpoint">
+<h2>Ex: Deploy a PyTorch API endpoint<a class="headerlink" href="#ex-deploy-a-pytorch-api-endpoint" title="Permalink to this headline">¶</a></h2>
+<p>This example shows how to deploy PyTorch and create an API</p>
+<p><div id="code-block-d85dee37551d4327b9e0f454c5a6ebba" class="lit-tabs-container" style="height: 620px">
+    
+        <div class="tabs-holder col-md-4">
+            
+<div id="tab-tab-8d083585b48342138764875824743d0e" class="tab tab-selected" onclick="openCity('tab-8d083585b48342138764875824743d0e', 'code-block-d85dee37551d4327b9e0f454c5a6ebba')" onmouseover="openCity('tab-8d083585b48342138764875824743d0e', 'code-block-d85dee37551d4327b9e0f454c5a6ebba')">
+    
+    <div class="tab-description">Shortcut to list dependencies without a requirements.txt file.</div>
+</div>
+
+
+<div id="tab-tab-d4f57982129f4111b70a979150fb15c5" class="tab" onclick="openCity('tab-d4f57982129f4111b70a979150fb15c5', 'code-block-d85dee37551d4327b9e0f454c5a6ebba')" onmouseover="openCity('tab-d4f57982129f4111b70a979150fb15c5', 'code-block-d85dee37551d4327b9e0f454c5a6ebba')">
+    
+    <div class="tab-description"> Import one of our serving components (high-performance ones are available on the enterprise tiers)</div>
+</div>
+
+
+<div id="tab-tab-dd85d448b82c4fd6987723557e42876d" class="tab" onclick="openCity('tab-dd85d448b82c4fd6987723557e42876d', 'code-block-d85dee37551d4327b9e0f454c5a6ebba')" onmouseover="openCity('tab-dd85d448b82c4fd6987723557e42876d', 'code-block-d85dee37551d4327b9e0f454c5a6ebba')">
+    
+    <div class="tab-description"> Define the setup function to load your favorite pretrained models and do any kind of pre-processing.</div>
+</div>
+
+
+<div id="tab-tab-dd619694a267477bb9aa958dbe9cfd60" class="tab" onclick="openCity('tab-dd619694a267477bb9aa958dbe9cfd60', 'code-block-d85dee37551d4327b9e0f454c5a6ebba')" onmouseover="openCity('tab-dd619694a267477bb9aa958dbe9cfd60', 'code-block-d85dee37551d4327b9e0f454c5a6ebba')">
+    
+    <div class="tab-description"> Define the predict function which is called when the endpoint is hit.</div>
+</div>
+
+
+<div id="tab-tab-bd88cabe099d412e9c2fb36d97232001" class="tab" onclick="openCity('tab-bd88cabe099d412e9c2fb36d97232001', 'code-block-d85dee37551d4327b9e0f454c5a6ebba')" onmouseover="openCity('tab-bd88cabe099d412e9c2fb36d97232001', 'code-block-d85dee37551d4327b9e0f454c5a6ebba')">
+    
+    <div class="tab-description"> Initialize the server and define the type of cloud machine to use.</div>
+</div>
+
+        </div>
+        <div class="content-holder col-md-8">
+            <div class="content-toggle-holder row">
+                <div class="toggles row">
+                    
+                </div>
+            </div>
+            <div class="code-holder row">
+                
+<div id="tab-8d083585b48342138764875824743d0e" class="city tab-content" style="display:flex">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="hll"><span class="c1"># !pip install torchvision</span>
+</span><span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="kn">from</span> <span class="nn">lightning.app.components.serve</span> <span class="kn">import</span> <span class="n">PythonServer</span><span class="p">,</span> <span class="n">Image</span><span class="p">,</span> <span class="n">Number</span>
+<span class="kn">import</span> <span class="nn">base64</span><span class="o">,</span> <span class="nn">io</span><span class="o">,</span> <span class="nn">torchvision</span><span class="o">,</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span> <span class="k">as</span> <span class="n">PILImage</span>
+
+
+<span class="k">class</span> <span class="nc">PyTorchServer</span><span class="p">(</span><span class="n">PythonServer</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">resnet18</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda:0&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">PILImage</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">image</span><span class="p">))</span>
+        <span class="n">transforms</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span>
+            <span class="n">torchvision</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">Resize</span><span class="p">(</span><span class="mi">224</span><span class="p">),</span>
+            <span class="n">torchvision</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
+            <span class="n">torchvision</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">Normalize</span><span class="p">([</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">])</span>
+        <span class="p">])</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">transforms</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="p">)</span>
+        <span class="n">prediction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;prediction&quot;</span><span class="p">:</span> <span class="n">prediction</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()}</span>
+
+
+<span class="n">component</span> <span class="o">=</span> <span class="n">PyTorchServer</span><span class="p">(</span>
+   <span class="n">input_type</span><span class="o">=</span><span class="n">Image</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="n">Number</span><span class="p">,</span> <span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;gpu&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-d4f57982129f4111b70a979150fb15c5" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># !pip install torchvision</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="hll"><span class="kn">from</span> <span class="nn">lightning.app.components.serve</span> <span class="kn">import</span> <span class="n">PythonServer</span><span class="p">,</span> <span class="n">Image</span><span class="p">,</span> <span class="n">Number</span>
+</span><span class="kn">import</span> <span class="nn">base64</span><span class="o">,</span> <span class="nn">io</span><span class="o">,</span> <span class="nn">torchvision</span><span class="o">,</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span> <span class="k">as</span> <span class="n">PILImage</span>
+
+
+<span class="k">class</span> <span class="nc">PyTorchServer</span><span class="p">(</span><span class="n">PythonServer</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">resnet18</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda:0&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">PILImage</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">image</span><span class="p">))</span>
+        <span class="n">transforms</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span>
+            <span class="n">torchvision</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">Resize</span><span class="p">(</span><span class="mi">224</span><span class="p">),</span>
+            <span class="n">torchvision</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
+            <span class="n">torchvision</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">Normalize</span><span class="p">([</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">])</span>
+        <span class="p">])</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">transforms</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="p">)</span>
+        <span class="n">prediction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;prediction&quot;</span><span class="p">:</span> <span class="n">prediction</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()}</span>
+
+
+<span class="n">component</span> <span class="o">=</span> <span class="n">PyTorchServer</span><span class="p">(</span>
+   <span class="n">input_type</span><span class="o">=</span><span class="n">Image</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="n">Number</span><span class="p">,</span> <span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;gpu&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-dd85d448b82c4fd6987723557e42876d" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># !pip install torchvision</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="kn">from</span> <span class="nn">lightning.app.components.serve</span> <span class="kn">import</span> <span class="n">PythonServer</span><span class="p">,</span> <span class="n">Image</span><span class="p">,</span> <span class="n">Number</span>
+<span class="kn">import</span> <span class="nn">base64</span><span class="o">,</span> <span class="nn">io</span><span class="o">,</span> <span class="nn">torchvision</span><span class="o">,</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span> <span class="k">as</span> <span class="n">PILImage</span>
+
+
+<span class="k">class</span> <span class="nc">PyTorchServer</span><span class="p">(</span><span class="n">PythonServer</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">resnet18</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">_device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda:0&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+</span><span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="p">)</span>
+</span>
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">PILImage</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">image</span><span class="p">))</span>
+        <span class="n">transforms</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span>
+            <span class="n">torchvision</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">Resize</span><span class="p">(</span><span class="mi">224</span><span class="p">),</span>
+            <span class="n">torchvision</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
+            <span class="n">torchvision</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">Normalize</span><span class="p">([</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">])</span>
+        <span class="p">])</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">transforms</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="p">)</span>
+        <span class="n">prediction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;prediction&quot;</span><span class="p">:</span> <span class="n">prediction</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()}</span>
+
+
+<span class="n">component</span> <span class="o">=</span> <span class="n">PyTorchServer</span><span class="p">(</span>
+   <span class="n">input_type</span><span class="o">=</span><span class="n">Image</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="n">Number</span><span class="p">,</span> <span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;gpu&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-dd619694a267477bb9aa958dbe9cfd60" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># !pip install torchvision</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="kn">from</span> <span class="nn">lightning.app.components.serve</span> <span class="kn">import</span> <span class="n">PythonServer</span><span class="p">,</span> <span class="n">Image</span><span class="p">,</span> <span class="n">Number</span>
+<span class="kn">import</span> <span class="nn">base64</span><span class="o">,</span> <span class="nn">io</span><span class="o">,</span> <span class="nn">torchvision</span><span class="o">,</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span> <span class="k">as</span> <span class="n">PILImage</span>
+
+
+<span class="k">class</span> <span class="nc">PyTorchServer</span><span class="p">(</span><span class="n">PythonServer</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">resnet18</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda:0&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+<span class="hll">        <span class="n">image</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+</span><span class="hll">        <span class="n">image</span> <span class="o">=</span> <span class="n">PILImage</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">image</span><span class="p">))</span>
+</span><span class="hll">        <span class="n">transforms</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span>
+</span><span class="hll">            <span class="n">torchvision</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">Resize</span><span class="p">(</span><span class="mi">224</span><span class="p">),</span>
+</span><span class="hll">            <span class="n">torchvision</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
+</span><span class="hll">            <span class="n">torchvision</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">Normalize</span><span class="p">([</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">])</span>
+</span><span class="hll">        <span class="p">])</span>
+</span><span class="hll">        <span class="n">image</span> <span class="o">=</span> <span class="n">transforms</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+</span><span class="hll">        <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="p">)</span>
+</span><span class="hll">        <span class="n">prediction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+</span><span class="hll">        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;prediction&quot;</span><span class="p">:</span> <span class="n">prediction</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()}</span>
+</span>
+
+<span class="n">component</span> <span class="o">=</span> <span class="n">PyTorchServer</span><span class="p">(</span>
+   <span class="n">input_type</span><span class="o">=</span><span class="n">Image</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="n">Number</span><span class="p">,</span> <span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;gpu&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-bd88cabe099d412e9c2fb36d97232001" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># !pip install torchvision</span>
+<span class="kn">import</span> <span class="nn">lightning</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="kn">from</span> <span class="nn">lightning.app.components.serve</span> <span class="kn">import</span> <span class="n">PythonServer</span><span class="p">,</span> <span class="n">Image</span><span class="p">,</span> <span class="n">Number</span>
+<span class="kn">import</span> <span class="nn">base64</span><span class="o">,</span> <span class="nn">io</span><span class="o">,</span> <span class="nn">torchvision</span><span class="o">,</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span> <span class="k">as</span> <span class="n">PILImage</span>
+
+
+<span class="k">class</span> <span class="nc">PyTorchServer</span><span class="p">(</span><span class="n">PythonServer</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">resnet18</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda:0&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">PILImage</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">image</span><span class="p">))</span>
+        <span class="n">transforms</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span>
+            <span class="n">torchvision</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">Resize</span><span class="p">(</span><span class="mi">224</span><span class="p">),</span>
+            <span class="n">torchvision</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
+            <span class="n">torchvision</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">Normalize</span><span class="p">([</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">])</span>
+        <span class="p">])</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">transforms</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="p">)</span>
+        <span class="n">prediction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;prediction&quot;</span><span class="p">:</span> <span class="n">prediction</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()}</span>
+
+
+<span class="hll"><span class="n">component</span> <span class="o">=</span> <span class="n">PyTorchServer</span><span class="p">(</span>
+</span><span class="hll">   <span class="n">input_type</span><span class="o">=</span><span class="n">Image</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="n">Number</span><span class="p">,</span> <span class="n">cloud_compute</span><span class="o">=</span><span class="n">L</span><span class="o">.</span><span class="n">CloudCompute</span><span class="p">(</span><span class="s1">&#39;gpu&#39;</span><span class="p">)</span>
+</span><span class="hll"><span class="p">)</span>
+</span><span class="n">app</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LightningApp</span><span class="p">(</span><span class="n">component</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+            </div>
+        </div>
+    
+    
+    <script type = "text/javascript">
+                        function openCity(a,b){var c,d=document.getElementById(b),e=d.getElementsByClassName("city");for(c=0;c<e.length;c++)e[c].style.display="none";document.getElementById(a).style.display="flex";var c,e=d.getElementsByClassName("tab");for(c=0;c<e.length;c++)e[c].classList.remove("tab-selected");document.getElementById("tab-"+a).classList.add("tab-selected")}
+    </script>
+    <script type = "text/javascript">
+                        function showCode(a){var b=document.getElementById(a),c="toggle-button-selected";Array.from(b.getElementsByClassName("toggle-btn-img")).forEach(a=>{var d=a.classList.contains(c);if(d){a.classList.remove(c);var a=b.getElementsByClassName("tab-code");for(i=0;i<a.length;i++)a[i].style.display="flex";var a=b.getElementsByClassName("tab-helper");for(i=0;i<a.length;i++)a[i].style.display="none"}else{a.classList.add(c);var a=b.getElementsByClassName("tab-code");for(i=0;i<a.length;i++)a[i].style.display="none";var a=b.getElementsByClassName("tab-helper");for(i=0;i<a.length;i++)a[i].style.display="flex"}})}
+    </script>
+    <script type = "text/javascript">
+                        function toggleHelperImage(a,b,c,d){var e,f=document.getElementById(a),g=f.getElementsByClassName(b);for(e=0;e<g.length;e++){function a(b){// toggle the width of the code
+            new_size=b?`calc(100% - ${c})`:"100%",Array.from(f.getElementsByClassName("tab-code")).forEach(a=>{a.style.width=new_size})}function b(a){selectedClass="toggle-button-selected",Array.from(f.getElementsByClassName("toggle-btn-img")).forEach(b=>{a?b.classList.add(selectedClass):b.classList.remove(selectedClass)})}function i(a){Array.from(f.getElementsByClassName("copybtn")).forEach(b=>{a?(b.classList.add("copybtn-split-open"),b.classList.remove("copybtn-split-closed")):(b.classList.add("copybtn-split-closed"),b.classList.remove("copybtn-split-open"))})}function j(a){Array.from(f.getElementsByClassName("tab-description")).forEach(b=>{a?b.classList.add("tab-description-img-active"):b.classList.remove("tab-description-img-active")})}function k(a){// toggle the width of the tabs
+            // tabs-holder col-md-4 -> col-md-2
+            // content-holder col-md-10
+            tabs_holder=f.getElementsByClassName("tabs-holder")[0],content_holder=f.getElementsByClassName("content-holder")[0],code_rows=12-d,a?(tabs_holder.classList.remove(`col-md-${d}`),tabs_holder.classList.add("col-md-2"),content_holder.classList.remove(`col-md-${code_rows}`),content_holder.classList.add("col-md-10")):(tabs_holder.classList.remove("col-md-2"),tabs_holder.classList.add(`col-md-${d}`),content_holder.classList.remove("col-md-10"),content_holder.classList.add(`col-md-${code_rows}`))}var h="none"==g[e].style.display;// toggle the image block
+            new_display=h?"flex":"none",g[e].style.display=new_display,a(h),k(h),j(h),i(h),b(h)}}
+    </script>
+    
+    
+    <script type = "text/javascript">
+                        function adjustCopyButton(a){var b=document.getElementById(a);Array.from(b.getElementsByClassName("copybtn")).forEach(a=>{a.classList.add("copybtn-default")})}
+    </script>
+    <script type = "text/javascript">
+        window.addEventListener('load', function() {
+            adjustCopyButton('code-block-d85dee37551d4327b9e0f454c5a6ebba');
+        });
+    </script>
+        
+    
+    <script type = "text/javascript">
+                        function adjustCopyButtonForRunOnly(a){var b=document.getElementById(a);Array.from(b.getElementsByClassName("copybtn")).forEach(a=>{a.classList.add("copybtn-run-only-closed")})}
+    </script>
+    <script type = "text/javascript">
+        window.addEventListener('load', function() {
+            adjustCopyButtonForRunOnly('code-block-d85dee37551d4327b9e0f454c5a6ebba');
+        });
+    </script>
+        
+    
+    
+<script type = "text/javascript">
+                    (function(){function a(a,c,d,e){const f=document.createElement("button");f.className="run-button",f.title="deploy this code on lightning.ai instantly",f.addEventListener("click",a&&"None"!==a?function(){window.LAI.runApp(a)}:function(){const a=b(d.innerText,"",!1,!0,!0,!0,"","");window.LAI.runAppFromCodeString(a,e)});const g=document.createElement("img");return g.className="tab-svg",g.src=c,f.appendChild(g),f}// The method below is copied from the copybutton we use in sphinx to copy the source code
+            // This logic will go away once the tab list is refactored to be shareable with the web app
+            // Callback when a copy button is clicked. Will be passed the node that was clicked
+            // should then grab the text and replace pieces of text that shouldn't be used in output
+            function b(a,b,d=!1,e=!0,f=!0,g=!0,h="",i=""){var j,k;j=d?new RegExp("^("+b+")(.*)"):new RegExp("^("+c(b)+")(.*)");const l=[];var m=!1,n=!1,o=!1;const p=[];for(const c of a.split("\n"))k=c.match(j),k||n||o?(m=j.test(c),p.push(m),f&&m?l.push(k[2]):l.push(c),n=c.endsWith(h)&!!h,c.includes(i)&!!i&&(o=!o)):e?g&&""===c.trim()&&l.push(c):l.push(c);// If no lines with the prompt were found then just use original lines
+            return p.some(a=>!0===a)&&(a=l.join("\n")),a.endsWith("\n")&&(a=a.slice(0,-1)),a}function c(a){return a.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");// $& means the whole matched string
+            }window.addRunButton=function(b,c,d,e){const f=document.querySelectorAll("#"+b+" .tab-content");for(const g of f){const b=g.querySelector(".tab-code > .highlight-default > .highlight"),f=b.getElementsByTagName("pre")[0];if(f&&"true"===d.toLowerCase())// nothing to run
+            {let d;try{const a=g.querySelector(".work-spec").innerText.trim();a&&(d=JSON.parse(a))}catch(a){console.error("error parsing work spec",a)}const h=a(c,e,f,d);b.appendChild(h)}}}})();
+    window.addEventListener('load', function() {
+        addRunButton('code-block-d85dee37551d4327b9e0f454c5a6ebba', 'None', 'true', '../../_static/images/icon-launch.svg');
+    });
+</script>
+    
+    
+    
+</div></p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Run the component on the cloud:</p>
+<p><div id="code-block-ee20421c295049a2bde997392c11daae" class="lit-tabs-container" style="height: 195px">
+    
+        <div class="tabs-holder col-md-4">
+            
+<div id="tab-tab-5d1a26e1575540379aa0faaf541ae456" class="tab tab-selected" onclick="openCity('tab-5d1a26e1575540379aa0faaf541ae456', 'code-block-ee20421c295049a2bde997392c11daae')" onmouseover="openCity('tab-5d1a26e1575540379aa0faaf541ae456', 'code-block-ee20421c295049a2bde997392c11daae')">
+    <div class="tab-title">Lightning Cloud (fully-managed)</div>
+    
+</div>
+
+
+<div id="tab-tab-2aca44cc4c0a44b594ab3c8d7c84c4e6" class="tab" onclick="openCity('tab-2aca44cc4c0a44b594ab3c8d7c84c4e6', 'code-block-ee20421c295049a2bde997392c11daae')" onmouseover="openCity('tab-2aca44cc4c0a44b594ab3c8d7c84c4e6', 'code-block-ee20421c295049a2bde997392c11daae')">
+    <div class="tab-title"> Your AWS account</div>
+    
+</div>
+
+
+<div id="tab-tab-ad6bea428213405eba3525e953fc826c" class="tab" onclick="openCity('tab-ad6bea428213405eba3525e953fc826c', 'code-block-ee20421c295049a2bde997392c11daae')" onmouseover="openCity('tab-ad6bea428213405eba3525e953fc826c', 'code-block-ee20421c295049a2bde997392c11daae')">
+    <div class="tab-title"> Your own hardware</div>
+    
+</div>
+
+        </div>
+        <div class="content-holder col-md-8">
+            <div class="content-toggle-holder row">
+                <div class="toggles row">
+                    
+                </div>
+            </div>
+            <div class="code-holder row">
+                
+<div id="tab-5d1a26e1575540379aa0faaf541ae456" class="city tab-content" style="display:flex">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lightning</span> <span class="n">run</span> <span class="n">app</span> <span class="n">app</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">cloud</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-2aca44cc4c0a44b594ab3c8d7c84c4e6" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># first create a cluster (creation could take ~30 minutes)</span>
+<span class="n">lightning</span> <span class="n">create</span> <span class="n">cluster</span> <span class="n">pikachu</span> <span class="o">--</span><span class="n">provider</span> <span class="n">aws</span> <span class="o">--</span><span class="n">role</span><span class="o">-</span><span class="n">arn</span> <span class="n">arn</span><span class="p">:</span><span class="n">aws</span><span class="p">:</span><span class="n">iam</span><span class="p">::</span><span class="mi">1234567890</span><span class="p">:</span><span class="n">role</span><span class="o">/</span><span class="n">lai</span><span class="o">-</span><span class="n">byoc</span>
+
+<span class="c1"># run on that cluster</span>
+<span class="hll"><span class="n">lightning</span> <span class="n">run</span> <span class="n">app</span> <span class="n">app</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">cloud</span> <span class="n">pikachu</span>
+</span></pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+
+<div id="tab-ad6bea428213405eba3525e953fc826c" class="city tab-content" style="display:None">
+<div class="tab-code" style="width: 100%; height: 100%"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lightning</span> <span class="n">run</span> <span class="n">app</span> <span class="n">app</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</div>
+
+<div class="tab-helper" style="height: 100%; display: none; flex-grow: 1 !important;">
+    None
+</div>
+<div class="work-spec" style="display:none">None</div>
+
+        </div>
+        
+            </div>
+        </div>
+    
+    
+    <script type = "text/javascript">
+                        function openCity(a,b){var c,d=document.getElementById(b),e=d.getElementsByClassName("city");for(c=0;c<e.length;c++)e[c].style.display="none";document.getElementById(a).style.display="flex";var c,e=d.getElementsByClassName("tab");for(c=0;c<e.length;c++)e[c].classList.remove("tab-selected");document.getElementById("tab-"+a).classList.add("tab-selected")}
+    </script>
+    <script type = "text/javascript">
+                        function showCode(a){var b=document.getElementById(a),c="toggle-button-selected";Array.from(b.getElementsByClassName("toggle-btn-img")).forEach(a=>{var d=a.classList.contains(c);if(d){a.classList.remove(c);var a=b.getElementsByClassName("tab-code");for(i=0;i<a.length;i++)a[i].style.display="flex";var a=b.getElementsByClassName("tab-helper");for(i=0;i<a.length;i++)a[i].style.display="none"}else{a.classList.add(c);var a=b.getElementsByClassName("tab-code");for(i=0;i<a.length;i++)a[i].style.display="none";var a=b.getElementsByClassName("tab-helper");for(i=0;i<a.length;i++)a[i].style.display="flex"}})}
+    </script>
+    <script type = "text/javascript">
+                        function toggleHelperImage(a,b,c,d){var e,f=document.getElementById(a),g=f.getElementsByClassName(b);for(e=0;e<g.length;e++){function a(b){// toggle the width of the code
+            new_size=b?`calc(100% - ${c})`:"100%",Array.from(f.getElementsByClassName("tab-code")).forEach(a=>{a.style.width=new_size})}function b(a){selectedClass="toggle-button-selected",Array.from(f.getElementsByClassName("toggle-btn-img")).forEach(b=>{a?b.classList.add(selectedClass):b.classList.remove(selectedClass)})}function i(a){Array.from(f.getElementsByClassName("copybtn")).forEach(b=>{a?(b.classList.add("copybtn-split-open"),b.classList.remove("copybtn-split-closed")):(b.classList.add("copybtn-split-closed"),b.classList.remove("copybtn-split-open"))})}function j(a){Array.from(f.getElementsByClassName("tab-description")).forEach(b=>{a?b.classList.add("tab-description-img-active"):b.classList.remove("tab-description-img-active")})}function k(a){// toggle the width of the tabs
+            // tabs-holder col-md-4 -> col-md-2
+            // content-holder col-md-10
+            tabs_holder=f.getElementsByClassName("tabs-holder")[0],content_holder=f.getElementsByClassName("content-holder")[0],code_rows=12-d,a?(tabs_holder.classList.remove(`col-md-${d}`),tabs_holder.classList.add("col-md-2"),content_holder.classList.remove(`col-md-${code_rows}`),content_holder.classList.add("col-md-10")):(tabs_holder.classList.remove("col-md-2"),tabs_holder.classList.add(`col-md-${d}`),content_holder.classList.remove("col-md-10"),content_holder.classList.add(`col-md-${code_rows}`))}var h="none"==g[e].style.display;// toggle the image block
+            new_display=h?"flex":"none",g[e].style.display=new_display,a(h),k(h),j(h),i(h),b(h)}}
+    </script>
+    
+    
+    <script type = "text/javascript">
+                        function adjustCopyButton(a){var b=document.getElementById(a);Array.from(b.getElementsByClassName("copybtn")).forEach(a=>{a.classList.add("copybtn-default")})}
+    </script>
+    <script type = "text/javascript">
+        window.addEventListener('load', function() {
+            adjustCopyButton('code-block-ee20421c295049a2bde997392c11daae');
+        });
+    </script>
+        
+    
+    
+    
+<script type = "text/javascript">
+                    (function(){function a(a,c,d,e){const f=document.createElement("button");f.className="run-button",f.title="deploy this code on lightning.ai instantly",f.addEventListener("click",a&&"None"!==a?function(){window.LAI.runApp(a)}:function(){const a=b(d.innerText,"",!1,!0,!0,!0,"","");window.LAI.runAppFromCodeString(a,e)});const g=document.createElement("img");return g.className="tab-svg",g.src=c,f.appendChild(g),f}// The method below is copied from the copybutton we use in sphinx to copy the source code
+            // This logic will go away once the tab list is refactored to be shareable with the web app
+            // Callback when a copy button is clicked. Will be passed the node that was clicked
+            // should then grab the text and replace pieces of text that shouldn't be used in output
+            function b(a,b,d=!1,e=!0,f=!0,g=!0,h="",i=""){var j,k;j=d?new RegExp("^("+b+")(.*)"):new RegExp("^("+c(b)+")(.*)");const l=[];var m=!1,n=!1,o=!1;const p=[];for(const c of a.split("\n"))k=c.match(j),k||n||o?(m=j.test(c),p.push(m),f&&m?l.push(k[2]):l.push(c),n=c.endsWith(h)&!!h,c.includes(i)&!!i&&(o=!o)):e?g&&""===c.trim()&&l.push(c):l.push(c);// If no lines with the prompt were found then just use original lines
+            return p.some(a=>!0===a)&&(a=l.join("\n")),a.endsWith("\n")&&(a=a.slice(0,-1)),a}function c(a){return a.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");// $& means the whole matched string
+            }window.addRunButton=function(b,c,d,e){const f=document.querySelectorAll("#"+b+" .tab-content");for(const g of f){const b=g.querySelector(".tab-code > .highlight-default > .highlight"),f=b.getElementsByTagName("pre")[0];if(f&&"true"===d.toLowerCase())// nothing to run
+            {let d;try{const a=g.querySelector(".work-spec").innerText.trim();a&&(d=JSON.parse(a))}catch(a){console.error("error parsing work spec",a)}const h=a(c,e,f,d);b.appendChild(h)}}}})();
+    window.addEventListener('load', function() {
+        addRunButton('code-block-ee20421c295049a2bde997392c11daae', 'None', 'None', '../../_static/images/icon-launch.svg');
+    });
+</script>
+    
+    
+    
+</div></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="next-save-on-cloud-costs">
+<h2>Next: Save on cloud costs<a class="headerlink" href="#next-save-on-cloud-costs" title="Permalink to this headline">¶</a></h2>
+<p>Let’s review key lightning features to help you run components more efficiently on the cloud
+so you can save on cloud costs.</p>
+<div class="display-card-container">
+    <div class="row"><p><div class="col-md-12">
+    <a href='save_money_on_cloud_costs.html'>
+    <div class="display-card display-card-hover" style='height:150px'>
+            <div class=""></div>
+            <h3>Level 3: Save money on cloud costs</h3>
+            <p class="body-paragraph">Explore key Lightning features that save you cloud costs and improve performance.</p>
+    </div>
+    </a>
+    <div class='card-tag'>10 minutes</div>
+</div></p>
+    </div>
+</div></div>
+</div>
+
+
+             </article>
+             
+            </div>
+          </div>
+        </div>
+
+        <div class="pytorch-content-right" id="pytorch-content-right">
+          <div class="pytorch-right-menu" id="pytorch-right-menu">
+            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+              <ul>
+<li><a class="reference internal" href="#">Level 2: Explore real component implementations</a><ul>
+<li><a class="reference internal" href="#real-component-examples">Real component examples</a></li>
+<li><a class="reference internal" href="#ex-pytorch-lightning-trainer">Ex: PyTorch + Lightning Trainer</a></li>
+<li><a class="reference internal" href="#ex-deploy-a-pytorch-api-endpoint">Ex: Deploy a PyTorch API endpoint</a></li>
+<li><a class="reference internal" href="#next-save-on-cloud-costs">Next: Save on cloud costs</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+
+  
+
+     
+       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+         <script src="../../_static/jquery.js"></script>
+         <script src="../../_static/underscore.js"></script>
+         <script src="../../_static/doctools.js"></script>
+         <script src="../../_static/clipboard.min.js"></script>
+         <script src="../../_static/copybutton.js"></script>
+         <script src="../../_static/copybutton.js"></script>
+         <script>let toggleHintShow = 'Click to show';</script>
+         <script>let toggleHintHide = 'Click to hide';</script>
+         <script>let toggleOpenOnPrint = 'true';</script>
+         <script src="../../_static/togglebutton.js"></script>
+         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+     
+
+  
+
+  <script type="text/javascript" src="../../_static/js/vendor/popper.min.js"></script>
+  <script type="text/javascript" src="../../_static/js/vendor/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  <!-- The `block footer` is required for docs search to work -->
+ 
+<script script type="text/javascript">
+  var collapsedSections = ['App Building Skills', 'Practical Examples', 'Common Workflows', 'Core API Reference', 'Addons API Reference', 'Glossary'];
+</script>
+
+
+
+  <div id="lightning-ai-footer"></div>
+
+  <div class="cookie-banner-wrapper">
+  <div class="container">
+    <p class="gdpr-notice">To analyze traffic and optimize your experience, we serve cookies on this site. By clicking or navigating, you agree to allow our usage of cookies. Read PyTorch Lightning's <a href="https://pytorchlightning.ai/privacy-policy">Privacy Policy</a>.</p>
+    <img class="close-button" src="../../_static/images/pytorch-x.svg">
+  </div>
+</div>
+
+  <script src="https://lightning.ai/shared/inject-lai-bundle.js" crossorigin></script>
+
+  <script type="text/javascript" src="../../_static/js/vendor/anchor.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      mobileMenu.bind();
+      mobileTOC.bind();
+      pytorchAnchors.bind();
+      sideMenus.bind();
+      scrollToAnchor.bind();
+      highlightNavigation.bind();
+      mainMenuDropdown.bind();
+      filterTags.bind();
+
+      // Add class to links that have code blocks, since we cannot create links in code blocks
+      $("article.pytorch-article a span.pre").each(function(e) {
+        $(this).closest("a").addClass("has-code");
+      });
+    })
+  </script>
+
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PQBQ3CV"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+ </body>
+</html>
